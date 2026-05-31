@@ -2254,6 +2254,19 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Infra changelog (distribution — publishing, CLI, registry, CI)
+
+**Published**
+- `cyanideui` (CLI, unscoped) → **public npmjs.com**. Live versions: `0.1.0`, `0.1.1` (no-op bump), `0.1.2`. Consumption is fully tokenless: `npx cyanideui add <item>` like `npx shadcn`.
+- `@cyanideui/ui` (library, scoped) → GitHub Packages, `1.0.0`.
+
+**Changed**
+- CLI `--version` is now injected at build time from `package.json` via a tsup `define` (`__CLI_VERSION__`) — previously hardcoded `0.1.0`, so it drifted. Can't drift again.
+- Registry is served **live** from the public raw-GitHub URL (`raw.githubusercontent.com/cyanideui/atrium/main/registry`); the npm-bundled `dist/registry/**` is now just an offline fallback. Component-only edits ship via `git push` — no CLI republish needed.
+- Registry is full copy-paste (Path 2): 69 items (59 components, 4 templates, 1 shell, 3 hooks, 2 lib), all using `@/lib/utils` + `@/components/ui/*`, zero `@cyanideui/ui` imports. Prefix-fallback name resolution (`add button` → `component-button`).
+- `.github/workflows/release.yml`: publishes both packages on a version-tag push; each publish step is **skip-if-exists** (npm versions are immutable); added `workflow_dispatch`. CLI publish authenticates via the `NPM_TOKEN` repo secret (granular write token, bypasses 2FA). Verified end-to-end with a real `v0.1.1`/`v0.1.2` release run.
+- CI + Release workflows bumped to `actions/checkout@v6`, `actions/setup-node@v6`, `pnpm/action-setup@v6` (Node 24; clears the Node-20 deprecation warning). CI builds the registry index via `node scripts/build-registry-index.mjs` directly.
+
 ### v3.14 changelog (Doc Shell — Notion-style app layout)
 
 **Added**

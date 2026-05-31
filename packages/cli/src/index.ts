@@ -5,12 +5,15 @@ import { listCommand } from "./commands/list.js"
 import { initCommand } from "./commands/init.js"
 import type { Framework } from "./types.js"
 
+/** Injected at build time by tsup from package.json (see tsup.config.ts). */
+declare const __CLI_VERSION__: string
+
 const program = new Command()
 
 program
   .name("atrium")
   .description("Scaffold Atrium-styled apps and copy starters from the registry.")
-  .version("0.1.0")
+  .version(__CLI_VERSION__)
 
 program
   .command("init")
