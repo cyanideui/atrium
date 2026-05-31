@@ -1,6 +1,6 @@
 {
   "name": "cyanideui",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Scaffold Atrium-styled apps and copy components, shells, templates, and hooks from the Cyanide UI registry.",
   "keywords": ["cyanideui", "atrium", "cli", "scaffold", "registry", "design-system", "react", "shadcn"],
   "license": "MIT",
