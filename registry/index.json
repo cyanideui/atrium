@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T17:49:03.991Z",
+  "generatedAt": "2026-05-31T18:06:57.546Z",
   "items": [
     {
       "name": "block-audit-log",
@@ -243,6 +243,14 @@
       "path": "components/button-group"
     },
     {
+      "name": "component-card",
+      "category": "components",
+      "title": "card",
+      "description": "<card> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/card"
+    },
+    {
       "name": "component-checkbox",
       "category": "components",
       "title": "checkbox",
@@ -409,6 +417,14 @@
       "description": "<kbd> component (copy-paste source).",
       "version": "1.0.0",
       "path": "components/kbd"
+    },
+    {
+      "name": "component-key-value",
+      "category": "components",
+      "title": "key-value",
+      "description": "<key-value> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/key-value"
     },
     {
       "name": "component-keyboard-cheatsheet",

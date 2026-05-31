@@ -181,6 +181,23 @@ export {
 } from "./components/saved-filters"
 export { Sparkline, type SparklineProps } from "./components/sparkline"
 
+// Surfaces
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardBody,
+  CardFooter,
+} from "./components/card"
+export {
+  KeyValueList,
+  KeyValue,
+  type KeyValueListProps,
+  type KeyValueProps,
+} from "./components/key-value"
+
 // Navigation / shell
 export { Stepper, type StepperProps, type StepperStep } from "./components/stepper"
 export {
