@@ -1,0 +1,83 @@
+name: Release
+
+# Publishes @cyanideui/ui + @cyanideui/cli to GitHub Packages when a
+# version tag is pushed:
+#
+#   pnpm version 1.0.1 --workspace ... (or bump manually)
+#   git tag v1.0.1 && git push origin v1.0.1
+#
+# Uses the built-in GITHUB_TOKEN — it carries `packages: write` for this
+# repo's org automatically, so no manual PAT is needed. The token never
+# leaves the runner.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Build, test, publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          # Wires the registry + auth for the @cyanideui scope. The
+          # NODE_AUTH_TOKEN env on the publish steps supplies the token.
+          registry-url: https://npm.pkg.github.com
+          scope: "@cyanideui"
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # --- Gate: everything must be green before anything publishes ---
+      - name: Build library
+        run: pnpm --filter @cyanideui/ui build
+
+      - name: Test library
+        run: pnpm --filter @cyanideui/ui test
+
+      - name: Build CLI (bundles the registry)
+        run: pnpm --filter @cyanideui/cli build
+
+      - name: Test CLI
+        run: pnpm --filter @cyanideui/cli test
+
+      - name: Typecheck workspace
+        run: pnpm typecheck
+
+      # --- Publish (library first; the CLI's generated files depend on it) ---
+      # --no-git-checks: the tag commit is already what we're releasing.
+      # prepublishOnly is skipped here (already gated above) via --ignore-scripts
+      # to avoid a redundant second test+build run.
+      - name: Publish @cyanideui/ui
+        run: pnpm --filter @cyanideui/ui publish --no-git-checks --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish @cyanideui/cli
+        run: pnpm --filter @cyanideui/cli publish --no-git-checks --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: |
+          echo "### Published :rocket:" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`@cyanideui/ui\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`@cyanideui/cli\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Tag: \`${GITHUB_REF_NAME}\`" >> "$GITHUB_STEP_SUMMARY"

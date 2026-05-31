@@ -6,6 +6,28 @@ Both packages publish to **GitHub Packages** (private npm registry) under the **
 - CLI: `@cyanideui/cli`
 - Repo: https://github.com/cyanideui/atrium (private)
 
+## Releasing (automated — recommended)
+
+Future releases publish automatically via GitHub Actions (`.github/workflows/release.yml`) on a version tag. No manual token handling — the workflow uses the built-in `GITHUB_TOKEN`, which carries `packages: write` for the org.
+
+```bash
+# 1. Bump the version in packages/ui/package.json and/or packages/cli/package.json
+#    (and registry item meta.json versions if their content changed)
+
+# 2. Commit the bump
+git add -A && git commit -m "release: v1.0.1"
+
+# 3. Tag + push — this triggers the Release workflow
+git tag v1.0.1
+git push origin main --tags
+```
+
+The workflow then: installs → builds + tests the library and CLI → typechecks → publishes `@cyanideui/ui` then `@cyanideui/cli` to GitHub Packages. Watch it under the repo's **Actions** tab. A broken build/test gates the publish.
+
+## Releasing (manual — fallback)
+
+If you need to publish from your machine (e.g. CI is down):
+
 ## Prerequisites
 
 A GitHub Personal Access Token (classic) with `write:packages` + `read:packages` scopes, with access to the `cyanideui` org. Your default `gh` token does NOT have `write:packages` — generate a dedicated one:
