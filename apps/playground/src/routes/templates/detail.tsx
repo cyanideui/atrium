@@ -22,7 +22,6 @@ import {
   Table,
   TableHeader,
   TableBody,
-  TableFooter,
   TableHead,
   TableRow,
   TableCell,
@@ -148,25 +147,26 @@ export function DetailTemplate() {
                   </TableRow>
                 ))}
               </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TableCell colSpan={3} className="text-right text-[12px] font-normal text-ink-3">
-                    Subtotal · Tax · Shipping
-                  </TableCell>
-                  <TableCell className="text-right text-[12px] tabular-nums text-ink-3">
-                    $296.00 · $24.18 · $12.00
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colSpan={3} className="text-right font-semibold text-ink">
-                    Total
-                  </TableCell>
-                  <TableCell className="text-right font-semibold tabular-nums text-ink">
-                    $332.18
-                  </TableCell>
-                </TableRow>
-              </TableFooter>
             </Table>
+            {/* Totals breakdown — one labeled row each, right-aligned. */}
+            <div className="flex flex-col gap-1.5 border-t border-hairline px-4 py-3 text-[13px]">
+              <div className="flex justify-between text-ink-2">
+                <span>Subtotal</span>
+                <span className="tabular-nums">$296.00</span>
+              </div>
+              <div className="flex justify-between text-ink-2">
+                <span>Tax</span>
+                <span className="tabular-nums">$24.18</span>
+              </div>
+              <div className="flex justify-between text-ink-2">
+                <span>Shipping</span>
+                <span className="tabular-nums">$12.00</span>
+              </div>
+              <div className="mt-1 flex justify-between border-t border-hairline pt-2 text-[14px] font-semibold text-ink">
+                <span>Total</span>
+                <span className="tabular-nums">$332.18</span>
+              </div>
+            </div>
           </Card>
 
           <Card>
