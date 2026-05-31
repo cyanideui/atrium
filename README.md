@@ -167,7 +167,8 @@ npx cyanideui list                   # browse everything (59 components, shells,
 `stat-cards`, `data-table`, `page-header`, `empty-state`, `settings-section`, `audit-log`,
 `filter-bar`, `detail-card`, `auth-card`, `toolbar`, `notification-feed`, `form-section`,
 `pricing-cards`, `command-menu-trigger`, `kanban-board`, `calendar-month`, `file-list`,
-`comment-thread`, `wizard`, `metric-comparison`. They land in `src/components/blocks/`.
+`comment-thread`, `wizard`, `metric-comparison`, `team-members`, `invoice-summary`.
+They land in `src/components/blocks/`.
 
 ### Tailwind wiring
 

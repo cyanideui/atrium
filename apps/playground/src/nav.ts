@@ -236,6 +236,8 @@ export const NAV: NavSection[] = [
       { label: "Wizard", path: "/blocks/wizard", status: "done", icon: ChartUpIcon },
       { label: "Calendar (month)", path: "/blocks/calendar-month", status: "done", icon: Calendar03Icon },
       { label: "Kanban board", path: "/blocks/kanban-board", status: "done", icon: Drag01Icon },
+      { label: "Team members", path: "/blocks/team-members", status: "done", icon: UserMultiple02Icon },
+      { label: "Invoice summary", path: "/blocks/invoice-summary", status: "done", icon: DollarCircleIcon },
     ],
   },
 ]

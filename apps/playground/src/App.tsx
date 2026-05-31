@@ -121,6 +121,8 @@ const CommentThreadBlock = lazyNamed(() => import("./routes/blocks/comment-threa
 const WizardBlock = lazyNamed(() => import("./routes/blocks/wizard"), "WizardBlock")
 const CalendarMonthBlock = lazyNamed(() => import("./routes/blocks/calendar-month"), "CalendarMonthBlock")
 const KanbanBoardBlock = lazyNamed(() => import("./routes/blocks/kanban-board"), "KanbanBoardBlock")
+const TeamMembersBlock = lazyNamed(() => import("./routes/blocks/team-members"), "TeamMembersBlock")
+const InvoiceSummaryBlock = lazyNamed(() => import("./routes/blocks/invoice-summary"), "InvoiceSummaryBlock")
 
 /** Playground chrome — DocShell wrapping the route's content via Outlet. */
 function DocsLayout({
@@ -329,6 +331,8 @@ function AppShell() {
           <Route path="/blocks/wizard" element={<WizardBlock />} />
           <Route path="/blocks/calendar-month" element={<CalendarMonthBlock />} />
           <Route path="/blocks/kanban-board" element={<KanbanBoardBlock />} />
+          <Route path="/blocks/team-members" element={<TeamMembersBlock />} />
+          <Route path="/blocks/invoice-summary" element={<InvoiceSummaryBlock />} />
 
           {/* Catch-all for stub pages */}
           <Route path="/components/*" element={<TodoPage />} />

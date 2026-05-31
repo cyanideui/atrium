@@ -1,0 +1,36 @@
+{
+  "name": "block-team-members",
+  "category": "blocks",
+  "title": "Team members",
+  "description": "Member roster — avatar, name + email, a role Select, pending/active badge, and a per-row actions menu, with an Invite action in the card header. Use in settings / workspace admin.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "team-members.tsx",
+      "to": "src/components/blocks/team-members.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-avatar",
+      "component-badge",
+      "component-button",
+      "component-card",
+      "component-dropdown-menu",
+      "component-icon",
+      "component-select"
+    ]
+  },
+  "postInstall": [
+    "Swap MEMBERS for your data; wire onRoleChange / onRemove / onInvite to your API."
+  ]
+}

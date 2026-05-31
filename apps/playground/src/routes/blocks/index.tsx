@@ -53,6 +53,8 @@ const BLOCKS: BlockEntry[] = [
   { title: "Wizard", path: "/blocks/wizard", icon: ChartUpIcon, description: "Multi-step flow with validation gating." },
   { title: "Calendar (month)", path: "/blocks/calendar-month", icon: Calendar03Icon, description: "Month grid with event chips." },
   { title: "Kanban board", path: "/blocks/kanban-board", icon: Drag01Icon, description: "Draggable status columns." },
+  { title: "Team members", path: "/blocks/team-members", icon: UserMultiple02Icon, description: "Roster with role select + invite." },
+  { title: "Invoice summary", path: "/blocks/invoice-summary", icon: DollarCircleIcon, description: "Line items + subtotal/tax/total." },
 ]
 
 export function BlocksIndex() {

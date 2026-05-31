@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T18:17:18.886Z",
+  "generatedAt": "2026-05-31T18:22:36.824Z",
   "items": [
     {
       "name": "block-audit-log",
@@ -91,6 +91,14 @@
       "path": "blocks/form-section"
     },
     {
+      "name": "block-invoice-summary",
+      "category": "blocks",
+      "title": "Invoice summary",
+      "description": "Line-item table with a subtotal / tax / total breakdown and a footer CTA. Totals compute from the items so they stay correct. Use for invoices, order summaries, checkout review.",
+      "version": "1.0.0",
+      "path": "blocks/invoice-summary"
+    },
+    {
       "name": "block-kanban-board",
       "category": "blocks",
       "title": "Kanban board",
@@ -145,6 +153,14 @@
       "description": "Responsive KPI tile row — value, trend delta, and inline sparkline per metric. Drop at the top of any overview/dashboard screen.",
       "version": "1.0.0",
       "path": "blocks/stat-cards"
+    },
+    {
+      "name": "block-team-members",
+      "category": "blocks",
+      "title": "Team members",
+      "description": "Member roster — avatar, name + email, a role Select, pending/active badge, and a per-row actions menu, with an Invite action in the card header. Use in settings / workspace admin.",
+      "version": "1.0.0",
+      "path": "blocks/team-members"
     },
     {
       "name": "block-toolbar",

@@ -2256,6 +2256,15 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Registry changelog (Tier 7 — Card-built blocks)
+
+**Added — 2 blocks (copy-paste, built on the new Card primitive):**
+- `block-team-members` — member roster with avatar, name + email, a role `<Select>`, pending/active badge, per-row actions menu, and an Invite header action.
+- `block-invoice-summary` — line-item `<Table fixed>` with computed subtotal / tax / total breakdown + footer CTAs.
+
+**Notes**
+- Registry index now has **94 items**. Both ship playground pages + nav/overview entries. Verified: cold-start install (Next) + typecheck (exit 0).
+
 ### Component changelog (Card + KeyValue primitives + consolidation)
 
 **Added**
