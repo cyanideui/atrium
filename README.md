@@ -296,3 +296,11 @@ Pre-rename: SemVer at `@erp-ds/ui` v3.x.
 Post-rename: reset to **`@cyanideui/ui` 1.0.0** to mark the first stable release under the new name.
 
 For the full version history, see [`design.md`](./design.md).
+
+## For AI agents & contributors
+
+Working on this repo with an AI coding agent (Cursor, Codex, Copilot, Gemini CLI, Windsurf,
+Zed, Antigravity, Claude Code, Kiro, …)? Read **[`AGENTS.md`](./AGENTS.md)** — the
+vendor-neutral instruction file with build/test commands, the registry architecture, the
+release flow, and project conventions. (`CLAUDE.md` and `GEMINI.md` point to it; Kiro loads it
+via `.kiro/steering/`.)
