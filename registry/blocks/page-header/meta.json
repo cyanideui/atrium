@@ -1,0 +1,33 @@
+{
+  "name": "block-page-header",
+  "category": "blocks",
+  "title": "Page header",
+  "description": "Composed screen header — breadcrumbs, eyebrow, title + subtitle, an actions cluster, and an optional sticky tab row. Prop-driven and reusable across screens.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "page-header.tsx",
+      "to": "src/components/blocks/page-header.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-breadcrumbs",
+      "component-button",
+      "component-icon",
+      "component-tabs"
+    ]
+  },
+  "postInstall": [
+    "Use <PageHeader title=... breadcrumbs=... actions=... />. Delete PageHeaderDemo once wired."
+  ]
+}

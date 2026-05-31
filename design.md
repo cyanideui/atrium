@@ -2254,6 +2254,26 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Registry changelog (Tier 4 — blocks + minimal shell)
+
+**Added — `blocks` category (8 items, copy-paste, `@/components/ui/*` imports):**
+- `block-stat-cards` — KPI tile row (value + trend + sparkline).
+- `block-data-table` — full table experience: search + saved views + selection + bulk-actions bar + empty state + pagination.
+- `block-page-header` — breadcrumbs + eyebrow + title/subtitle + actions + optional tab row (prop-driven).
+- `block-empty-state` — full-section zero-data layout (dashed card around the EmptyState primitive).
+- `block-settings-section` — labeled form section + FieldRow + RowToggle.
+- `block-audit-log` — activity feed on the WorkflowTimeline primitive.
+- `block-filter-bar` — horizontal filter row: search + saved views + chip filter + date-range.
+- `block-detail-card` — key/value panel with header actions + inline-editable rows.
+
+**Added — shells:**
+- `shell-minimal` — sticky topbar (brand + horizontal nav + theme toggle) over a centered content container. No sidebar. Includes density + theme + toasts. The simpler sibling of `shell-doc`.
+
+**Notes**
+- Blocks live in `registry/blocks/<name>/{meta.json, files/*}` and install to `src/components/blocks/`. They're authored directly with `@/` aliases (pure copy-paste) and carry framework markers (`@atrium:if next`) for the `"use client"` directive where stateful.
+- Registry index now has **78 items** (was 69). CLI prefix-resolution already supported `block-` (so `add data-table` → `block-data-table`).
+- Verified end-to-end: cold-start install (Next + Vite) of `block-data-table` and `shell-minimal` resolves the full transitive dep graph, transforms cleanly (no marker/cross-framework leakage), and the generated output typechecks.
+
 ### Infra changelog (distribution — publishing, CLI, registry, CI)
 
 **Published**

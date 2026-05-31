@@ -1,7 +1,71 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T09:31:42.392Z",
+  "generatedAt": "2026-05-31T11:22:33.008Z",
   "items": [
+    {
+      "name": "block-audit-log",
+      "category": "blocks",
+      "title": "Audit log",
+      "description": "Chronological activity feed on the WorkflowTimeline primitive — actor, action, timestamp, and optional tone badge per entry. Use for record history, audit trails, and change logs.",
+      "version": "1.0.0",
+      "path": "blocks/audit-log"
+    },
+    {
+      "name": "block-data-table",
+      "category": "blocks",
+      "title": "Data table",
+      "description": "Complete table experience — search + saved-view presets, row selection with a bulk-actions bar, empty state, and pagination. Client-side logic ready to wire to a query.",
+      "version": "1.0.0",
+      "path": "blocks/data-table"
+    },
+    {
+      "name": "block-detail-card",
+      "category": "blocks",
+      "title": "Detail card",
+      "description": "Key/value detail panel with a header (title + status badge + actions menu) over inline-editable rows. Use for record summaries: customer, payment, shipping, metadata.",
+      "version": "1.0.0",
+      "path": "blocks/detail-card"
+    },
+    {
+      "name": "block-empty-state",
+      "category": "blocks",
+      "title": "Empty state section",
+      "description": "Full-section zero-data layout — the EmptyState primitive in a dashed card sized for a page region. Use for first-run, no-results, or empty-collection states.",
+      "version": "1.0.0",
+      "path": "blocks/empty-state"
+    },
+    {
+      "name": "block-filter-bar",
+      "category": "blocks",
+      "title": "Filter bar",
+      "description": "Horizontal filter row — full-text search, saved-view presets, a tag/chip filter, and a date-range field. Sits above a table or list. Self-contained local state.",
+      "version": "1.0.0",
+      "path": "blocks/filter-bar"
+    },
+    {
+      "name": "block-page-header",
+      "category": "blocks",
+      "title": "Page header",
+      "description": "Composed screen header — breadcrumbs, eyebrow, title + subtitle, an actions cluster, and an optional sticky tab row. Prop-driven and reusable across screens.",
+      "version": "1.0.0",
+      "path": "blocks/page-header"
+    },
+    {
+      "name": "block-settings-section",
+      "category": "blocks",
+      "title": "Settings section",
+      "description": "Labeled form section — title + description header over field rows, plus a RowToggle for boolean settings. Compose several down a settings page.",
+      "version": "1.0.0",
+      "path": "blocks/settings-section"
+    },
+    {
+      "name": "block-stat-cards",
+      "category": "blocks",
+      "title": "Stat cards",
+      "description": "Responsive KPI tile row — value, trend delta, and inline sparkline per metric. Drop at the top of any overview/dashboard screen.",
+      "version": "1.0.0",
+      "path": "blocks/stat-cards"
+    },
     {
       "name": "component-accordion",
       "category": "components",
@@ -521,6 +585,14 @@
       "description": "Notion-style sidebar + content card. Sidebar with brand, search, nav, footer. Sticky topbar with breadcrumbs + theme toggle + settings menu. Bundled with command palette, keyboard cheatsheet, and shortcut toasts. This is the playground's chrome, emptied of content.",
       "version": "1.0.0",
       "path": "shells/doc-shell"
+    },
+    {
+      "name": "shell-minimal",
+      "category": "shells",
+      "title": "Minimal shell (topbar)",
+      "description": "A sticky topbar (brand + horizontal nav + theme toggle) over a centered content container. No sidebar. For simpler apps that don't need the full DocShell. Includes density + theme + toasts.",
+      "version": "1.0.0",
+      "path": "shells/shell-minimal"
     },
     {
       "name": "template-crud-list",

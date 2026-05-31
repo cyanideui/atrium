@@ -156,10 +156,16 @@ pnpm add clsx tailwind-merge class-variance-authority @radix-ui/react-slot ...
 ### The full shell + templates
 
 ```bash
-npx cyanideui add shell-doc          # sidebar + topbar + palette + shortcuts
+npx cyanideui add shell-doc          # full sidebar + topbar + palette + shortcuts
+npx cyanideui add shell-minimal      # lighter topbar + content, no sidebar
 npx cyanideui add template-dashboard # a ready-made page
-npx cyanideui list                   # browse everything (59 components, shells, templates, hooks)
+npx cyanideui add data-table         # a composed block (table + toolbar + bulk + pagination)
+npx cyanideui list                   # browse everything (59 components, shells, templates, blocks, hooks)
 ```
+
+**Blocks** are composed, drop-in sections (copy-paste, importing your local `@/components/ui/*`):
+`stat-cards`, `data-table`, `page-header`, `empty-state`, `settings-section`, `audit-log`,
+`filter-bar`, `detail-card`. They land in `src/components/blocks/`.
 
 ### Tailwind wiring
 

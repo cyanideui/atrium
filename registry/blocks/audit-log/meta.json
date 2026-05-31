@@ -1,0 +1,30 @@
+{
+  "name": "block-audit-log",
+  "category": "blocks",
+  "title": "Audit log",
+  "description": "Chronological activity feed on the WorkflowTimeline primitive — actor, action, timestamp, and optional tone badge per entry. Use for record history, audit trails, and change logs.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "audit-log.tsx",
+      "to": "src/components/blocks/audit-log.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-avatar",
+      "component-badge",
+      "component-workflow-timeline"
+    ]
+  },
+  "postInstall": [
+    "Swap the ENTRIES array for your real events."
+  ]
+}

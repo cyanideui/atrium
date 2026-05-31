@@ -1,0 +1,32 @@
+{
+  "name": "block-empty-state",
+  "category": "blocks",
+  "title": "Empty state section",
+  "description": "Full-section zero-data layout — the EmptyState primitive in a dashed card sized for a page region. Use for first-run, no-results, or empty-collection states.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "empty-state-block.tsx",
+      "to": "src/components/blocks/empty-state-block.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-empty-state",
+      "component-icon"
+    ]
+  },
+  "postInstall": [
+    "Swap the icon, copy, and actions for your context."
+  ]
+}

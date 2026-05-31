@@ -1,0 +1,32 @@
+{
+  "name": "block-stat-cards",
+  "category": "blocks",
+  "title": "Stat cards",
+  "description": "Responsive KPI tile row — value, trend delta, and inline sparkline per metric. Drop at the top of any overview/dashboard screen.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "stat-cards.tsx",
+      "to": "src/components/blocks/stat-cards.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-icon",
+      "component-sparkline",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap the STATS array for your real metrics (wire to your query/loader)."
+  ]
+}

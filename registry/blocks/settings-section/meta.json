@@ -1,0 +1,32 @@
+{
+  "name": "block-settings-section",
+  "category": "blocks",
+  "title": "Settings section",
+  "description": "Labeled form section — title + description header over field rows, plus a RowToggle for boolean settings. Compose several down a settings page.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "settings-section.tsx",
+      "to": "src/components/blocks/settings-section.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-input",
+      "component-label",
+      "component-switch",
+      "component-textarea"
+    ]
+  },
+  "postInstall": [
+    "Compose <SettingsSection> + <FieldRow> + <RowToggle> for your settings page. Delete SettingsSectionDemo once wired."
+  ]
+}

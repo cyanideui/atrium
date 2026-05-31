@@ -54,10 +54,10 @@ Two distinct things on the internet, updated differently:
 
 `npx cyanideui add button` fetches code from the live raw-GitHub URL (default in
 `packages/cli/src/lib/registry.ts`); the npm-bundled `dist/registry/**` is an offline
-fallback. Registry has **69 items** (59 components, 4 templates, 1 shell, 3 hooks, 2 lib),
-all pure copy-paste using `@/lib/utils` + `@/components/ui/*` (never `@cyanideui/ui`).
+fallback. Registry has **78 items** (59 components, 4 templates, 2 shells, 8 blocks, 3 hooks,
+2 lib), all pure copy-paste using `@/lib/utils` + `@/components/ui/*` (never `@cyanideui/ui`).
 Prefix-fallback resolution: `add button` → `component-button`, `add dashboard` →
-`template-dashboard`.
+`template-dashboard`, `add data-table` → `block-data-table`.
 
 Registry generators (run in order via `node`):
 1. `scripts/generate-component-registry.mjs` — components → `registry/components/<name>/{meta.json, files/*}`; rewrites `../lib/cn` → `@/lib/utils`, `./x` → `@/components/ui/x`; computes deps.

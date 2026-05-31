@@ -1,0 +1,40 @@
+{
+  "name": "block-data-table",
+  "category": "blocks",
+  "title": "Data table",
+  "description": "Complete table experience — search + saved-view presets, row selection with a bulk-actions bar, empty state, and pagination. Client-side logic ready to wire to a query.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "data-table.tsx",
+      "to": "src/components/blocks/data-table.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-badge",
+      "component-bulk-actions-bar",
+      "component-button",
+      "component-button-group",
+      "component-checkbox",
+      "component-icon",
+      "component-pagination",
+      "component-saved-filters",
+      "component-search-field",
+      "component-table",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Replace the Row type + ROWS with your data; wire the search/filter/pagination to your query."
+  ]
+}

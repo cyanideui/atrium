@@ -1,0 +1,36 @@
+{
+  "name": "block-filter-bar",
+  "category": "blocks",
+  "title": "Filter bar",
+  "description": "Horizontal filter row — full-text search, saved-view presets, a tag/chip filter, and a date-range field. Sits above a table or list. Self-contained local state.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "filter-bar.tsx",
+      "to": "src/components/blocks/filter-bar.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react",
+      "react-day-picker"
+    ],
+    "registry": [
+      "component-button",
+      "component-chip-input",
+      "component-date-field",
+      "component-icon",
+      "component-saved-filters",
+      "component-search-field"
+    ]
+  },
+  "postInstall": [
+    "Lift the local state up or wire onChange to your query/loader."
+  ]
+}

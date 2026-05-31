@@ -1,0 +1,48 @@
+{
+  "name": "shell-minimal",
+  "category": "shells",
+  "title": "Minimal shell (topbar)",
+  "description": "A sticky topbar (brand + horizontal nav + theme toggle) over a centered content container. No sidebar. For simpler apps that don't need the full DocShell. Includes density + theme + toasts.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "lib/nav.ts",
+      "to": "src/lib/nav.ts"
+    },
+    {
+      "from": "components/app-shell.tsx",
+      "to": "src/components/app-shell.tsx"
+    },
+    {
+      "from": "components/shell-providers.tsx",
+      "to": "src/components/shell-providers.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-density",
+      "component-icon",
+      "component-toaster",
+      "component-tooltip",
+      "hook-theme"
+    ]
+  },
+  "tailwind": {
+    "globalsImport": "@cyanideui/ui/styles/globals.css",
+    "sourcePath": "../../node_modules/@cyanideui/ui/dist"
+  },
+  "postInstall": [
+    "Wire <ShellProviders><AppShell>{children}</AppShell></ShellProviders> into your root (Next.js: src/app/layout.tsx, Vite: src/App.tsx).",
+    "Edit src/lib/nav.ts to set your routes.",
+    "Edit the brand (logo + name) in the <Brand> component in src/components/app-shell.tsx."
+  ]
+}
