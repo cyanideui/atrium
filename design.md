@@ -173,7 +173,8 @@
 > - Radii — and fixed glyphs like the timeline status dot — stay constant across modes so the visual identity holds.
 >
 > **Form components reflow (was: hardcoded h-7/h-9/h-10)**
-> - **Wired to `--density-form-h-{sm,md,lg}`**: `<Input>`, `<SearchField>`, `<MoneyField>`, `<NumberStepper>`, `<ChipInput>`, `<DateField>`, `<SelectTrigger>`, `<SavedFilters>` trigger.
+> - **Wired to `--density-form-h-{sm,md,lg}`**: `<Input>`, `<SearchField>`, `<MoneyField>`, `<NumberStepper>`, `<ChipInput>`, `<DateField>`, `<SelectTrigger>`, `<SavedFilters>` trigger, `<FloatingLabelInput>` (the label re-centers via transform so it holds at any height).
+> - **`<SegmentedControl>`** reflows on its own `--density-seg-h-{sm,md,lg}` scale (the compact values match its original 22/30/38 px, so the default look is unchanged).
 > - **Buttons reflow on `--density-btn-h-{micro,sm,md,lg}`** — initially we kept buttons on a fixed scale, with the rationalization that "action affordances should stay legible across all densities". The Density showcase showed this was wrong: a side-by-side density preview that renders three identical button rows isn't a density preview, it's a misleading screenshot. Buttons now scale, just less aggressively than form fields (4 px steps vs 8 px), so toolbars compress in compact-plus without becoming unreadable.
 > - **`<Switch>` reflows on `--density-switch-{track-w,track-h,thumb-size,thumb-translate}`** — the thumb-translate token is also applied via `data-[state=checked]:translate-x-[var(--…)]` so the slide distance scales with the track.
 > - The `plain` button variant (text link) stays at `height: auto` because it isn't shaped like a button. All other variants pick up the density height.

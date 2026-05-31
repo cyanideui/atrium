@@ -5,6 +5,11 @@ import { cn } from "@/lib/utils"
  * <FloatingLabelInput> — design.md §5.4
  * Material-style label that sits inside at rest, animates to top-left and
  * cuts a notch in the outline on focus or when filled.
+ *
+ * Density-aware: the wrapper height flows from `--density-form-h-{sm,md,lg}`
+ * like every other form field, so it reflows with the active density mode.
+ * The rest-state label is vertically centered via transform (not a fixed
+ * top), so it stays centered at any height.
  */
 
 export interface FloatingLabelInputProps
@@ -14,12 +19,6 @@ export interface FloatingLabelInputProps
   helpText?: React.ReactNode
   error?: React.ReactNode
 }
-
-const heights = {
-  sm: { wrap: "h-10", labelTop: 12, labelFloat: -7 },
-  md: { wrap: "h-12", labelTop: 16, labelFloat: -7 },
-  lg: { wrap: "h-14", labelTop: 20, labelFloat: -8 },
-} as const
 
 export const FloatingLabelInput = React.forwardRef<HTMLInputElement, FloatingLabelInputProps>(
   (
@@ -40,16 +39,15 @@ export const FloatingLabelInput = React.forwardRef<HTMLInputElement, FloatingLab
       if (value !== undefined) setHasValue(value !== "" && value !== null)
     }, [value])
 
-    const s = heights[size]
     const errMsg = typeof error === "string" ? error : undefined
     const isError = error !== undefined && error !== false && error !== null
 
     return (
       <div className={cn("w-full", className)}>
         <div
+          style={{ height: `var(--density-form-h-${size})` }}
           className={cn(
             "group relative w-full",
-            s.wrap,
             disabled && "opacity-60"
           )}
         >
@@ -91,14 +89,13 @@ export const FloatingLabelInput = React.forwardRef<HTMLInputElement, FloatingLab
               "transition-[transform,top,font-size,color] duration-[var(--dur-base)] ease-[var(--ease-standard)]",
               floated
                 ? "top-0 -translate-y-1/2 bg-canvas text-[11px]"
-                : "translate-y-0 text-[14px]",
+                : "top-1/2 -translate-y-1/2 text-[14px]",
               floated
                 ? isError
                   ? "text-error"
                   : "text-ink-2 peer-focus:text-ink"
                 : "text-ink-3"
             )}
-            style={!floated ? { top: s.labelTop } : undefined}
           >
             {label}
           </label>

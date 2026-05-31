@@ -9,7 +9,9 @@ import { cn } from "@/lib/utils"
  * scaleX()`, instead of restyling the items themselves. This keeps the
  * animation buttery and avoids any restyle-flash.
  *
- * Sizes:
+ * Sizes (density-aware — heights flow from `--density-seg-h-{sm,md,lg}`, so
+ * the control reflows with the active density mode; the values below are the
+ * default `compact` scale):
  *   - sm:  22px tall (compact toolbars)
  *   - md:  30px tall (default)
  *   - lg:  38px tall (form headers)
@@ -23,9 +25,9 @@ import { cn } from "@/lib/utils"
  */
 
 const sizeMap = {
-  sm: { h: "h-[22px]", text: "text-[11px]", px: "px-2" },
-  md: { h: "h-[30px]", text: "text-[12.5px]", px: "px-3" },
-  lg: { h: "h-[38px]", text: "text-[13.5px]", px: "px-4" },
+  sm: { text: "text-[11px]", px: "px-2" },
+  md: { text: "text-[12.5px]", px: "px-3" },
+  lg: { text: "text-[13.5px]", px: "px-4" },
 } as const
 
 export type SegmentedSize = keyof typeof sizeMap
@@ -213,12 +215,12 @@ export function SegmentedControl<V extends string = string>({
               setInteracted(true)
               setActive(opt.value)
             }}
+            style={{ height: `var(--density-seg-h-${size})` }}
             className={cn(
               "relative z-[1] inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-sm",
               "font-medium",
               "transition-colors duration-[var(--dur-base)] ease-[var(--ease-standard)]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-1 focus-visible:ring-offset-surface",
-              s.h,
               s.text,
               s.px,
               isActive

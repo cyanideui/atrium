@@ -3,9 +3,11 @@ import {
   Button,
   ButtonGroup,
   DensityProvider,
+  FloatingLabelInput,
   Input,
   Label,
   SearchField,
+  SegmentedControl,
   Select,
   SelectContent,
   SelectItem,
@@ -152,6 +154,7 @@ export function DensityPage() {
                 <Label className="mb-1 block">Search</Label>
                 <SearchField placeholder="Search invoices…" />
               </div>
+              <FloatingLabelInput label="Reference" defaultValue="INV-2048" />
             </div>
           )}
         </DensityRow>
@@ -216,6 +219,15 @@ export function DensityPage() {
         <DensityRow title="Toolbar with buttons + switch">
           {() => (
             <div className="flex flex-col gap-3">
+              <SegmentedControl
+                size="md"
+                defaultValue="all"
+                options={[
+                  { value: "all", label: "All" },
+                  { value: "open", label: "Open" },
+                  { value: "closed", label: "Closed" },
+                ]}
+              />
               <ButtonGroup>
                 <Button variant="secondary" size="sm">All</Button>
                 <Button variant="secondary" size="sm">Open</Button>
