@@ -1,0 +1,27 @@
+{
+  "name": "component-select",
+  "category": "components",
+  "title": "select",
+  "description": "<select> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "select.tsx",
+      "to": "src/components/ui/select.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@radix-ui/react-select"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

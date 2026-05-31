@@ -1,0 +1,25 @@
+{
+  "name": "component-popover",
+  "category": "components",
+  "title": "popover",
+  "description": "<popover> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "popover.tsx",
+      "to": "src/components/ui/popover.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@radix-ui/react-popover"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

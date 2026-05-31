@@ -1,0 +1,26 @@
+{
+  "name": "component-chip-input",
+  "category": "components",
+  "title": "chip-input",
+  "description": "<chip-input> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "chip-input.tsx",
+      "to": "src/components/ui/chip-input.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "component-breadcrumbs",
+  "category": "components",
+  "title": "breadcrumbs",
+  "description": "<breadcrumbs> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "breadcrumbs.tsx",
+      "to": "src/components/ui/breadcrumbs.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

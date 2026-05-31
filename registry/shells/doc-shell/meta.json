@@ -4,7 +4,10 @@
   "title": "DocShell layout",
   "description": "Notion-style sidebar + content card. Sidebar with brand, search, nav, footer. Sticky topbar with breadcrumbs + theme toggle + settings menu. Bundled with command palette, keyboard cheatsheet, and shortcut toasts. This is the playground's chrome, emptied of content.",
   "version": "1.0.0",
-  "frameworks": ["next", "vite-react-router"],
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
   "files": [
     {
       "from": "lib/nav.ts",
@@ -28,8 +31,28 @@
     }
   ],
   "dependencies": {
-    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"],
-    "registry": ["hook-theme", "hook-shortcut-toasts", "hook-cheatsheet"]
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-breadcrumbs",
+      "component-command-palette",
+      "component-density",
+      "component-doc-shell",
+      "component-doc-shell-content",
+      "component-doc-shell-sidebar",
+      "component-icon",
+      "component-kbd",
+      "component-page-shell",
+      "component-popover",
+      "component-sidebar-nav",
+      "component-toaster",
+      "hook-cheatsheet",
+      "hook-shortcut-toasts",
+      "hook-theme"
+    ]
   },
   "tailwind": {
     "globalsImport": "@cyanideui/ui/styles/globals.css",

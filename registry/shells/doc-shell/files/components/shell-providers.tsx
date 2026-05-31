@@ -1,7 +1,8 @@
 "use client"
 
+import { DensityRoot, useDensityHotkey } from "@/components/ui/density"
+import { Toaster } from "@/components/ui/toaster"
 import * as React from "react"
-import { Toaster, DensityRoot, useDensityHotkey } from "@cyanideui/ui"
 import { AppShell } from "./app-shell"
 import { CommandPalette } from "./command-palette"
 import { GlobalCheatsheet } from "../hooks/use-global-cheatsheet"

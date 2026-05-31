@@ -1,7 +1,7 @@
 /** Supported target frameworks for code transforms. */
 export type Framework = "next" | "vite-react-router"
 
-export type RegistryCategory = "shells" | "templates" | "blocks" | "hooks"
+export type RegistryCategory = "shells" | "templates" | "blocks" | "hooks" | "components" | "lib"
 
 /** A single file an item copies into the consumer's project. */
 export interface RegistryFile {

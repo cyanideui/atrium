@@ -1,0 +1,23 @@
+{
+  "name": "component-inline-edit",
+  "category": "components",
+  "title": "inline-edit",
+  "description": "<inline-edit> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "inline-edit.tsx",
+      "to": "src/components/ui/inline-edit.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

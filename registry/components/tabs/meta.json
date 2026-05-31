@@ -1,0 +1,25 @@
+{
+  "name": "component-tabs",
+  "category": "components",
+  "title": "tabs",
+  "description": "<tabs> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "tabs.tsx",
+      "to": "src/components/ui/tabs.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@radix-ui/react-tabs"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

@@ -116,6 +116,25 @@ describe("add template-dashboard (e2e)", () => {
   })
 })
 
+describe("add component (e2e, copy-paste — Path 2)", () => {
+  it("add button pulls button + spinner + lib-utils with @/ aliases", async () => {
+    writeFileSync(join(dir, "package.json"), JSON.stringify({ dependencies: { next: "15.0.0" } }))
+
+    // Prefix fallback: "button" → "component-button".
+    await addCommand("button", { cwd: dir, framework: "next", yes: true, overwrite: true })
+
+    const { existsSync } = await import("node:fs")
+    expect(existsSync(join(dir, "src/components/ui/button.tsx"))).toBe(true)
+    expect(existsSync(join(dir, "src/components/ui/spinner.tsx"))).toBe(true) // transitive
+    expect(existsSync(join(dir, "src/lib/utils.ts"))).toBe(true) // transitive
+
+    const button = readFileSync(join(dir, "src/components/ui/button.tsx"), "utf8")
+    expect(button).toContain('from "@/lib/utils"')
+    expect(button).toContain('from "@/components/ui/spinner"')
+    expect(button).not.toContain("@cyanideui/ui")
+  })
+})
+
 describe("bundled registry resolution", () => {
   it("resolves from dist/registry when pointed there (simulates the published bundle)", async () => {
     // In a real install, getRegistryBase() returns the dist/registry path

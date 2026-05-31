@@ -1,0 +1,26 @@
+{
+  "name": "component-file-upload",
+  "category": "components",
+  "title": "file-upload",
+  "description": "<file-upload> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "file-upload.tsx",
+      "to": "src/components/ui/file-upload.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

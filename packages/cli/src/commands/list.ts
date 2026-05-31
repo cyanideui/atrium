@@ -7,9 +7,11 @@ const CATEGORY_TITLES: Record<RegistryCategory, string> = {
   templates: "TEMPLATES",
   blocks: "BLOCKS",
   hooks: "HOOKS",
+  components: "COMPONENTS",
+  lib: "LIB",
 }
 
-const CATEGORY_ORDER: RegistryCategory[] = ["shells", "templates", "blocks", "hooks"]
+const CATEGORY_ORDER: RegistryCategory[] = ["components", "shells", "templates", "blocks", "hooks", "lib"]
 
 export async function listCommand(categoryFilter?: string): Promise<void> {
   const index = await fetchIndex()

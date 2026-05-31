@@ -1,0 +1,25 @@
+{
+  "name": "component-input",
+  "category": "components",
+  "title": "input",
+  "description": "<input> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "input.tsx",
+      "to": "src/components/ui/input.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "class-variance-authority"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

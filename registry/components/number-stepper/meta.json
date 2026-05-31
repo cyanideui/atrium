@@ -1,0 +1,26 @@
+{
+  "name": "component-number-stepper",
+  "category": "components",
+  "title": "number-stepper",
+  "description": "<number-stepper> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "number-stepper.tsx",
+      "to": "src/components/ui/number-stepper.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

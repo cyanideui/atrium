@@ -1,0 +1,23 @@
+{
+  "name": "component-density",
+  "category": "components",
+  "title": "density",
+  "description": "<density> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "density.tsx",
+      "to": "src/components/ui/density.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

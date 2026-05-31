@@ -1,0 +1,25 @@
+{
+  "name": "component-doc-shell-content",
+  "category": "components",
+  "title": "doc-shell-content",
+  "description": "<doc-shell-content> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "doc-shell-content.tsx",
+      "to": "src/components/ui/doc-shell-content.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "component-doc-shell",
+      "lib-use-scroll-overlay",
+      "lib-utils"
+    ]
+  }
+}

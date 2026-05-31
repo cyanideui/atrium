@@ -1,0 +1,23 @@
+{
+  "name": "component-segmented-control",
+  "category": "components",
+  "title": "segmented-control",
+  "description": "<segmented-control> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "segmented-control.tsx",
+      "to": "src/components/ui/segmented-control.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

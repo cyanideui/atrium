@@ -1,0 +1,26 @@
+{
+  "name": "component-icon",
+  "category": "components",
+  "title": "icon",
+  "description": "<icon> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "icon.tsx",
+      "to": "src/components/ui/icon.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

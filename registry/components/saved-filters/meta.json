@@ -1,0 +1,27 @@
+{
+  "name": "component-saved-filters",
+  "category": "components",
+  "title": "saved-filters",
+  "description": "<saved-filters> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "saved-filters.tsx",
+      "to": "src/components/ui/saved-filters.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-icon",
+      "component-popover",
+      "lib-utils"
+    ]
+  }
+}

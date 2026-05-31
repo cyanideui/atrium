@@ -1,3 +1,4 @@
+import { SidebarNavItem, type SidebarNavItemProps } from "@/components/ui/sidebar-nav"
 import * as React from "react"
 // @atrium:if next
 import Link from "next/link"
@@ -6,8 +7,6 @@ import { usePathname } from "next/navigation"
 // @atrium:if vite-react-router
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom"
 // @atrium:endif
-import { SidebarNavItem, type SidebarNavItemProps } from "@cyanideui/ui"
-
 /**
  * Bridge between the router and the router-agnostic <SidebarNavItem>.
  * The whole row IS the link (correct semantics + full hover area).

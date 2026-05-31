@@ -1,0 +1,26 @@
+{
+  "name": "component-avatar",
+  "category": "components",
+  "title": "avatar",
+  "description": "<avatar> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "avatar.tsx",
+      "to": "src/components/ui/avatar.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@radix-ui/react-avatar",
+      "class-variance-authority"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

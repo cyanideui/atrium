@@ -1,5 +1,9 @@
 "use client"
 
+import { CommandPalette, CommandPaletteInput, CommandPaletteList, CommandPaletteEmpty, CommandPaletteGroup, CommandPaletteItem, CommandPaletteFooter, CommandPaletteSeparator } from "@/components/ui/command-palette"
+import { useDensity } from "@/components/ui/density"
+import { Icon } from "@/components/ui/icon"
+import { Kbd } from "@/components/ui/kbd"
 import * as React from "react"
 // @atrium:if next
 import { useRouter } from "next/navigation"
@@ -7,19 +11,6 @@ import { useRouter } from "next/navigation"
 // @atrium:if vite-react-router
 import { useNavigate } from "react-router-dom"
 // @atrium:endif
-import {
-  CommandPalette as Palette,
-  CommandPaletteInput,
-  CommandPaletteList,
-  CommandPaletteEmpty,
-  CommandPaletteGroup,
-  CommandPaletteItem,
-  CommandPaletteFooter,
-  CommandPaletteSeparator,
-  Icon,
-  Kbd,
-  useDensity,
-} from "@cyanideui/ui"
 import {
   HomeIcon,
   Moon02Icon,

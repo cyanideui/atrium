@@ -4,7 +4,10 @@
   "title": "Settings",
   "description": "Tabbed sectioned form with autosave — Profile / Notifications / Security / Billing. Drop-in for /settings, /account, /workspace/preferences.",
   "version": "1.0.0",
-  "frameworks": ["next", "vite-react-router"],
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
   "files": [
     {
       "from": "settings.tsx",
@@ -12,7 +15,24 @@
     }
   ],
   "dependencies": {
-    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-auto-save-status",
+      "component-avatar",
+      "component-button",
+      "component-choice-list",
+      "component-icon",
+      "component-input",
+      "component-label",
+      "component-select",
+      "component-switch",
+      "component-tabs",
+      "component-textarea"
+    ]
   },
   "postInstall": [
     "Replace the mock autosave effect with your real mutation/save logic.",

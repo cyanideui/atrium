@@ -1,7 +1,479 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T07:57:48.573Z",
+  "generatedAt": "2026-05-31T08:56:02.702Z",
   "items": [
+    {
+      "name": "component-accordion",
+      "category": "components",
+      "title": "accordion",
+      "description": "<accordion> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/accordion"
+    },
+    {
+      "name": "component-auto-save-status",
+      "category": "components",
+      "title": "auto-save-status",
+      "description": "<auto-save-status> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/auto-save-status"
+    },
+    {
+      "name": "component-avatar",
+      "category": "components",
+      "title": "avatar",
+      "description": "<avatar> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/avatar"
+    },
+    {
+      "name": "component-avatar-group",
+      "category": "components",
+      "title": "avatar-group",
+      "description": "<avatar-group> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/avatar-group"
+    },
+    {
+      "name": "component-badge",
+      "category": "components",
+      "title": "badge",
+      "description": "<badge> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/badge"
+    },
+    {
+      "name": "component-banner",
+      "category": "components",
+      "title": "banner",
+      "description": "<banner> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/banner"
+    },
+    {
+      "name": "component-breadcrumbs",
+      "category": "components",
+      "title": "breadcrumbs",
+      "description": "<breadcrumbs> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/breadcrumbs"
+    },
+    {
+      "name": "component-bulk-actions-bar",
+      "category": "components",
+      "title": "bulk-actions-bar",
+      "description": "<bulk-actions-bar> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/bulk-actions-bar"
+    },
+    {
+      "name": "component-button",
+      "category": "components",
+      "title": "button",
+      "description": "<button> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/button"
+    },
+    {
+      "name": "component-button-group",
+      "category": "components",
+      "title": "button-group",
+      "description": "<button-group> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/button-group"
+    },
+    {
+      "name": "component-checkbox",
+      "category": "components",
+      "title": "checkbox",
+      "description": "<checkbox> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/checkbox"
+    },
+    {
+      "name": "component-chip",
+      "category": "components",
+      "title": "chip",
+      "description": "<chip> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/chip"
+    },
+    {
+      "name": "component-chip-input",
+      "category": "components",
+      "title": "chip-input",
+      "description": "<chip-input> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/chip-input"
+    },
+    {
+      "name": "component-choice-list",
+      "category": "components",
+      "title": "choice-list",
+      "description": "<choice-list> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/choice-list"
+    },
+    {
+      "name": "component-command-palette",
+      "category": "components",
+      "title": "command-palette",
+      "description": "<command-palette> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/command-palette"
+    },
+    {
+      "name": "component-date-field",
+      "category": "components",
+      "title": "date-field",
+      "description": "<date-field> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/date-field"
+    },
+    {
+      "name": "component-date-picker",
+      "category": "components",
+      "title": "date-picker",
+      "description": "<date-picker> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/date-picker"
+    },
+    {
+      "name": "component-density",
+      "category": "components",
+      "title": "density",
+      "description": "<density> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/density"
+    },
+    {
+      "name": "component-doc-shell",
+      "category": "components",
+      "title": "doc-shell",
+      "description": "<doc-shell> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/doc-shell"
+    },
+    {
+      "name": "component-doc-shell-content",
+      "category": "components",
+      "title": "doc-shell-content",
+      "description": "<doc-shell-content> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/doc-shell-content"
+    },
+    {
+      "name": "component-doc-shell-sidebar",
+      "category": "components",
+      "title": "doc-shell-sidebar",
+      "description": "<doc-shell-sidebar> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/doc-shell-sidebar"
+    },
+    {
+      "name": "component-drawer",
+      "category": "components",
+      "title": "drawer",
+      "description": "<drawer> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/drawer"
+    },
+    {
+      "name": "component-dropdown-menu",
+      "category": "components",
+      "title": "dropdown-menu",
+      "description": "<dropdown-menu> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/dropdown-menu"
+    },
+    {
+      "name": "component-empty-state",
+      "category": "components",
+      "title": "empty-state",
+      "description": "<empty-state> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/empty-state"
+    },
+    {
+      "name": "component-file-upload",
+      "category": "components",
+      "title": "file-upload",
+      "description": "<file-upload> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/file-upload"
+    },
+    {
+      "name": "component-floating-label-input",
+      "category": "components",
+      "title": "floating-label-input",
+      "description": "<floating-label-input> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/floating-label-input"
+    },
+    {
+      "name": "component-icon",
+      "category": "components",
+      "title": "icon",
+      "description": "<icon> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/icon"
+    },
+    {
+      "name": "component-import-preview",
+      "category": "components",
+      "title": "import-preview",
+      "description": "<import-preview> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/import-preview"
+    },
+    {
+      "name": "component-inline-edit",
+      "category": "components",
+      "title": "inline-edit",
+      "description": "<inline-edit> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/inline-edit"
+    },
+    {
+      "name": "component-input",
+      "category": "components",
+      "title": "input",
+      "description": "<input> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/input"
+    },
+    {
+      "name": "component-kbd",
+      "category": "components",
+      "title": "kbd",
+      "description": "<kbd> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/kbd"
+    },
+    {
+      "name": "component-keyboard-cheatsheet",
+      "category": "components",
+      "title": "keyboard-cheatsheet",
+      "description": "<keyboard-cheatsheet> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/keyboard-cheatsheet"
+    },
+    {
+      "name": "component-label",
+      "category": "components",
+      "title": "label",
+      "description": "<label> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/label"
+    },
+    {
+      "name": "component-modal",
+      "category": "components",
+      "title": "modal",
+      "description": "<modal> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/modal"
+    },
+    {
+      "name": "component-money-field",
+      "category": "components",
+      "title": "money-field",
+      "description": "<money-field> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/money-field"
+    },
+    {
+      "name": "component-number-stepper",
+      "category": "components",
+      "title": "number-stepper",
+      "description": "<number-stepper> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/number-stepper"
+    },
+    {
+      "name": "component-page-shell",
+      "category": "components",
+      "title": "page-shell",
+      "description": "<page-shell> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/page-shell"
+    },
+    {
+      "name": "component-pagination",
+      "category": "components",
+      "title": "pagination",
+      "description": "<pagination> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/pagination"
+    },
+    {
+      "name": "component-popover",
+      "category": "components",
+      "title": "popover",
+      "description": "<popover> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/popover"
+    },
+    {
+      "name": "component-progress",
+      "category": "components",
+      "title": "progress",
+      "description": "<progress> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/progress"
+    },
+    {
+      "name": "component-route-loading",
+      "category": "components",
+      "title": "route-loading",
+      "description": "<route-loading> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/route-loading"
+    },
+    {
+      "name": "component-saved-filters",
+      "category": "components",
+      "title": "saved-filters",
+      "description": "<saved-filters> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/saved-filters"
+    },
+    {
+      "name": "component-search-field",
+      "category": "components",
+      "title": "search-field",
+      "description": "<search-field> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/search-field"
+    },
+    {
+      "name": "component-segmented-control",
+      "category": "components",
+      "title": "segmented-control",
+      "description": "<segmented-control> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/segmented-control"
+    },
+    {
+      "name": "component-select",
+      "category": "components",
+      "title": "select",
+      "description": "<select> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/select"
+    },
+    {
+      "name": "component-shortcut-hint",
+      "category": "components",
+      "title": "shortcut-hint",
+      "description": "<shortcut-hint> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/shortcut-hint"
+    },
+    {
+      "name": "component-sidebar-nav",
+      "category": "components",
+      "title": "sidebar-nav",
+      "description": "<sidebar-nav> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/sidebar-nav"
+    },
+    {
+      "name": "component-skeleton",
+      "category": "components",
+      "title": "skeleton",
+      "description": "<skeleton> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/skeleton"
+    },
+    {
+      "name": "component-sparkline",
+      "category": "components",
+      "title": "sparkline",
+      "description": "<sparkline> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/sparkline"
+    },
+    {
+      "name": "component-spinner",
+      "category": "components",
+      "title": "spinner",
+      "description": "<spinner> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/spinner"
+    },
+    {
+      "name": "component-stepper",
+      "category": "components",
+      "title": "stepper",
+      "description": "<stepper> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/stepper"
+    },
+    {
+      "name": "component-sticky-columns",
+      "category": "components",
+      "title": "sticky-columns",
+      "description": "<sticky-columns> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/sticky-columns"
+    },
+    {
+      "name": "component-switch",
+      "category": "components",
+      "title": "switch",
+      "description": "<switch> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/switch"
+    },
+    {
+      "name": "component-table",
+      "category": "components",
+      "title": "table",
+      "description": "<table> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/table"
+    },
+    {
+      "name": "component-tabs",
+      "category": "components",
+      "title": "tabs",
+      "description": "<tabs> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/tabs"
+    },
+    {
+      "name": "component-textarea",
+      "category": "components",
+      "title": "textarea",
+      "description": "<textarea> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/textarea"
+    },
+    {
+      "name": "component-toaster",
+      "category": "components",
+      "title": "toaster",
+      "description": "<toaster> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/toaster"
+    },
+    {
+      "name": "component-tooltip",
+      "category": "components",
+      "title": "tooltip",
+      "description": "<tooltip> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/tooltip"
+    },
+    {
+      "name": "component-workflow-timeline",
+      "category": "components",
+      "title": "workflow-timeline",
+      "description": "<workflow-timeline> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/workflow-timeline"
+    },
     {
       "name": "hook-cheatsheet",
       "category": "hooks",
@@ -25,6 +497,22 @@
       "description": "Light/dark theme state backed by a module-level external store (useSyncExternalStore), so every call site shares one value. Persists to localStorage, applies `.dark` on <html>.",
       "version": "1.0.0",
       "path": "hooks/theme"
+    },
+    {
+      "name": "lib-use-scroll-overlay",
+      "category": "lib",
+      "title": "useScrollOverlay hook",
+      "description": "Library helper: useScrollOverlay hook.",
+      "version": "1.0.0",
+      "path": "lib/use-scroll-overlay"
+    },
+    {
+      "name": "lib-utils",
+      "category": "lib",
+      "title": "cn() utility",
+      "description": "Library helper: cn() utility.",
+      "version": "1.0.0",
+      "path": "lib/utils"
     },
     {
       "name": "shell-doc",

@@ -1,10 +1,7 @@
+import { useDensity, type Density } from "@/components/ui/density"
+import { useOptionalDocShell } from "@/components/ui/doc-shell"
+import { shortcutToast } from "@/components/ui/shortcut-hint"
 import * as React from "react"
-import {
-  shortcutToast,
-  useDensity,
-  useOptionalDocShell,
-  type Density,
-} from "@cyanideui/ui"
 import {
   Sun02Icon,
   Moon02Icon,

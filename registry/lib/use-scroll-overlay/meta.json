@@ -1,0 +1,20 @@
+{
+  "name": "lib-use-scroll-overlay",
+  "category": "lib",
+  "title": "useScrollOverlay hook",
+  "description": "Library helper: useScrollOverlay hook.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "use-scroll-overlay.ts",
+      "to": "src/lib/use-scroll-overlay.ts"
+    }
+  ],
+  "dependencies": {
+    "npm": []
+  }
+}

@@ -1,26 +1,17 @@
 "use client"
 
+import { AutoSaveStatus } from "@/components/ui/auto-save-status"
+import { Avatar } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { ChoiceList } from "@/components/ui/choice-list"
+import { Icon } from "@/components/ui/icon"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Textarea } from "@/components/ui/textarea"
 import * as React from "react"
-import {
-  AutoSaveStatus,
-  Avatar,
-  Button,
-  ChoiceList,
-  Icon,
-  Input,
-  Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  Switch,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  Textarea,
-} from "@cyanideui/ui"
 import { Camera01Icon } from "@hugeicons/core-free-icons"
 
 /**

@@ -132,29 +132,52 @@ You can also drop the bare class on any element (`.ds-density-compact-plus`, `.d
 
 Tokens live in `packages/ui/src/styles/tokens.css`. Both palettes are exposed to Tailwind v4 via `@theme inline`, so utilities like `bg-canvas`, `text-ink-2`, `border-hairline-strong`, `bg-tone-success-bg` all work and switch automatically with `<html class="dark">`.
 
-## Starting a new app
+## Starting a new app (copy-paste, shadcn-style — no token)
 
-The fastest way to get the playground's UI (sidebar + content card + topbar + command palette + shortcuts) into a new app is the CLI:
-
-```bash
-# In your new app (after scaffolding with create-next-app / create-vite)
-pnpm add @cyanideui/ui @hugeicons/core-free-icons @hugeicons/react
-pnpm dlx @cyanideui/cli add shell-doc
-```
-
-This copies the shell — sidebar, topbar, command palette, keyboard shortcuts — into your `src/`, transformed for your framework (Next.js or Vite + React Router). Every file is yours to edit. See [`STARTER.md`](./STARTER.md) for the full walkthrough and [`packages/cli/README.md`](./packages/cli/README.md) for the command reference.
+The repo is **public** and components are **copy-paste source** — so consuming Atrium needs no npm token, no `.npmrc`, no install of a runtime library. The CLI copies real source files into your project, transformed for your framework, and they become *your* code.
 
 ```bash
-atrium list              # browse available starters
-atrium add shell-doc     # the full playground chrome
-atrium add hook-theme    # individual hooks
+# 1. Scaffold a base app
+pnpm create next-app@latest my-app --ts --app --tailwind
+cd my-app
+
+# 2. Add components — each copies its source + transitive deps into src/
+pnpm dlx @cyanideui/cli add button
+pnpm dlx @cyanideui/cli add table badge modal
+
+# 3. The CLI prints the npm deps each component needs (Radix, cva, etc.):
+pnpm add clsx tailwind-merge class-variance-authority @radix-ui/react-slot ...
 ```
 
-## Using @cyanideui/ui in another project
+`add button` lands `src/components/ui/button.tsx` + its transitive deps (`spinner`, `src/lib/utils.ts`) using `@/` path aliases — exactly like shadcn. No `@cyanideui/ui` import anywhere; the code is yours to edit.
 
-Three integration paths:
+### The full shell + templates
 
-### 1. pnpm workspace (sibling app inside this monorepo)
+```bash
+pnpm dlx @cyanideui/cli add shell-doc          # sidebar + topbar + palette + shortcuts
+pnpm dlx @cyanideui/cli add template-dashboard # a ready-made page
+pnpm dlx @cyanideui/cli list                   # browse everything (59 components, shells, templates, hooks)
+```
+
+### Tailwind wiring
+
+Add Atrium's tokens to your Tailwind entry CSS (`src/app/globals.css`):
+
+```css
+@import "@cyanideui/ui/styles/globals.css";
+```
+
+> Since components are copied into your own `src/`, Tailwind already scans them — no `@source` needed (that was only required when components lived in `node_modules`).
+
+See [`STARTER.md`](./STARTER.md) for the full walkthrough and [`packages/cli/README.md`](./packages/cli/README.md) for the command reference.
+
+## (Alternative) Using @cyanideui/ui as an installed library
+
+If you prefer a versioned install over copy-paste, the library is still published to GitHub Packages. This path needs a `read:packages` token + `.npmrc` (the cost of GitHub Packages auth). Most consumers should prefer the copy-paste flow above.
+
+### Integration paths
+
+#### 1. pnpm workspace (sibling app inside this monorepo)
 
 ```json
 // apps/your-new-app/package.json

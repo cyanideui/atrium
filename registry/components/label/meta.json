@@ -1,0 +1,25 @@
+{
+  "name": "component-label",
+  "category": "components",
+  "title": "label",
+  "description": "<label> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "label.tsx",
+      "to": "src/components/ui/label.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@radix-ui/react-label"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "component-badge",
+  "category": "components",
+  "title": "badge",
+  "description": "<badge> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "badge.tsx",
+      "to": "src/components/ui/badge.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "class-variance-authority"
+    ],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

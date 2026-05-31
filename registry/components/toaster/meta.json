@@ -1,0 +1,27 @@
+{
+  "name": "component-toaster",
+  "category": "components",
+  "title": "toaster",
+  "description": "<toaster> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "toaster.tsx",
+      "to": "src/components/ui/toaster.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "sonner"
+    ],
+    "registry": [
+      "component-icon",
+      "lib-utils"
+    ]
+  }
+}

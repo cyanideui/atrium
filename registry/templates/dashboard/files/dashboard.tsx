@@ -2,20 +2,13 @@
 "use client"
 // @atrium:endif
 
-import {
-  Badge,
-  Button,
-  Sparkline,
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-  Avatar,
-  Icon,
-  cn,
-} from "@cyanideui/ui"
+import { Avatar } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Icon } from "@/components/ui/icon"
+import { Sparkline } from "@/components/ui/sparkline"
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"
+import { cn } from "@/lib/utils"
 import {
   ArrowUpRight01Icon,
   ArrowDown01Icon,

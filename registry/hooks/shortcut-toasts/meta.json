@@ -4,7 +4,10 @@
   "title": "useShortcutToasts",
   "description": "Fires a compact ShortcutHint chip when a global UI mode changes — theme, density, sidebar collapse, body width. Deduped per mode, first-paint guarded.",
   "version": "1.0.0",
-  "frameworks": ["next", "vite-react-router"],
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
   "files": [
     {
       "from": "use-shortcut-toasts.tsx",
@@ -12,8 +15,17 @@
     }
   ],
   "dependencies": {
-    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"],
-    "registry": ["hook-theme"]
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-density",
+      "component-doc-shell",
+      "component-shortcut-hint",
+      "hook-theme"
+    ]
   },
   "postInstall": [
     "Mount useShortcutToasts() once, inside <DocShell> (so it can read sidebar collapse + body width)."

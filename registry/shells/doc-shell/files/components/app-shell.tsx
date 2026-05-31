@@ -1,5 +1,14 @@
 "use client"
 
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
+import { DocShell } from "@/components/ui/doc-shell"
+import { DocContent } from "@/components/ui/doc-shell-content"
+import { DocSidebar, DocSidebarBrand, DocSidebarSearch, DocSidebarNav, DocSidebarFooter, DocSidebarUser } from "@/components/ui/doc-shell-sidebar"
+import { Icon } from "@/components/ui/icon"
+import { Kbd } from "@/components/ui/kbd"
+import { PageShell, PageShellAction, PageShellDivider } from "@/components/ui/page-shell"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { SidebarNav, SidebarNavSection, SidebarNavParent } from "@/components/ui/sidebar-nav"
 import * as React from "react"
 // @atrium:if next
 import Link from "next/link"
@@ -8,28 +17,6 @@ import { usePathname } from "next/navigation"
 // @atrium:if vite-react-router
 import { Link, useLocation } from "react-router-dom"
 // @atrium:endif
-import {
-  DocShell,
-  DocSidebar,
-  DocSidebarBrand,
-  DocSidebarSearch,
-  DocSidebarNav,
-  DocSidebarFooter,
-  DocSidebarUser,
-  DocContent,
-  PageShell,
-  PageShellAction,
-  PageShellDivider,
-  Breadcrumbs,
-  SidebarNav,
-  SidebarNavSection,
-  SidebarNavParent,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Icon,
-  Kbd,
-} from "@cyanideui/ui"
 import {
   Settings02Icon,
   Moon02Icon,

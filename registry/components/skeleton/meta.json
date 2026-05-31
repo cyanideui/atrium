@@ -1,0 +1,23 @@
+{
+  "name": "component-skeleton",
+  "category": "components",
+  "title": "skeleton",
+  "description": "<skeleton> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "skeleton.tsx",
+      "to": "src/components/ui/skeleton.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

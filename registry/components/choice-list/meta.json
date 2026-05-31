@@ -1,0 +1,26 @@
+{
+  "name": "component-choice-list",
+  "category": "components",
+  "title": "choice-list",
+  "description": "<choice-list> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "choice-list.tsx",
+      "to": "src/components/ui/choice-list.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@radix-ui/react-radio-group"
+    ],
+    "registry": [
+      "component-checkbox",
+      "lib-utils"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "component-import-preview",
+  "category": "components",
+  "title": "import-preview",
+  "description": "<import-preview> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "import-preview.tsx",
+      "to": "src/components/ui/import-preview.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "component-badge",
+      "lib-utils"
+    ]
+  }
+}

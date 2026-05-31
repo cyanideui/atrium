@@ -1,0 +1,23 @@
+{
+  "name": "component-sticky-columns",
+  "category": "components",
+  "title": "sticky-columns",
+  "description": "<sticky-columns> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "sticky-columns.tsx",
+      "to": "src/components/ui/sticky-columns.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url"
 // so it works regardless of the cwd it's invoked from (root or packages/cli).
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, "..", "registry")
-const CATEGORIES = ["shells", "templates", "blocks", "hooks"]
+const CATEGORIES = ["shells", "templates", "blocks", "hooks", "components", "lib"]
 const REQUIRED_FIELDS = ["name", "category", "title", "description", "version", "frameworks", "files"]
 
 /** @type {import("../packages/cli/src/types").RegistryIndexEntry[]} */

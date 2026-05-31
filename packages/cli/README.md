@@ -58,22 +58,29 @@ ATRIUM_REGISTRY=file:./registry atrium list
 ATRIUM_REGISTRY=file:./registry atrium add shell-doc --dry-run
 ```
 
-## Registry items (v1)
+## Registry items
 
-| Item | What it is |
+**Components (copy-paste — Path 2, shadcn-style):** all 59 library components are available as copy-paste source. `add button` copies `src/components/ui/button.tsx` + its transitive deps (e.g. `spinner`, `src/lib/utils.ts`) using `@/` aliases. No `@cyanideui/ui` install — the code becomes yours.
+
+```bash
+atrium add button
+atrium add table badge modal select
+atrium add doc-shell          # the full app shell (pulls ~17 components transitively)
+```
+
+You can omit the category prefix: `add button` resolves to `component-button`, `add dashboard` → `template-dashboard`, etc.
+
+| Category | Examples |
 |---|---|
-| `shell-doc` | The full playground-style chrome — sidebar + content card + topbar + command palette + cheatsheet + shortcut toasts |
-| `template-dashboard` | KPI tiles + sparklines + recent-orders table |
-| `template-crud-list` | Search + filters + bulk actions + pagination + empty state |
-| `template-settings` | Tabbed sectioned form with autosave |
-| `template-detail` | Record detail — line items + workflow timeline + drawer inspector |
-| `hook-theme` | `useTheme()` backed by a shared external store |
-| `hook-shortcut-toasts` | Confirmation chips on theme/density/sidebar/width changes |
-| `hook-cheatsheet` | `?` hotkey → shortcuts modal |
+| `component-*` | All 59 UI components (button, table, modal, select, …) |
+| `shell-doc` | Full chrome — sidebar + topbar + palette + shortcuts |
+| `template-*` | dashboard, crud-list, settings, detail |
+| `hook-*` | theme, shortcut-toasts, cheatsheet |
+| `lib-*` | utils (cn), use-scroll-overlay |
 
 ## Where the registry lives
 
-The registry ships **inside** this package at `dist/registry/`. The CLI reads from there by default — no network, no auth, works with a private source repo. Override for local dev:
+The registry ships **inside** this package at `dist/registry/`, and the public source of truth is the raw GitHub URL (the repo is public). The CLI fetches the public URL by default; override for local dev:
 
 ```bash
 ATRIUM_REGISTRY=file:./registry atrium list

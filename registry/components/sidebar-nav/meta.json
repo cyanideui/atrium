@@ -1,0 +1,28 @@
+{
+  "name": "component-sidebar-nav",
+  "category": "components",
+  "title": "sidebar-nav",
+  "description": "<sidebar-nav> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "sidebar-nav.tsx",
+      "to": "src/components/ui/sidebar-nav.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons"
+    ],
+    "registry": [
+      "component-badge",
+      "component-icon",
+      "component-tooltip",
+      "lib-utils"
+    ]
+  }
+}
