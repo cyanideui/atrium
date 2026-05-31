@@ -108,7 +108,6 @@ export function BulkActionsPage() {
       <Section title="Always visible (3 selected)">
         <Demo code={`<BulkActionsBar count={3} actions={...} destructive={...} onDismiss={...} />`}>
           <BulkActionsBar
-            className="w-full"
             count={3}
             onDismiss={() => alert("clear")}
             actions={
