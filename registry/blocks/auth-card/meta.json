@@ -1,0 +1,34 @@
+{
+  "name": "block-auth-card",
+  "category": "blocks",
+  "title": "Auth card",
+  "description": "Centered sign-in card — brand mark, SSO buttons, email + password form, remember-me + forgot-password row, and a footer link. Drop on a full-height centered page.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "auth-card.tsx",
+      "to": "src/components/blocks/auth-card.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-checkbox",
+      "component-icon",
+      "component-input",
+      "component-label"
+    ]
+  },
+  "postInstall": [
+    "Wire onSubmit to your auth provider; replace the SSO handlers with real OAuth flows."
+  ]
+}

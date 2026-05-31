@@ -10,6 +10,12 @@ import {
   FilterIcon,
   Album02Icon,
   ArrowRight02Icon,
+  UserMultiple02Icon,
+  CursorMagicSelection01Icon,
+  Notification03Icon,
+  CheckListIcon,
+  DollarCircleIcon,
+  SearchList01Icon,
 } from "@hugeicons/core-free-icons"
 import { PageHeader, Section } from "../../components/page-shell"
 import type { IconSvgElement } from "@hugeicons/react"
@@ -30,6 +36,12 @@ const BLOCKS: BlockEntry[] = [
   { title: "Audit log", path: "/blocks/audit-log", icon: WorkflowSquare01Icon, description: "Chronological activity feed." },
   { title: "Filter bar", path: "/blocks/filter-bar", icon: FilterIcon, description: "Search + saved views + tags + date range." },
   { title: "Detail card", path: "/blocks/detail-card", icon: Album02Icon, description: "Key/value panel with inline edit." },
+  { title: "Auth card", path: "/blocks/auth-card", icon: UserMultiple02Icon, description: "Sign-in card with SSO + email/password." },
+  { title: "Toolbar", path: "/blocks/toolbar", icon: CursorMagicSelection01Icon, description: "Compact action bar + overflow menu." },
+  { title: "Notification feed", path: "/blocks/notification-feed", icon: Notification03Icon, description: "Grouped notifications with unread state." },
+  { title: "Form section", path: "/blocks/form-section", icon: CheckListIcon, description: "Validated form with inline errors." },
+  { title: "Pricing cards", path: "/blocks/pricing-cards", icon: DollarCircleIcon, description: "Tiered plan cards with feature lists." },
+  { title: "Command menu", path: "/blocks/command-menu-trigger", icon: SearchList01Icon, description: "⌘K trigger + palette for non-shell apps." },
 ]
 
 export function BlocksIndex() {

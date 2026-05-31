@@ -1,0 +1,33 @@
+{
+  "name": "block-pricing-cards",
+  "category": "blocks",
+  "title": "Pricing cards",
+  "description": "Responsive row of plan cards — name, price, description, feature checklist, and CTA. One plan can be featured (highlighted border + badge). Swap PLANS for your tiers.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "pricing-cards.tsx",
+      "to": "src/components/blocks/pricing-cards.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-badge",
+      "component-button",
+      "component-icon",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap PLANS for your tiers; wire each CTA to your checkout/contact flow."
+  ]
+}

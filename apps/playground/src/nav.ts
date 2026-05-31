@@ -222,6 +222,12 @@ export const NAV: NavSection[] = [
       { label: "Audit log", path: "/blocks/audit-log", status: "done", icon: WorkflowSquare01Icon },
       { label: "Filter bar", path: "/blocks/filter-bar", status: "done", icon: FilterIcon },
       { label: "Detail card", path: "/blocks/detail-card", status: "done", icon: Album02Icon },
+      { label: "Auth card", path: "/blocks/auth-card", status: "done", icon: UserMultiple02Icon },
+      { label: "Toolbar", path: "/blocks/toolbar", status: "done", icon: CursorMagicSelection01Icon },
+      { label: "Notification feed", path: "/blocks/notification-feed", status: "done", icon: Notification03Icon },
+      { label: "Form section", path: "/blocks/form-section", status: "done", icon: CheckListIcon },
+      { label: "Pricing cards", path: "/blocks/pricing-cards", status: "done", icon: DollarCircleIcon },
+      { label: "Command menu", path: "/blocks/command-menu-trigger", status: "done", icon: SearchList01Icon },
     ],
   },
 ]

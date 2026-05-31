@@ -1,0 +1,32 @@
+{
+  "name": "block-notification-feed",
+  "category": "blocks",
+  "title": "Notification feed",
+  "description": "Scrollable notification list grouped by recency — icon, title, timestamp, unread dot per item, with a mark-all-read header and a view-all footer. Use in a popover/drawer or as a standalone panel.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "notification-feed.tsx",
+      "to": "src/components/blocks/notification-feed.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-icon",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap NOTIFICATIONS for your data; wire markAllRead / per-item read to your API."
+  ]
+}

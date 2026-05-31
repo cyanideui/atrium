@@ -2254,6 +2254,20 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Registry changelog (Tier 5 — high-value blocks)
+
+**Added — 6 blocks (copy-paste, `@/components/ui/*`):**
+- `block-auth-card` — centered sign-in card: brand, SSO buttons, email/password form, remember-me + forgot-password, footer link.
+- `block-toolbar` — compact action bar (title + count + action cluster + overflow menu); lighter than PageHeader.
+- `block-notification-feed` — scrollable notifications grouped by recency, unread dots, mark-all-read.
+- `block-form-section` — validated form scaffold with a `<Field>` helper (label + control + inline error) and submit/cancel footer with busy state.
+- `block-pricing-cards` — tiered plan cards with feature checklists + CTA; one plan `featured`.
+- `block-command-menu-trigger` — ⌘K trigger button + palette wiring for apps that don't use the full DocShell.
+
+**Notes**
+- Registry index now has **84 items** (was 78). Each ships a playground showcase page under `/blocks/*`, listed in the Blocks nav section + overview grid.
+- Verified end-to-end: cold-start install (Next) of all 6 resolves the full transitive dep graph, transforms cleanly, and the generated output typechecks (exit 0). Playground builds.
+
 ### Fixes changelog (date picker + playground nav)
 
 **Fixed**

@@ -1,0 +1,33 @@
+{
+  "name": "block-command-menu-trigger",
+  "category": "blocks",
+  "title": "Command menu trigger",
+  "description": "Search-styled trigger button that opens the command palette, plus the ⌘K / Ctrl+K hotkey wiring. For apps that don't use the full DocShell. Replace the items with your routes/actions.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "command-menu-trigger.tsx",
+      "to": "src/components/blocks/command-menu-trigger.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-command-palette",
+      "component-icon",
+      "component-kbd",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Replace the palette items with your routes/actions; wire onSelect to your router."
+  ]
+}

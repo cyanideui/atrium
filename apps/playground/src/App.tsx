@@ -108,6 +108,12 @@ const SettingsSectionBlock = lazyNamed(() => import("./routes/blocks/settings-se
 const AuditLogBlock = lazyNamed(() => import("./routes/blocks/audit-log"), "AuditLogBlock")
 const FilterBarBlock = lazyNamed(() => import("./routes/blocks/filter-bar"), "FilterBarBlock")
 const DetailCardBlock = lazyNamed(() => import("./routes/blocks/detail-card"), "DetailCardBlock")
+const AuthCardBlock = lazyNamed(() => import("./routes/blocks/auth-card"), "AuthCardBlock")
+const ToolbarBlock = lazyNamed(() => import("./routes/blocks/toolbar"), "ToolbarBlock")
+const NotificationFeedBlock = lazyNamed(() => import("./routes/blocks/notification-feed"), "NotificationFeedBlock")
+const FormSectionBlock = lazyNamed(() => import("./routes/blocks/form-section"), "FormSectionBlock")
+const PricingCardsBlock = lazyNamed(() => import("./routes/blocks/pricing-cards"), "PricingCardsBlock")
+const CommandMenuTriggerBlock = lazyNamed(() => import("./routes/blocks/command-menu-trigger"), "CommandMenuTriggerBlock")
 
 /** Playground chrome — DocShell wrapping the route's content via Outlet. */
 function DocsLayout({
@@ -303,6 +309,12 @@ function AppShell() {
           <Route path="/blocks/audit-log" element={<AuditLogBlock />} />
           <Route path="/blocks/filter-bar" element={<FilterBarBlock />} />
           <Route path="/blocks/detail-card" element={<DetailCardBlock />} />
+          <Route path="/blocks/auth-card" element={<AuthCardBlock />} />
+          <Route path="/blocks/toolbar" element={<ToolbarBlock />} />
+          <Route path="/blocks/notification-feed" element={<NotificationFeedBlock />} />
+          <Route path="/blocks/form-section" element={<FormSectionBlock />} />
+          <Route path="/blocks/pricing-cards" element={<PricingCardsBlock />} />
+          <Route path="/blocks/command-menu-trigger" element={<CommandMenuTriggerBlock />} />
 
           {/* Catch-all for stub pages */}
           <Route path="/components/*" element={<TodoPage />} />

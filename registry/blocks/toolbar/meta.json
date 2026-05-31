@@ -1,0 +1,32 @@
+{
+  "name": "block-toolbar",
+  "category": "blocks",
+  "title": "Toolbar",
+  "description": "Compact action bar — title + count on the left, a primary/secondary action cluster and overflow menu on the right. Lighter than PageHeader; sits above a list, panel, or card body.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "toolbar.tsx",
+      "to": "src/components/blocks/toolbar.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-dropdown-menu",
+      "component-icon"
+    ]
+  },
+  "postInstall": [
+    "Use <Toolbar title=... count=...>{actions}</Toolbar>. Delete ToolbarDemo once wired."
+  ]
+}

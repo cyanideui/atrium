@@ -1,0 +1,33 @@
+{
+  "name": "block-form-section",
+  "category": "blocks",
+  "title": "Form section",
+  "description": "Validated form scaffold — titled section, labelled fields with inline error messages, and a submit/cancel footer with a busy state. Includes a <Field> helper (label + control + error).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "form-section.tsx",
+      "to": "src/components/blocks/form-section.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-input",
+      "component-label",
+      "component-select",
+      "component-textarea",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Replace the demo fields + validate() with your schema (zod / react-hook-form work well). The <Field> wrapper is control-agnostic."
+  ]
+}

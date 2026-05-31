@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T14:05:26.107Z",
+  "generatedAt": "2026-05-31T14:26:25.422Z",
   "items": [
     {
       "name": "block-audit-log",
@@ -9,6 +9,22 @@
       "description": "Chronological activity feed on the WorkflowTimeline primitive — actor, action, timestamp, and optional tone badge per entry. Use for record history, audit trails, and change logs.",
       "version": "1.0.0",
       "path": "blocks/audit-log"
+    },
+    {
+      "name": "block-auth-card",
+      "category": "blocks",
+      "title": "Auth card",
+      "description": "Centered sign-in card — brand mark, SSO buttons, email + password form, remember-me + forgot-password row, and a footer link. Drop on a full-height centered page.",
+      "version": "1.0.0",
+      "path": "blocks/auth-card"
+    },
+    {
+      "name": "block-command-menu-trigger",
+      "category": "blocks",
+      "title": "Command menu trigger",
+      "description": "Search-styled trigger button that opens the command palette, plus the ⌘K / Ctrl+K hotkey wiring. For apps that don't use the full DocShell. Replace the items with your routes/actions.",
+      "version": "1.0.0",
+      "path": "blocks/command-menu-trigger"
     },
     {
       "name": "block-data-table",
@@ -43,12 +59,36 @@
       "path": "blocks/filter-bar"
     },
     {
+      "name": "block-form-section",
+      "category": "blocks",
+      "title": "Form section",
+      "description": "Validated form scaffold — titled section, labelled fields with inline error messages, and a submit/cancel footer with a busy state. Includes a <Field> helper (label + control + error).",
+      "version": "1.0.0",
+      "path": "blocks/form-section"
+    },
+    {
+      "name": "block-notification-feed",
+      "category": "blocks",
+      "title": "Notification feed",
+      "description": "Scrollable notification list grouped by recency — icon, title, timestamp, unread dot per item, with a mark-all-read header and a view-all footer. Use in a popover/drawer or as a standalone panel.",
+      "version": "1.0.0",
+      "path": "blocks/notification-feed"
+    },
+    {
       "name": "block-page-header",
       "category": "blocks",
       "title": "Page header",
       "description": "Composed screen header — breadcrumbs, eyebrow, title + subtitle, an actions cluster, and an optional sticky tab row. Prop-driven and reusable across screens.",
       "version": "1.0.0",
       "path": "blocks/page-header"
+    },
+    {
+      "name": "block-pricing-cards",
+      "category": "blocks",
+      "title": "Pricing cards",
+      "description": "Responsive row of plan cards — name, price, description, feature checklist, and CTA. One plan can be featured (highlighted border + badge). Swap PLANS for your tiers.",
+      "version": "1.0.0",
+      "path": "blocks/pricing-cards"
     },
     {
       "name": "block-settings-section",
@@ -65,6 +105,14 @@
       "description": "Responsive KPI tile row — value, trend delta, and inline sparkline per metric. Drop at the top of any overview/dashboard screen.",
       "version": "1.0.0",
       "path": "blocks/stat-cards"
+    },
+    {
+      "name": "block-toolbar",
+      "category": "blocks",
+      "title": "Toolbar",
+      "description": "Compact action bar — title + count on the left, a primary/secondary action cluster and overflow menu on the right. Lighter than PageHeader; sits above a list, panel, or card body.",
+      "version": "1.0.0",
+      "path": "blocks/toolbar"
     },
     {
       "name": "component-accordion",

@@ -165,7 +165,8 @@ npx cyanideui list                   # browse everything (59 components, shells,
 
 **Blocks** are composed, drop-in sections (copy-paste, importing your local `@/components/ui/*`):
 `stat-cards`, `data-table`, `page-header`, `empty-state`, `settings-section`, `audit-log`,
-`filter-bar`, `detail-card`. They land in `src/components/blocks/`.
+`filter-bar`, `detail-card`, `auth-card`, `toolbar`, `notification-feed`, `form-section`,
+`pricing-cards`, `command-menu-trigger`. They land in `src/components/blocks/`.
 
 ### Tailwind wiring
 
