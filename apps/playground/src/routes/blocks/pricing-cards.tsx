@@ -39,7 +39,7 @@ export function PricingCardsBlock() {
                 <ul className="mt-5 flex flex-col gap-2.5 border-t border-hairline pt-5">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-[13px] text-ink-2">
-                      <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-pill bg-tone-success-bg text-tone-success-fg">
+                      <span aria-hidden className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-pill bg-tone-success-bg text-tone-success-fg">
                         <Icon icon={Tick02Icon} size={10} strokeWidth={2.5} />
                       </span>
                       {f}

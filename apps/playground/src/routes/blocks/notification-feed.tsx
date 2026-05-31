@@ -73,7 +73,7 @@ export function NotificationFeedBlock() {
                     <div className="sticky top-0 z-[1] bg-canvas/85 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-4 backdrop-blur-[3px]">{group}</div>
                     {gi.map((n) => (
                       <button key={n.id} type="button" onClick={() => markRead(n.id)} className={cn("flex w-full items-start gap-3 px-4 py-2.5 text-left transition-colors duration-[var(--dur-fast)] hover:bg-surface", !n.read && "bg-info-tint/40")}>
-                        <span className={cn("mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-pill", TONE_BG[n.tone])}>
+                        <span className={cn("mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-pill", TONE_BG[n.tone])} aria-hidden>
                           <Icon icon={n.icon} size={14} />
                         </span>
                         <span className="min-w-0 flex-1">
@@ -81,7 +81,12 @@ export function NotificationFeedBlock() {
                           {n.body && <span className="mt-0.5 block truncate text-[12px] text-ink-3">{n.body}</span>}
                           <span className="mt-0.5 block text-[11px] text-ink-4">{n.at}</span>
                         </span>
-                        {!n.read && <span aria-label="Unread" className="mt-1.5 h-2 w-2 shrink-0 rounded-pill bg-info" />}
+                        {!n.read && (
+                          <>
+                            <span className="sr-only">Unread</span>
+                            <span aria-hidden className="mt-1.5 h-2 w-2 shrink-0 rounded-pill bg-info" />
+                          </>
+                        )}
                       </button>
                     ))}
                   </div>

@@ -34,17 +34,32 @@ export function Field({
   required?: boolean
   children: React.ReactNode
 }) {
+  const describedById = error ? `${htmlFor}-error` : hint ? `${htmlFor}-hint` : undefined
   return (
     <div className="grid gap-1.5">
       <Label htmlFor={htmlFor}>
         {label}
-        {required && <span className="ml-0.5 text-error">*</span>}
+        {required && (
+          <span className="ml-0.5 text-error" aria-hidden>
+            *
+          </span>
+        )}
       </Label>
-      {children}
+      {/* Clone the control to wire aria-describedby → the error/hint below, so
+          screen readers announce validation messages tied to the field. */}
+      {React.isValidElement(children)
+        ? React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+            "aria-describedby": describedById,
+          })
+        : children}
       {error ? (
-        <p className="m-0 text-[12px] text-error">{error}</p>
+        <p id={`${htmlFor}-error`} role="alert" className="m-0 text-[12px] text-error">
+          {error}
+        </p>
       ) : hint ? (
-        <p className="m-0 text-[12px] text-ink-3">{hint}</p>
+        <p id={`${htmlFor}-hint`} className="m-0 text-[12px] text-ink-3">
+          {hint}
+        </p>
       ) : null}
     </div>
   )

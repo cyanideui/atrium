@@ -17,11 +17,14 @@ import { CodeBlock } from "../../components/code-block"
 interface Values { name: string; email: string; role: string; notes: string }
 
 function Field({ label, htmlFor, error, hint, required, children }: { label: React.ReactNode; htmlFor: string; error?: string; hint?: string; required?: boolean; children: React.ReactNode }) {
+  const describedById = error ? `${htmlFor}-error` : hint ? `${htmlFor}-hint` : undefined
   return (
     <div className="grid gap-1.5">
-      <Label htmlFor={htmlFor}>{label}{required && <span className="ml-0.5 text-error">*</span>}</Label>
-      {children}
-      {error ? <p className="m-0 text-[12px] text-error">{error}</p> : hint ? <p className="m-0 text-[12px] text-ink-3">{hint}</p> : null}
+      <Label htmlFor={htmlFor}>{label}{required && <span className="ml-0.5 text-error" aria-hidden>*</span>}</Label>
+      {React.isValidElement(children)
+        ? React.cloneElement(children as React.ReactElement<Record<string, unknown>>, { "aria-describedby": describedById })
+        : children}
+      {error ? <p id={`${htmlFor}-error`} role="alert" className="m-0 text-[12px] text-error">{error}</p> : hint ? <p id={`${htmlFor}-hint`} className="m-0 text-[12px] text-ink-3">{hint}</p> : null}
     </div>
   )
 }
