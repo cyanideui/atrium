@@ -48,6 +48,7 @@ const SpinnerPage = lazyNamed(() => import("./routes/components/spinner"), "Spin
 const ModalPage = lazyNamed(() => import("./routes/components/modal"), "ModalPage")
 const TablePage = lazyNamed(() => import("./routes/components/table"), "TablePage")
 const DropdownMenuPage = lazyNamed(() => import("./routes/components/dropdown-menu"), "DropdownMenuPage")
+const CardPage = lazyNamed(() => import("./routes/components/card"), "CardPage")
 
 const AvatarPage = lazyNamed(() => import("./routes/components/avatar"), "AvatarPage")
 const AvatarGroupPage = lazyNamed(() => import("./routes/components/avatar-group"), "AvatarGroupPage")
@@ -255,6 +256,7 @@ function AppShell() {
           <Route path="/components/modal" element={<ModalPage />} />
           <Route path="/components/table" element={<TablePage />} />
           <Route path="/components/dropdown-menu" element={<DropdownMenuPage />} />
+          <Route path="/components/card" element={<CardPage />} />
 
           <Route path="/components/avatar" element={<AvatarPage />} />
           <Route path="/components/avatar-group" element={<AvatarGroupPage />} />

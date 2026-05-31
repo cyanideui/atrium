@@ -3,6 +3,7 @@
 // @atrium:endif
 
 import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Icon } from "@/components/ui/icon"
 import { cn } from "@/lib/utils"
 import * as React from "react"
@@ -60,10 +61,10 @@ export function NotificationFeed() {
   const groups = ["Today", "Earlier"] as const
 
   return (
-    <section className="flex w-full max-w-[400px] flex-col overflow-hidden rounded-md border border-hairline bg-canvas">
-      <header className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2.5">
+    <Card className="flex w-full max-w-[400px] flex-col">
+      <CardHeader>
         <div className="flex items-center gap-2">
-          <h2 className="m-0 text-[13px] font-semibold text-ink">Notifications</h2>
+          <CardTitle>Notifications</CardTitle>
           {unread > 0 && (
             <span className="flex h-4 min-w-4 items-center justify-center rounded-pill bg-ink px-1 text-[10px] font-semibold tabular-nums text-canvas">
               {unread}
@@ -73,7 +74,7 @@ export function NotificationFeed() {
         <Button variant="tertiary" size="sm" onClick={markAllRead} disabled={unread === 0}>
           Mark all read
         </Button>
-      </header>
+      </CardHeader>
 
       <div className="ds-scroll-overlay max-h-[360px] overflow-y-auto">
         {groups.map((group) => {
@@ -121,6 +122,6 @@ export function NotificationFeed() {
           View all notifications
         </a>
       </footer>
-    </section>
+    </Card>
   )
 }

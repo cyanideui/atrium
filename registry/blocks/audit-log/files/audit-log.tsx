@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardHeader, CardTitle, CardBody } from "@/components/ui/card"
 import { WorkflowTimeline, WorkflowTimelineItem } from "@/components/ui/workflow-timeline"
 
 /**
@@ -30,11 +31,11 @@ const ENTRIES: AuditEntry[] = [
 
 export function AuditLog() {
   return (
-    <section className="rounded-md border border-hairline bg-canvas">
-      <header className="border-b border-hairline px-4 py-2.5">
-        <h2 className="m-0 text-[13px] font-semibold text-ink">Activity</h2>
-      </header>
-      <div className="p-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Activity</CardTitle>
+      </CardHeader>
+      <CardBody>
         <WorkflowTimeline>
           {ENTRIES.map((entry, i) => (
             <WorkflowTimelineItem
@@ -55,7 +56,7 @@ export function AuditLog() {
             />
           ))}
         </WorkflowTimeline>
-      </div>
-    </section>
+      </CardBody>
+    </Card>
   )
 }

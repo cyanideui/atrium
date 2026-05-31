@@ -27,8 +27,11 @@
       "component-banner",
       "component-breadcrumbs",
       "component-button",
+      "component-card",
       "component-drawer",
       "component-icon",
+      "component-key-value",
+      "component-table",
       "component-workflow-timeline"
     ]
   },

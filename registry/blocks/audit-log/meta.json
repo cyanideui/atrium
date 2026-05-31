@@ -21,6 +21,7 @@
     "registry": [
       "component-avatar",
       "component-badge",
+      "component-card",
       "component-workflow-timeline"
     ]
   },

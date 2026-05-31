@@ -2256,6 +2256,17 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Component changelog (Card + KeyValue primitives + consolidation)
+
+**Added**
+- `<Card>` family (`Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardBody`, `CardFooter`) — the system's surface primitive (§5.34). Header/footer carry hairline dividers; body owns padding; the root clips to rounded corners. Replaces the hand-rolled `section + header + div` card chrome that had drifted across templates and blocks (some used `text-[13px]` headers, others `text-[14px]`; some `px-4 py-2.5`, others `p-5`).
+- `<KeyValueList>` + `<KeyValue>` (§5.35) — the label→value detail-panel pattern, with `inline` (default) and `stacked` layouts. Replaces the ad-hoc `KV` helpers each template/block re-declared.
+- Smoke tests for both (library suite: 54 → 60 tests). Showcase at `/components/card`.
+
+**Changed (consolidation onto the primitives)**
+- `template-detail` — now built on `Card` + `KeyValue` + `<Table fixed>` (was a raw `<table>`); also fixed the wrong `PhoneOff01Icon` → `Call02Icon` on the Call button.
+- Blocks `detail-card`, `audit-log`, `metric-comparison`, `notification-feed` — refactored onto `Card`; each gained `component-card` as a registry dep. Verified: cold-start install + typecheck (exit 0).
+
 ### Registry changelog (Tier 6 — workflow blocks)
 
 **Added — 6 blocks (copy-paste, `@/components/ui/*`):**

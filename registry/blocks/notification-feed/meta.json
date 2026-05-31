@@ -22,6 +22,7 @@
     ],
     "registry": [
       "component-button",
+      "component-card",
       "component-icon",
       "lib-utils"
     ]

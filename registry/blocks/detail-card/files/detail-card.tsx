@@ -4,6 +4,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardAction } from "@/components/ui/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -56,28 +57,30 @@ export function DetailCard() {
     setFields((prev) => prev.map((f) => (f.key === key ? { ...f, value: next } : f)))
 
   return (
-    <section className="overflow-hidden rounded-md border border-hairline bg-canvas">
-      <header className="flex items-center justify-between gap-3 border-b border-hairline px-4 py-2.5">
+    <Card>
+      <CardHeader>
         <div className="flex items-center gap-2">
-          <h2 className="m-0 text-[13px] font-semibold text-ink">Customer</h2>
+          <CardTitle>Customer</CardTitle>
           <Badge tone="success" size="sm">Active</Badge>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="tertiary" size="sm" aria-label="Card actions">
-              <Icon icon={MoreHorizontalIcon} size="sm" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</DropdownMenuItem>
-            <DropdownMenuItem leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem tone="critical" leading={<Icon icon={Delete02Icon} size="sm" />}>
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </header>
+        <CardAction>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="tertiary" size="sm" aria-label="Card actions">
+                <Icon icon={MoreHorizontalIcon} size="sm" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</DropdownMenuItem>
+              <DropdownMenuItem leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem tone="critical" leading={<Icon icon={Delete02Icon} size="sm" />}>
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </CardAction>
+      </CardHeader>
       <dl className="m-0 flex flex-col divide-y divide-hairline">
         {fields.map((f) => (
           <div
@@ -101,6 +104,6 @@ export function DetailCard() {
           </div>
         ))}
       </dl>
-    </section>
+    </Card>
   )
 }

@@ -167,6 +167,7 @@ export const NAV: NavSection[] = [
         icon: TableIcon,
         entries: [
           { label: "Table", path: "/components/table", status: "done", icon: TableIcon },
+          { label: "Card", path: "/components/card", status: "done", icon: Album02Icon },
           { label: "Inline Edit", path: "/components/inline-edit", status: "done", icon: Edit02Icon },
           { label: "Sticky Columns", path: "/components/sticky-columns", status: "done", icon: Drag01Icon },
           { label: "Bulk Actions Bar", path: "/components/bulk-actions", status: "done", icon: CheckListIcon },

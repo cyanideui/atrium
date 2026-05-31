@@ -23,6 +23,7 @@
     "registry": [
       "component-badge",
       "component-button",
+      "component-card",
       "component-dropdown-menu",
       "component-icon",
       "component-inline-edit"

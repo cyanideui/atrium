@@ -1,3 +1,4 @@
+import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Icon } from "@/components/ui/icon"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
@@ -40,11 +41,11 @@ export function MetricComparison() {
   const max = Math.max(...METRICS.map((m) => m.current))
 
   return (
-    <section className="rounded-md border border-hairline bg-canvas">
-      <header className="flex items-center justify-between gap-3 border-b border-hairline px-4 py-2.5">
-        <h2 className="m-0 text-[13px] font-semibold text-ink">This month vs last</h2>
+    <Card>
+      <CardHeader>
+        <CardTitle>This month vs last</CardTitle>
         <span className="text-[11px] uppercase tracking-wider text-ink-4">May vs Apr</span>
-      </header>
+      </CardHeader>
       <ul className="m-0 flex list-none flex-col divide-y divide-hairline p-0">
         {METRICS.map((m) => {
           const delta = pct(m.current, m.previous)
@@ -77,6 +78,6 @@ export function MetricComparison() {
           )
         })}
       </ul>
-    </section>
+    </Card>
   )
 }
