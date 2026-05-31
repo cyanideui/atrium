@@ -1,0 +1,30 @@
+{
+  "name": "block-comment-thread",
+  "category": "blocks",
+  "title": "Comment thread",
+  "description": "A list of comments (avatar, author, timestamp, body) with a reply composer at the bottom. Use for record discussions, review threads, activity comments. Composer is controlled and clears on submit.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "comment-thread.tsx",
+      "to": "src/components/blocks/comment-thread.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-avatar",
+      "component-button",
+      "component-textarea"
+    ]
+  },
+  "postInstall": [
+    "Swap INITIAL_COMMENTS for your data; wire onSubmit to your API."
+  ]
+}

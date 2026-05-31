@@ -1,0 +1,32 @@
+{
+  "name": "block-calendar-month",
+  "category": "blocks",
+  "title": "Calendar (month)",
+  "description": "Month grid with event chips per day — navigable by month, highlights today, dims out-of-month days, shows up to 3 events per cell with a +N more overflow. Pure date math, no calendar library.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "calendar-month.tsx",
+      "to": "src/components/blocks/calendar-month.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-icon",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap EVENTS (keyed by ISO date 'YYYY-MM-DD') for your data."
+  ]
+}

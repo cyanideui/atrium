@@ -59,6 +59,7 @@ import {
   WorkflowSquare01Icon,
   ListViewIcon,
   Drag01Icon,
+  Comment01Icon,
 } from "@hugeicons/core-free-icons"
 
 export type NavStatus = "done" | "todo"
@@ -228,6 +229,12 @@ export const NAV: NavSection[] = [
       { label: "Form section", path: "/blocks/form-section", status: "done", icon: CheckListIcon },
       { label: "Pricing cards", path: "/blocks/pricing-cards", status: "done", icon: DollarCircleIcon },
       { label: "Command menu", path: "/blocks/command-menu-trigger", status: "done", icon: SearchList01Icon },
+      { label: "Metric comparison", path: "/blocks/metric-comparison", status: "done", icon: ChartLineData01Icon },
+      { label: "File list", path: "/blocks/file-list", status: "done", icon: CloudUploadIcon },
+      { label: "Comment thread", path: "/blocks/comment-thread", status: "done", icon: Comment01Icon },
+      { label: "Wizard", path: "/blocks/wizard", status: "done", icon: ChartUpIcon },
+      { label: "Calendar (month)", path: "/blocks/calendar-month", status: "done", icon: Calendar03Icon },
+      { label: "Kanban board", path: "/blocks/kanban-board", status: "done", icon: Drag01Icon },
     ],
   },
 ]

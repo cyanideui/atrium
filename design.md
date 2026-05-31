@@ -2256,6 +2256,28 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Registry changelog (Tier 6 — workflow blocks)
+
+**Added — 6 blocks (copy-paste, `@/components/ui/*`):**
+- `block-kanban-board` — status columns of draggable cards (native HTML5 drag-and-drop, no extra dep; drop-target highlight).
+- `block-calendar-month` — month grid with event chips, month nav, today highlight, +N more overflow (pure date math).
+- `block-file-list` — uploaded-files list with type icon, size, upload-progress bar / done check, remove button.
+- `block-comment-thread` — comments (avatar/author/timestamp/body) + a controlled reply composer.
+- `block-wizard` — multi-step flow shell on `<Stepper>` with Back/Next/Finish + per-step validation gating.
+- `block-metric-comparison` — this-period vs last-period rows with signed delta + bar; `goodWhenUp` flips delta color.
+
+**Notes**
+- Registry index now has **90 items** (was 84). Each ships a playground showcase page under `/blocks/*`, in the Blocks nav + overview grid.
+- Verified end-to-end: cold-start install (Next) of all 6 resolves transitive deps, transforms cleanly, and the generated output typechecks (exit 0). Playground builds.
+
+### Block accessibility pass (§1b)
+
+**Fixed**
+- `block-form-section` — the `<Field>` helper now wires `aria-describedby` from the control to its error/hint text and marks the error `role="alert"`, so screen readers announce validation. Required asterisk is `aria-hidden`.
+- `block-notification-feed` — unread state exposed via `sr-only` text (was a non-announced `aria-label` on a dot); the tone icon is `aria-hidden`.
+- `block-pricing-cards` — decorative feature ticks marked `aria-hidden`.
+- (The other blocks compose already-§1b-stable components; icon-only buttons across all blocks carry `aria-label`.)
+
 ### Component changelog (WorkflowTimeline density)
 
 **Changed**

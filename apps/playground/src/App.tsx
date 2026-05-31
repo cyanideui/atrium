@@ -114,6 +114,12 @@ const NotificationFeedBlock = lazyNamed(() => import("./routes/blocks/notificati
 const FormSectionBlock = lazyNamed(() => import("./routes/blocks/form-section"), "FormSectionBlock")
 const PricingCardsBlock = lazyNamed(() => import("./routes/blocks/pricing-cards"), "PricingCardsBlock")
 const CommandMenuTriggerBlock = lazyNamed(() => import("./routes/blocks/command-menu-trigger"), "CommandMenuTriggerBlock")
+const MetricComparisonBlock = lazyNamed(() => import("./routes/blocks/metric-comparison"), "MetricComparisonBlock")
+const FileListBlock = lazyNamed(() => import("./routes/blocks/file-list"), "FileListBlock")
+const CommentThreadBlock = lazyNamed(() => import("./routes/blocks/comment-thread"), "CommentThreadBlock")
+const WizardBlock = lazyNamed(() => import("./routes/blocks/wizard"), "WizardBlock")
+const CalendarMonthBlock = lazyNamed(() => import("./routes/blocks/calendar-month"), "CalendarMonthBlock")
+const KanbanBoardBlock = lazyNamed(() => import("./routes/blocks/kanban-board"), "KanbanBoardBlock")
 
 /** Playground chrome — DocShell wrapping the route's content via Outlet. */
 function DocsLayout({
@@ -315,6 +321,12 @@ function AppShell() {
           <Route path="/blocks/form-section" element={<FormSectionBlock />} />
           <Route path="/blocks/pricing-cards" element={<PricingCardsBlock />} />
           <Route path="/blocks/command-menu-trigger" element={<CommandMenuTriggerBlock />} />
+          <Route path="/blocks/metric-comparison" element={<MetricComparisonBlock />} />
+          <Route path="/blocks/file-list" element={<FileListBlock />} />
+          <Route path="/blocks/comment-thread" element={<CommentThreadBlock />} />
+          <Route path="/blocks/wizard" element={<WizardBlock />} />
+          <Route path="/blocks/calendar-month" element={<CalendarMonthBlock />} />
+          <Route path="/blocks/kanban-board" element={<KanbanBoardBlock />} />
 
           {/* Catch-all for stub pages */}
           <Route path="/components/*" element={<TodoPage />} />

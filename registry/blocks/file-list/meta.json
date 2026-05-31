@@ -1,0 +1,32 @@
+{
+  "name": "block-file-list",
+  "category": "blocks",
+  "title": "File list",
+  "description": "List of uploaded/attached files — type icon, name, size, an upload-progress bar (while uploading) or a done check (when complete), plus a remove button. Pairs with FileUpload.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "file-list.tsx",
+      "to": "src/components/blocks/file-list.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-icon",
+      "component-progress"
+    ]
+  },
+  "postInstall": [
+    "Swap INITIAL_FILES for your upload state; wire onRemove to your handler. Drop it under a <FileUpload> dropzone."
+  ]
+}

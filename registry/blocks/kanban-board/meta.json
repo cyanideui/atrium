@@ -1,0 +1,30 @@
+{
+  "name": "block-kanban-board",
+  "category": "blocks",
+  "title": "Kanban board",
+  "description": "Status columns of draggable cards using native HTML5 drag-and-drop (no extra dependency). Drag a card to another column to move it; the target column highlights on drag-over. For heavy boards, swap in dnd-kit.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "kanban-board.tsx",
+      "to": "src/components/blocks/kanban-board.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-avatar",
+      "component-badge",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap COLUMNS for your data; wire onMove to persist card moves. For virtualized/touch/multi-drag boards, reach for dnd-kit."
+  ]
+}

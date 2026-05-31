@@ -34,3 +34,6 @@ lerna-debug.log*
 
 # Scratch / temp test dirs (CLI e2e runs)
 tmp-*/
+
+# Scratch experiments
+transitions-comparison.html

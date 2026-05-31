@@ -1,0 +1,31 @@
+{
+  "name": "block-wizard",
+  "category": "blocks",
+  "title": "Wizard",
+  "description": "Multi-step flow shell built on <Stepper> — owns the step index, renders the active step, and wires Back / Next / Finish with per-step validation gating (Next disabled until the step is valid).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "wizard.tsx",
+      "to": "src/components/blocks/wizard.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "react"
+    ],
+    "registry": [
+      "component-button",
+      "component-input",
+      "component-label",
+      "component-stepper"
+    ]
+  },
+  "postInstall": [
+    "Replace STEPS + the step bodies + the validate logic with your flow. The navigation/gating shell is the reusable part."
+  ]
+}

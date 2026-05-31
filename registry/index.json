@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-31T15:07:07.606Z",
+  "generatedAt": "2026-05-31T17:49:03.991Z",
   "items": [
     {
       "name": "block-audit-log",
@@ -19,12 +19,28 @@
       "path": "blocks/auth-card"
     },
     {
+      "name": "block-calendar-month",
+      "category": "blocks",
+      "title": "Calendar (month)",
+      "description": "Month grid with event chips per day — navigable by month, highlights today, dims out-of-month days, shows up to 3 events per cell with a +N more overflow. Pure date math, no calendar library.",
+      "version": "1.0.0",
+      "path": "blocks/calendar-month"
+    },
+    {
       "name": "block-command-menu-trigger",
       "category": "blocks",
       "title": "Command menu trigger",
       "description": "Search-styled trigger button that opens the command palette, plus the ⌘K / Ctrl+K hotkey wiring. For apps that don't use the full DocShell. Replace the items with your routes/actions.",
       "version": "1.0.0",
       "path": "blocks/command-menu-trigger"
+    },
+    {
+      "name": "block-comment-thread",
+      "category": "blocks",
+      "title": "Comment thread",
+      "description": "A list of comments (avatar, author, timestamp, body) with a reply composer at the bottom. Use for record discussions, review threads, activity comments. Composer is controlled and clears on submit.",
+      "version": "1.0.0",
+      "path": "blocks/comment-thread"
     },
     {
       "name": "block-data-table",
@@ -51,6 +67,14 @@
       "path": "blocks/empty-state"
     },
     {
+      "name": "block-file-list",
+      "category": "blocks",
+      "title": "File list",
+      "description": "List of uploaded/attached files — type icon, name, size, an upload-progress bar (while uploading) or a done check (when complete), plus a remove button. Pairs with FileUpload.",
+      "version": "1.0.0",
+      "path": "blocks/file-list"
+    },
+    {
       "name": "block-filter-bar",
       "category": "blocks",
       "title": "Filter bar",
@@ -65,6 +89,22 @@
       "description": "Validated form scaffold — titled section, labelled fields with inline error messages, and a submit/cancel footer with a busy state. Includes a <Field> helper (label + control + error).",
       "version": "1.0.0",
       "path": "blocks/form-section"
+    },
+    {
+      "name": "block-kanban-board",
+      "category": "blocks",
+      "title": "Kanban board",
+      "description": "Status columns of draggable cards using native HTML5 drag-and-drop (no extra dependency). Drag a card to another column to move it; the target column highlights on drag-over. For heavy boards, swap in dnd-kit.",
+      "version": "1.0.0",
+      "path": "blocks/kanban-board"
+    },
+    {
+      "name": "block-metric-comparison",
+      "category": "blocks",
+      "title": "Metric comparison",
+      "description": "This-period vs last-period metrics — current value, prior value, signed delta, and a bar scaled to the group max per row. `goodWhenUp` flips the delta color for metrics where down is better (churn, cost).",
+      "version": "1.0.0",
+      "path": "blocks/metric-comparison"
     },
     {
       "name": "block-notification-feed",
@@ -113,6 +153,14 @@
       "description": "Compact action bar — title + count on the left, a primary/secondary action cluster and overflow menu on the right. Lighter than PageHeader; sits above a list, panel, or card body.",
       "version": "1.0.0",
       "path": "blocks/toolbar"
+    },
+    {
+      "name": "block-wizard",
+      "category": "blocks",
+      "title": "Wizard",
+      "description": "Multi-step flow shell built on <Stepper> — owns the step index, renders the active step, and wires Back / Next / Finish with per-step validation gating (Next disabled until the step is valid).",
+      "version": "1.0.0",
+      "path": "blocks/wizard"
     },
     {
       "name": "component-accordion",

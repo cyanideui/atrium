@@ -16,6 +16,11 @@ import {
   CheckListIcon,
   DollarCircleIcon,
   SearchList01Icon,
+  ChartLineData01Icon,
+  CloudUploadIcon,
+  Comment01Icon,
+  Calendar03Icon,
+  Drag01Icon,
 } from "@hugeicons/core-free-icons"
 import { PageHeader, Section } from "../../components/page-shell"
 import type { IconSvgElement } from "@hugeicons/react"
@@ -42,6 +47,12 @@ const BLOCKS: BlockEntry[] = [
   { title: "Form section", path: "/blocks/form-section", icon: CheckListIcon, description: "Validated form with inline errors." },
   { title: "Pricing cards", path: "/blocks/pricing-cards", icon: DollarCircleIcon, description: "Tiered plan cards with feature lists." },
   { title: "Command menu", path: "/blocks/command-menu-trigger", icon: SearchList01Icon, description: "⌘K trigger + palette for non-shell apps." },
+  { title: "Metric comparison", path: "/blocks/metric-comparison", icon: ChartLineData01Icon, description: "This-period vs last-period with delta bars." },
+  { title: "File list", path: "/blocks/file-list", icon: CloudUploadIcon, description: "Uploaded files with progress + remove." },
+  { title: "Comment thread", path: "/blocks/comment-thread", icon: Comment01Icon, description: "Comments + reply composer." },
+  { title: "Wizard", path: "/blocks/wizard", icon: ChartUpIcon, description: "Multi-step flow with validation gating." },
+  { title: "Calendar (month)", path: "/blocks/calendar-month", icon: Calendar03Icon, description: "Month grid with event chips." },
+  { title: "Kanban board", path: "/blocks/kanban-board", icon: Drag01Icon, description: "Draggable status columns." },
 ]
 
 export function BlocksIndex() {

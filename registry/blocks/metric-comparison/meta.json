@@ -1,0 +1,32 @@
+{
+  "name": "block-metric-comparison",
+  "category": "blocks",
+  "title": "Metric comparison",
+  "description": "This-period vs last-period metrics — current value, prior value, signed delta, and a bar scaled to the group max per row. `goodWhenUp` flips the delta color for metrics where down is better (churn, cost).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "metric-comparison.tsx",
+      "to": "src/components/blocks/metric-comparison.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-icon",
+      "component-progress",
+      "lib-utils"
+    ]
+  },
+  "postInstall": [
+    "Swap METRICS for your data; set goodWhenUp:false on metrics where a decrease is good."
+  ]
+}
