@@ -11,7 +11,7 @@ import {
   CommandPaletteList,
 } from "@/components/ui/command-palette"
 import { Icon } from "@/components/ui/icon"
-import { Kbd } from "@/components/ui/kbd"
+import { KbdShortcut } from "@/components/ui/kbd"
 import { cn } from "@/lib/utils"
 import * as React from "react"
 import {
@@ -27,8 +27,12 @@ import {
  * palette, plus the ⌘K / Ctrl+K hotkey wiring. Drop it in a topbar or sidebar
  * for apps that don't use the full DocShell (which already bundles a palette).
  *
+ * Styling matches the system's sidebar search trigger: the `ds-sb-search`
+ * Polaris chrome (ships in @cyanideui/ui's globals.css) + a `⌘ + K` keycap
+ * combo via <KbdShortcut>.
+ *
  * Replace the palette items with your routes/actions; wire onSelect to your
- * router. The trigger is keyboard-accessible and shows the ⌘K hint.
+ * router.
  */
 
 export function CommandMenuTrigger({ className }: { className?: string }) {
@@ -56,14 +60,14 @@ export function CommandMenuTrigger({ className }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "group flex h-8 w-full max-w-[260px] items-center gap-2 rounded-md border border-hairline-strong bg-canvas px-2.5 text-[13px] text-ink-4",
-          "transition-colors duration-[var(--dur-fast)] hover:border-ink-3 hover:text-ink-3",
+          "ds-sb-search flex h-8 w-full max-w-[280px] cursor-pointer items-center gap-2 rounded-sm border px-2.5 text-[13px] text-ink-3",
+          "transition-[background,border-color,color] duration-[var(--dur-base)] ease-[var(--ease-standard)]",
           className,
         )}
       >
-        <Icon icon={Search01Icon} size={15} className="shrink-0" aria-hidden />
-        <span className="flex-1 text-left">Search…</span>
-        <Kbd size="sm">⌘K</Kbd>
+        <Icon icon={Search01Icon} size={14} className="shrink-0" aria-hidden />
+        <span className="flex-1 truncate text-left">Search…</span>
+        <KbdShortcut size="sm" className="shrink-0">⌘K</KbdShortcut>
       </button>
 
       <CommandPalette open={open} onOpenChange={setOpen}>

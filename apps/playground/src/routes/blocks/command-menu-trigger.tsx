@@ -1,6 +1,5 @@
 import * as React from "react"
 import {
-  Button,
   CommandPalette,
   CommandPaletteEmpty,
   CommandPaletteGroup,
@@ -8,7 +7,7 @@ import {
   CommandPaletteItem,
   CommandPaletteList,
   Icon,
-  Kbd,
+  KbdShortcut,
 } from "@cyanideui/ui"
 import {
   Search01Icon,
@@ -32,7 +31,7 @@ export function CommandMenuTriggerBlock() {
         eyebrow="Blocks"
         title="Command menu trigger"
         status="stable"
-        description="Search-styled trigger button that opens the command palette, plus the ⌘K / Ctrl+K hotkey wiring. For apps that don't use the full DocShell (which already bundles a palette)."
+        description="Search-styled trigger button that opens the command palette, plus the ⌘K / Ctrl+K hotkey wiring. Matches the system's sidebar search chrome. For apps that don't use the full DocShell (which already bundles a palette)."
       />
 
       <Section title="Preview" description="Click the trigger to open the palette. The installed block also binds ⌘K.">
@@ -40,11 +39,11 @@ export function CommandMenuTriggerBlock() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="group flex h-8 w-full max-w-[260px] items-center gap-2 rounded-md border border-hairline-strong bg-canvas px-2.5 text-[13px] text-ink-4 transition-colors duration-[var(--dur-fast)] hover:border-ink-3 hover:text-ink-3"
+            className="ds-sb-search flex h-8 w-full max-w-[280px] cursor-pointer items-center gap-2 rounded-sm border px-2.5 text-[13px] text-ink-3 transition-[background,border-color,color] duration-[var(--dur-base)] ease-[var(--ease-standard)]"
           >
-            <Icon icon={Search01Icon} size={15} className="shrink-0" aria-hidden />
-            <span className="flex-1 text-left">Search…</span>
-            <Kbd size="sm">⌘K</Kbd>
+            <Icon icon={Search01Icon} size={14} className="shrink-0" aria-hidden />
+            <span className="flex-1 truncate text-left">Search…</span>
+            <KbdShortcut size="sm" className="shrink-0">⌘K</KbdShortcut>
           </button>
 
           <CommandPalette open={open} onOpenChange={setOpen}>
