@@ -1,10 +1,35 @@
-# Publishing Atrium (@cyanideui)
+# Publishing Cyanide UI
 
-Both packages publish to **GitHub Packages** (private npm registry) under the **`cyanideui`** GitHub org. The npm scope `@cyanideui` matches the org name (a hard GitHub Packages requirement). The registry ships *inside* `@cyanideui/cli`, so consumers never fetch from GitHub raw URLs.
+Two packages, two registries:
 
-- Library: `@cyanideui/ui`
-- CLI: `@cyanideui/cli`
-- Repo: https://github.com/cyanideui/atrium (private)
+| Package | Registry | Why |
+|---|---|---|
+| `@cyanideui/ui` (library) | GitHub Packages (scoped) | Versioned install; can stay access-controlled |
+| `cyanideui` (CLI) | **public npmjs.com** (unscoped) | So `pnpm dlx cyanideui` is tokenless, like `npx shadcn` |
+
+The registry (component source) is fetched from the **public raw-GitHub URL** — no auth, since the repo is public. So the *consumer* experience is fully tokenless: `pnpm dlx cyanideui add button` needs nothing.
+
+- Repo: https://github.com/cyanideui/atrium (public)
+- Public CLI: https://www.npmjs.com/package/cyanideui (after first publish)
+
+---
+
+## Publishing the public CLI (`cyanideui`) to npmjs.com
+
+One-time:
+1. Create a free account at https://www.npmjs.com
+2. `npm login` (or create an **automation token** at npmjs.com → Access Tokens for CI)
+
+Publish:
+```bash
+pnpm --filter cyanideui build      # bundles the registry into dist/
+cd packages/cli
+npm publish                         # publishConfig already targets public npm + public access
+```
+
+Verify: https://www.npmjs.com/package/cyanideui
+
+For CI auto-publish, add an `NPM_TOKEN` secret (repo → Settings → Secrets → Actions) — the Release workflow uses it.
 
 ## Releasing (automated — recommended)
 

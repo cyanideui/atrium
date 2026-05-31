@@ -1,14 +1,16 @@
 name: Release
 
-# Publishes @cyanideui/ui + @cyanideui/cli to GitHub Packages when a
-# version tag is pushed:
+# Publishes on a version tag:
+#   @cyanideui/ui → GitHub Packages (private-capable, scoped)
+#   cyanideui (CLI) → public npmjs.com (so `pnpm dlx cyanideui` is tokenless)
 #
-#   pnpm version 1.0.1 --workspace ... (or bump manually)
+# Trigger:
 #   git tag v1.0.1 && git push origin v1.0.1
 #
-# Uses the built-in GITHUB_TOKEN — it carries `packages: write` for this
-# repo's org automatically, so no manual PAT is needed. The token never
-# leaves the runner.
+# Secrets required:
+#   GITHUB_TOKEN  — auto-provided, used for the @cyanideui/ui publish
+#   NPM_TOKEN     — a public-npm automation token, set in repo Settings →
+#                   Secrets → Actions. Used for the public CLI publish.
 
 on:
   push:
@@ -35,15 +37,11 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          # Wires the registry + auth for the @cyanideui scope. The
-          # NODE_AUTH_TOKEN env on the publish steps supplies the token.
-          registry-url: https://npm.pkg.github.com
-          scope: "@cyanideui"
 
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      # --- Gate: everything must be green before anything publishes ---
+      # --- Gate: everything green before anything publishes ---
       - name: Build library
         run: pnpm --filter @cyanideui/ui build
 
@@ -51,33 +49,36 @@ jobs:
         run: pnpm --filter @cyanideui/ui test
 
       - name: Build CLI (bundles the registry)
-        run: pnpm --filter @cyanideui/cli build
+        run: pnpm --filter cyanideui build
 
       - name: Test CLI
-        run: pnpm --filter @cyanideui/cli test
+        run: pnpm --filter cyanideui test
 
       - name: Typecheck workspace
         run: pnpm typecheck
 
-      # --- Publish (library first; the CLI's generated files depend on it) ---
-      # --no-git-checks: the tag commit is already what we're releasing.
-      # prepublishOnly is skipped here (already gated above) via --ignore-scripts
-      # to avoid a redundant second test+build run.
+      # --- Publish @cyanideui/ui → GitHub Packages ---
+      - name: Configure npm for GitHub Packages (@cyanideui scope)
+        run: |
+          echo "@cyanideui:registry=https://npm.pkg.github.com" > "$HOME/.npmrc"
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> "$HOME/.npmrc"
+
       - name: Publish @cyanideui/ui
         run: pnpm --filter @cyanideui/ui publish --no-git-checks --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish @cyanideui/cli
-        run: pnpm --filter @cyanideui/cli publish --no-git-checks --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # --- Publish cyanideui (CLI) → public npmjs.com ---
+      - name: Configure npm for public registry
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > "$HOME/.npmrc"
+
+      - name: Publish cyanideui (public CLI)
+        run: pnpm --filter cyanideui publish --no-git-checks --ignore-scripts
 
       - name: Summary
         run: |
           echo "### Published :rocket:" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- \`@cyanideui/ui\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "- \`@cyanideui/cli\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`@cyanideui/ui\` → GitHub Packages" >> "$GITHUB_STEP_SUMMARY"
+          echo "- \`cyanideui\` (CLI) → public npmjs.com" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Tag: \`${GITHUB_REF_NAME}\`" >> "$GITHUB_STEP_SUMMARY"

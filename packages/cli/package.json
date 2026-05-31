@@ -1,23 +1,25 @@
 {
-  "name": "@cyanideui/cli",
+  "name": "cyanideui",
   "version": "0.1.0",
-  "description": "Scaffold Atrium-styled apps and copy shell/template/hook starters from the registry.",
-  "keywords": ["atrium", "cli", "scaffold", "registry", "design-system"],
-  "license": "UNLICENSED",
+  "description": "Scaffold Atrium-styled apps and copy components, shells, templates, and hooks from the Cyanide UI registry.",
+  "keywords": ["cyanideui", "atrium", "cli", "scaffold", "registry", "design-system", "react", "shadcn"],
+  "license": "MIT",
   "type": "module",
   "bin": {
+    "cyanideui": "dist/index.js",
     "atrium": "dist/index.js"
   },
   "files": ["dist", "README.md"],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cyanideui/atrium.git",
     "directory": "packages/cli"
   },
+  "homepage": "https://github.com/cyanideui/atrium#readme",
   "scripts": {
     "build": "node ../../scripts/build-registry-index.mjs && tsup && node scripts/copy-registry.mjs",
     "dev": "tsup --watch",

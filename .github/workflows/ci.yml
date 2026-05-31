@@ -36,10 +36,10 @@ jobs:
         run: pnpm build:registry
 
       - name: Build CLI
-        run: pnpm --filter @cyanideui/cli build
+        run: pnpm --filter cyanideui build
 
       - name: Test CLI
-        run: pnpm --filter @cyanideui/cli test
+        run: pnpm --filter cyanideui test
 
       - name: Typecheck workspace
         run: pnpm typecheck
