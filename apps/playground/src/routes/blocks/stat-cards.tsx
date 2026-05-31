@@ -33,9 +33,9 @@ export function StatCardsBlock() {
           <section aria-label="Key metrics" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {STATS.map((stat) => (
               <div key={stat.label} className="flex flex-col gap-2 rounded-md border border-hairline bg-canvas p-4">
-                <div className="flex items-baseline justify-between">
-                  <div className="text-[12px] uppercase tracking-wider text-ink-3">{stat.label}</div>
-                  <div className={cn("inline-flex items-center gap-0.5 text-[12px] font-medium tabular-nums", stat.up ? "text-success" : "text-error")}>
+                <div className="flex items-baseline justify-between gap-2">
+                  <div className="min-w-0 truncate text-[12px] uppercase tracking-wider text-ink-3">{stat.label}</div>
+                  <div className={cn("inline-flex shrink-0 items-center gap-0.5 text-[12px] font-medium tabular-nums", stat.up ? "text-success" : "text-error")}>
                     <Icon icon={stat.up ? ArrowUpRight01Icon : ArrowDown01Icon} size={12} />
                     {stat.delta}
                   </div>

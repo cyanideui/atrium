@@ -33,11 +33,13 @@ export function StatCards() {
           key={stat.label}
           className="flex flex-col gap-2 rounded-md border border-hairline bg-canvas p-4"
         >
-          <div className="flex items-baseline justify-between">
-            <div className="text-[12px] uppercase tracking-wider text-ink-3">{stat.label}</div>
+          <div className="flex items-baseline justify-between gap-2">
+            <div className="min-w-0 truncate text-[12px] uppercase tracking-wider text-ink-3">
+              {stat.label}
+            </div>
             <div
               className={cn(
-                "inline-flex items-center gap-0.5 text-[12px] font-medium tabular-nums",
+                "inline-flex shrink-0 items-center gap-0.5 text-[12px] font-medium tabular-nums",
                 stat.up ? "text-success" : "text-error",
               )}
             >

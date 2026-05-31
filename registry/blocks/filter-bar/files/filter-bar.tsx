@@ -42,9 +42,16 @@ export function FilterBar({ onChange }: FilterBarProps) {
   const [tags, setTags] = React.useState<string[]>([])
   const [range, setRange] = React.useState<DateRange | null>(null)
 
+  // Keep the latest onChange in a ref so the effect below depends only on the
+  // filter *values* — not on onChange's identity. Without this, passing an
+  // inline `onChange={...}` would re-run the effect on every render.
+  const onChangeRef = React.useRef(onChange)
   React.useEffect(() => {
-    onChange?.({ query, view, tags, range })
-  }, [query, view, tags, range, onChange])
+    onChangeRef.current = onChange
+  })
+  React.useEffect(() => {
+    onChangeRef.current?.({ query, view, tags, range })
+  }, [query, view, tags, range])
 
   return (
     <section className="flex flex-wrap items-center gap-2">
