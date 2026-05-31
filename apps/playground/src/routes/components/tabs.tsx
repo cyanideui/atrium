@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent, Badge } from "@atrium/ui"
+import { Tabs, TabsList, TabsTrigger, TabsContent, Badge } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function TabsPage() {

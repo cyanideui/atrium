@@ -11,7 +11,7 @@ import {
   CommandPaletteSeparator,
   Icon,
   Kbd,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   HomeIcon,
   Moon02Icon,

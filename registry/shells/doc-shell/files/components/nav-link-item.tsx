@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 // @atrium:if vite-react-router
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom"
 // @atrium:endif
-import { SidebarNavItem, type SidebarNavItemProps } from "@atrium/ui"
+import { SidebarNavItem, type SidebarNavItemProps } from "@cyanideui/ui"
 
 /**
  * Bridge between the router and the router-agnostic <SidebarNavItem>.

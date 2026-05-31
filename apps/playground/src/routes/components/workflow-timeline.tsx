@@ -1,4 +1,4 @@
-import { Button, WorkflowTimeline, WorkflowTimelineItem, Badge } from "@atrium/ui"
+import { Button, WorkflowTimeline, WorkflowTimelineItem, Badge } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function WorkflowTimelinePage() {

@@ -1,4 +1,4 @@
-import { Kbd, KbdGroup } from "@atrium/ui"
+import { Kbd, KbdGroup } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 /**

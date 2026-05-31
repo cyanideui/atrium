@@ -10,7 +10,7 @@ import {
   TableHead,
   TableCell,
   Checkbox,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { Edit02Icon, Copy01Icon, Download02Icon, Delete02Icon } from "@hugeicons/core-free-icons"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 

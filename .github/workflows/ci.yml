@@ -27,25 +27,25 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build library
-        run: pnpm --filter @atrium/ui build
+        run: pnpm --filter @cyanideui/ui build
 
       - name: Test library
-        run: pnpm --filter @atrium/ui test
+        run: pnpm --filter @cyanideui/ui test
 
       - name: Build registry index
         run: pnpm build:registry
 
       - name: Build CLI
-        run: pnpm --filter @atrium/cli build
+        run: pnpm --filter @cyanideui/cli build
 
       - name: Test CLI
-        run: pnpm --filter @atrium/cli test
+        run: pnpm --filter @cyanideui/cli test
 
       - name: Typecheck workspace
         run: pnpm typecheck
 
       - name: Build playground
-        run: pnpm --filter @atrium/playground build
+        run: pnpm --filter @cyanideui/playground build
 
       - name: Build Next.js example
-        run: pnpm --filter @atrium/example-next build
+        run: pnpm --filter @cyanideui/example-next build

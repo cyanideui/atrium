@@ -1,4 +1,4 @@
-import { Button, Icon } from "@atrium/ui"
+import { Button, Icon } from "@cyanideui/ui"
 import { Add01Icon, Delete02Icon, ArrowRight02Icon } from "@hugeicons/core-free-icons"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 

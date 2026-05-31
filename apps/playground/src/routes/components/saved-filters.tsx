@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SavedFilters } from "@atrium/ui"
+import { SavedFilters } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function SavedFiltersPage() {

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NumberStepper, Label } from "@atrium/ui"
+import { NumberStepper, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function NumberStepperPage() {

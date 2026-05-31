@@ -1,6 +1,6 @@
 import { Routes, Route, Outlet } from "react-router-dom"
 import * as React from "react"
-import { Toaster, DocBody, RouteLoading, DensityRoot, useDensityHotkey } from "@atrium/ui"
+import { Toaster, DocBody, RouteLoading, DensityRoot, useDensityHotkey } from "@cyanideui/ui"
 import { PlaygroundShell } from "./components/playground-shell"
 import { PlaygroundCommandPalette } from "./components/playground-command-palette"
 import { GlobalCheatsheet } from "./hooks/use-global-cheatsheet"

@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { Banner } from "@atrium/ui"
+import { Banner } from "@cyanideui/ui"
 import { PageHeader, Section } from "../../components/page-shell"
 import { CodeBlock } from "../../components/code-block"
 

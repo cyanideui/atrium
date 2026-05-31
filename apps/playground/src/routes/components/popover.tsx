@@ -5,7 +5,7 @@ import {
   Button,
   Input,
   Label,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function PopoverPage() {

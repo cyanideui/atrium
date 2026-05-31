@@ -1,6 +1,6 @@
 import * as React from "react"
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom"
-import { SidebarNavItem, type SidebarNavItemProps } from "@atrium/ui"
+import { SidebarNavItem, type SidebarNavItemProps } from "@cyanideui/ui"
 
 /**
  * Bridge between react-router and the router-agnostic <SidebarNavItem>.

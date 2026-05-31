@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Toaster, DensityRoot, useDensityHotkey } from "@atrium/ui"
+import { Toaster, DensityRoot, useDensityHotkey } from "@cyanideui/ui"
 import { AppShell } from "./app-shell"
 import { CommandPalette } from "./command-palette"
 import { GlobalCheatsheet } from "../hooks/use-global-cheatsheet"

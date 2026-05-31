@@ -46,11 +46,11 @@ export async function initCommand(opts: InitOptions): Promise<void> {
     console.log(pc.dim("    pnpm add react-router-dom"))
   }
 
-  console.log(pc.bold("\n2. Add @atrium/ui + Tailwind wiring:\n"))
-  console.log(pc.dim("    pnpm add @atrium/ui @hugeicons/core-free-icons @hugeicons/react"))
+  console.log(pc.bold("\n2. Add @cyanideui/ui + Tailwind wiring:\n"))
+  console.log(pc.dim("    pnpm add @cyanideui/ui @hugeicons/core-free-icons @hugeicons/react"))
   console.log(pc.dim('    # In your Tailwind entry CSS:'))
-  console.log(pc.dim('    @import "@atrium/ui/styles/globals.css";'))
-  console.log(pc.dim('    @source "../node_modules/@atrium/ui/dist";'))
+  console.log(pc.dim('    @import "@cyanideui/ui/styles/globals.css";'))
+  console.log(pc.dim('    @source "../node_modules/@cyanideui/ui/dist";'))
 
   const { addShell } = await prompts({
     type: "confirm",

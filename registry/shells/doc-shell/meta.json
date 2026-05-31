@@ -28,12 +28,12 @@
     }
   ],
   "dependencies": {
-    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"],
+    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"],
     "registry": ["hook-theme", "hook-shortcut-toasts", "hook-cheatsheet"]
   },
   "tailwind": {
-    "globalsImport": "@atrium/ui/styles/globals.css",
-    "sourcePath": "../../node_modules/@atrium/ui/dist"
+    "globalsImport": "@cyanideui/ui/styles/globals.css",
+    "sourcePath": "../../node_modules/@cyanideui/ui/dist"
   },
   "postInstall": [
     "Wire <ShellProviders><AppShell>{children}</AppShell></ShellProviders> into your root (Next.js: src/app/layout.tsx, Vite: src/App.tsx).",

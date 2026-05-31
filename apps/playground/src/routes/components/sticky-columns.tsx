@@ -5,7 +5,7 @@ import {
   StickyColumn,
   Button,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { MoreHorizontalIcon } from "@hugeicons/core-free-icons"
 import { PageHeader, Section } from "../../components/page-shell"
 

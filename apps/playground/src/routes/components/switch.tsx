@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Switch, Label } from "@atrium/ui"
+import { Switch, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function SwitchPage() {

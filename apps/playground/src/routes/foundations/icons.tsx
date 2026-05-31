@@ -1,4 +1,4 @@
-import { Icon } from "@atrium/ui"
+import { Icon } from "@cyanideui/ui"
 import {
   DashboardSquare01Icon,
   Search01Icon,
@@ -68,7 +68,7 @@ export function IconsPage() {
         </div>
         <CodeBlock
           language="tsx"
-          code={`import { Icon } from "@atrium/ui"
+          code={`import { Icon } from "@cyanideui/ui"
 import { DashboardSquare01Icon } from "@hugeicons/core-free-icons"
 
 <Icon icon={DashboardSquare01Icon} size="md" />`}

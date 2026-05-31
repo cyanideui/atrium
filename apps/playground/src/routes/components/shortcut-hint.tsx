@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button, ShortcutHint, shortcutToast } from "@atrium/ui"
+import { Button, ShortcutHint, shortcutToast } from "@cyanideui/ui"
 import {
   Sun02Icon,
   Moon02Icon,

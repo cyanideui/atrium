@@ -19,7 +19,7 @@ import {
   type SavedFilter,
   Avatar,
   cn,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Add01Icon,
   Edit02Icon,

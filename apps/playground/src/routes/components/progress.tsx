@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Progress, ProgressSegmented, ProgressCircle } from "@atrium/ui"
+import { Progress, ProgressSegmented, ProgressCircle } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function ProgressPage() {

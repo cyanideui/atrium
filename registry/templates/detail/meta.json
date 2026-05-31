@@ -12,7 +12,7 @@
     }
   ],
   "dependencies": {
-    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
   },
   "postInstall": [
     "Swap TIMELINE / LINE_ITEMS and the customer/payment cards for your record data.",

@@ -9,7 +9,7 @@ import {
   SkeletonCard,
   Button,
   type SkeletonAnimation,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function SkeletonPage() {

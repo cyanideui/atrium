@@ -9,7 +9,7 @@ Inspired by Notion (calm surfaces), Shopify Polaris (button chrome & compact tab
 ## Status
 
 - **Stable:** **53 / 53 components** + 4 app templates (Dashboard, CRUD List, Settings, Record Detail) + a Next.js 15 reference consumer.
-- **Featured (v1.0.0):** **Renamed** from `@erp-ds/ui` to `@atrium/ui`. Plus three new templates, route code-splitting via `React.lazy()`, an a11y spot-check pass, **a real Next.js 15 App Router consumer** at `apps/example-next/`, a `"use client"` banner on the published bundle so it drops into RSC apps without per-component fiddling, **gradient chrome propagated to form triggers** (`<SavedFilters>`, `<DateField>`, `<Select>`) via the new `.ds-trigger` class, and **density mode upgraded to a real first-class system** — three levels (compact-plus / compact / comfortable), forms reflow, `<DensityRoot>` + `<DensityProvider>` + `useDensity()` public API.
+- **Featured (v1.0.0):** **Renamed** from `@erp-ds/ui` to `@cyanideui/ui`. Plus three new templates, route code-splitting via `React.lazy()`, an a11y spot-check pass, **a real Next.js 15 App Router consumer** at `apps/example-next/`, a `"use client"` banner on the published bundle so it drops into RSC apps without per-component fiddling, **gradient chrome propagated to form triggers** (`<SavedFilters>`, `<DateField>`, `<Select>`) via the new `.ds-trigger` class, and **density mode upgraded to a real first-class system** — three levels (compact-plus / compact / comfortable), forms reflow, `<DensityRoot>` + `<DensityProvider>` + `useDensity()` public API.
 - **Featured (v3.23):** Density mode (`D` hotkey), `<TableEmpty>`, `<RouteLoading>` skeleton scaffolds.
 - **Featured (v3.22):** Polaris-style gradient chrome propagated to Switch / Segmented / Radio / Checkbox / SidebarSearch.
 - **Featured (v3.21):** Command palette polish (sticky group headings, count badges, soft open animation).
@@ -20,7 +20,7 @@ Inspired by Notion (calm surfaces), Shopify Polaris (button chrome & compact tab
 .
 ├─ design.md                       # 📘 Spec source-of-truth (read this first)
 ├─ packages/
-│  └─ ui/                          # @atrium/ui — the actual library
+│  └─ ui/                          # @cyanideui/ui — the actual library
 │     ├─ src/
 │     │  ├─ components/            # button.tsx, badge.tsx, banner.tsx, ...
 │     │  ├─ lib/cn.ts
@@ -31,7 +31,7 @@ Inspired by Notion (calm surfaces), Shopify Polaris (button chrome & compact tab
 │     │  └─ index.ts               # Public API
 │     └─ package.json
 └─ apps/
-   ├─ playground/                  # @atrium/playground (showcase site)
+   ├─ playground/                  # @cyanideui/playground (showcase site)
    │  └─ src/
    │     ├─ App.tsx                # Routes (lazy) + Toaster + GlobalCheatsheet
    │     ├─ components/            # Sidebar, CodeBlock, page shells
@@ -39,7 +39,7 @@ Inspired by Notion (calm surfaces), Shopify Polaris (button chrome & compact tab
    │     │  ├─ components/         # One showcase page per component
    │     │  └─ templates/          # Dashboard, CRUD List, Settings, Detail
    │     └─ nav.ts                 # Sidebar groups + status flags
-   └─ example-next/                # @atrium/example-next (Next.js 15 reference)
+   └─ example-next/                # @cyanideui/example-next (Next.js 15 reference)
       └─ src/
          ├─ app/                   # App Router: /, /orders, /settings
          └─ components/            # AppShell + ShellProviders (Next/Link wired)
@@ -48,7 +48,7 @@ Inspired by Notion (calm surfaces), Shopify Polaris (button chrome & compact tab
 Plus a copy-paste starter system:
 
 ```
-├─ packages/cli/                   # @atrium/cli — scaffolding CLI
+├─ packages/cli/                   # @cyanideui/cli — scaffolding CLI
 │  └─ src/
 │     ├─ commands/                 # init, add, list
 │     └─ lib/                      # registry fetch, framework detect, transform
@@ -81,7 +81,7 @@ pnpm build:playground # Build only the showcase
 pnpm build:next       # Build the Next.js example app
 pnpm dev:next         # Run the Next.js example at http://localhost:3000
 pnpm typecheck        # Typecheck across the whole repo
-pnpm --filter @atrium/ui test   # Run library tests (Vitest)
+pnpm --filter @cyanideui/ui test   # Run library tests (Vitest)
 ```
 
 ## Editing components
@@ -114,7 +114,7 @@ localStorage.setItem("atrium.theme", "dark")
 Density mode (compact-plus ↔ compact ↔ comfortable) cycles via the `D` hotkey. Three ways to apply:
 
 ```tsx
-import { DensityRoot, DensityProvider, useDensityHotkey } from "@atrium/ui"
+import { DensityRoot, DensityProvider, useDensityHotkey } from "@cyanideui/ui"
 
 // 1) Global — top of your app
 function App() {
@@ -138,8 +138,8 @@ The fastest way to get the playground's UI (sidebar + content card + topbar + co
 
 ```bash
 # In your new app (after scaffolding with create-next-app / create-vite)
-pnpm add @atrium/ui @hugeicons/core-free-icons @hugeicons/react
-pnpm dlx @atrium/cli add shell-doc
+pnpm add @cyanideui/ui @hugeicons/core-free-icons @hugeicons/react
+pnpm dlx @cyanideui/cli add shell-doc
 ```
 
 This copies the shell — sidebar, topbar, command palette, keyboard shortcuts — into your `src/`, transformed for your framework (Next.js or Vite + React Router). Every file is yours to edit. See [`STARTER.md`](./STARTER.md) for the full walkthrough and [`packages/cli/README.md`](./packages/cli/README.md) for the command reference.
@@ -150,7 +150,7 @@ atrium add shell-doc     # the full playground chrome
 atrium add hook-theme    # individual hooks
 ```
 
-## Using @atrium/ui in another project
+## Using @cyanideui/ui in another project
 
 Three integration paths:
 
@@ -160,7 +160,7 @@ Three integration paths:
 // apps/your-new-app/package.json
 {
   "dependencies": {
-    "@atrium/ui": "workspace:*"
+    "@cyanideui/ui": "workspace:*"
   }
 }
 ```
@@ -183,19 +183,19 @@ pnpm publish --registry https://npm.your-company.com
 Then in your consumer:
 
 ```bash
-pnpm add @atrium/ui
+pnpm add @cyanideui/ui
 ```
 
 ### Consumer setup (any path)
 
 ```css
 /* Your Tailwind entry */
-@import "@atrium/ui/styles/globals.css";
+@import "@cyanideui/ui/styles/globals.css";
 ```
 
 ```tsx
-import { Button, Badge, Modal, DatePicker, RouteLoading } from "@atrium/ui"
-import type { DateRange } from "@atrium/ui"  // re-exported from react-day-picker
+import { Button, Badge, Modal, DatePicker, RouteLoading } from "@cyanideui/ui"
+import type { DateRange } from "@cyanideui/ui"  // re-exported from react-day-picker
 ```
 
 > **Tailwind v4 workspace gotcha:** if you consume the library as a workspace dependency, add `@source` so Tailwind picks up class names from inside the library:
@@ -210,29 +210,29 @@ The library exposes two subpath entries that ship the heavy components in their 
 
 ```tsx
 // Main entry — pulls almost everything except the two heavy components
-import { Button, Modal, Toaster, ShortcutHint } from "@atrium/ui"
+import { Button, Modal, Toaster, ShortcutHint } from "@cyanideui/ui"
 
 // Subpath entries — opt-in
-import { CommandPalette } from "@atrium/ui/command-palette"   // pulls cmdk
-import { DatePicker, DateField } from "@atrium/ui/date-picker" // pulls react-day-picker
+import { CommandPalette } from "@cyanideui/ui/command-palette"   // pulls cmdk
+import { DatePicker, DateField } from "@cyanideui/ui/date-picker" // pulls react-day-picker
 ```
 
-The main `@atrium/ui` entry still re-exports everything for one-stop convenience — use whichever shape fits your bundle budget.
+The main `@cyanideui/ui` entry still re-exports everything for one-stop convenience — use whichever shape fits your bundle budget.
 
 ### Next.js
 
-The published `@atrium/ui` bundle ships with `"use client"` at the top of `dist/index.js`. That means **you do not need to add `"use client"` to every page** that imports from the library — Next.js inserts the client boundary automatically at the import site, and pure-prop components (Badge, Sparkline, Avatar, Table) still server-render.
+The published `@cyanideui/ui` bundle ships with `"use client"` at the top of `dist/index.js`. That means **you do not need to add `"use client"` to every page** that imports from the library — Next.js inserts the client boundary automatically at the import site, and pure-prop components (Badge, Sparkline, Avatar, Table) still server-render.
 
 Two adjustments in your Next app:
 
 1. Add to `next.config.js`:
    ```js
-   module.exports = { transpilePackages: ['@atrium/ui'] }
+   module.exports = { transpilePackages: ['@cyanideui/ui'] }
    ```
 2. In your Tailwind v4 entry CSS, add an `@source` line so Tailwind picks up class names from the library's source:
    ```css
-   @import "@atrium/ui/styles/globals.css";
-   @source "../../node_modules/@atrium/ui/dist";
+   @import "@cyanideui/ui/styles/globals.css";
+   @source "../../node_modules/@cyanideui/ui/dist";
    /* — or, in a workspace consumer: */
    @source "../../packages/ui/src";
    ```
@@ -268,6 +268,6 @@ Plus four ready-to-clone app templates at `/templates/{dashboard,crud-list,setti
 ## Versioning
 
 Pre-rename: SemVer at `@erp-ds/ui` v3.x.
-Post-rename: reset to **`@atrium/ui` 1.0.0** to mark the first stable release under the new name.
+Post-rename: reset to **`@cyanideui/ui` 1.0.0** to mark the first stable release under the new name.
 
 For the full version history, see [`design.md`](./design.md).

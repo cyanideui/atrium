@@ -1,4 +1,4 @@
-import { Textarea, Label } from "@atrium/ui"
+import { Textarea, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function TextareaPage() {

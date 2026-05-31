@@ -8,7 +8,7 @@ import {
   TableCell,
   Checkbox,
   Badge,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const ORDERS = [

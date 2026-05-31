@@ -1,4 +1,4 @@
-import { Sparkline } from "@atrium/ui"
+import { Sparkline } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const REVENUE = [12, 14, 13, 15, 17, 16, 19, 22, 21, 24, 27, 25, 28]

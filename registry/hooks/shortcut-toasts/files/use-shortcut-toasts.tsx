@@ -4,7 +4,7 @@ import {
   useDensity,
   useOptionalDocShell,
   type Density,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Sun02Icon,
   Moon02Icon,

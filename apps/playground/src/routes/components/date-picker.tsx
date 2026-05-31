@@ -4,8 +4,8 @@ import {
   DateField,
   Label,
   Button,
-} from "@atrium/ui"
-import type { DateRange } from "@atrium/ui"
+} from "@cyanideui/ui"
+import type { DateRange } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function DatePickerPage() {

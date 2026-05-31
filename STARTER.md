@@ -10,14 +10,14 @@ pnpm create next-app@latest my-app --ts --app --tailwind
 cd my-app
 
 # 2. Add Atrium + icons
-pnpm add @atrium/ui @hugeicons/core-free-icons @hugeicons/react
+pnpm add @cyanideui/ui @hugeicons/core-free-icons @hugeicons/react
 
 # 3. Wire Tailwind — in src/app/globals.css:
-#      @import "@atrium/ui/styles/globals.css";
-#      @source "../node_modules/@atrium/ui/dist";
+#      @import "@cyanideui/ui/styles/globals.css";
+#      @source "../node_modules/@cyanideui/ui/dist";
 
 # 4. Add the shell
-pnpm dlx @atrium/cli add shell-doc
+pnpm dlx @cyanideui/cli add shell-doc
 
 # 5. Wire it into your root layout (see below), then:
 pnpm dev
@@ -87,7 +87,7 @@ export function App() {
 
 ## The reference implementation
 
-`apps/example-next/` in this repo is a complete worked example — a Next.js 15 app consuming `@atrium/ui` with three pages. Read it side-by-side with this guide if anything's unclear.
+`apps/example-next/` in this repo is a complete worked example — a Next.js 15 app consuming `@cyanideui/ui` with three pages. Read it side-by-side with this guide if anything's unclear.
 
 ## Browsing what else is available
 
@@ -95,7 +95,7 @@ export function App() {
 atrium list
 ```
 
-The registry ships **inside** the `@atrium/cli` package, so it works offline and with a private source repo — no registry server, no auth beyond installing the package.
+The registry ships **inside** the `@cyanideui/cli` package, so it works offline and with a private source repo — no registry server, no auth beyond installing the package.
 
 | Item | What it is |
 |---|---|

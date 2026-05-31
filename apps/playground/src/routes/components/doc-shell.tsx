@@ -29,7 +29,7 @@ import {
   PopoverContent,
   Tooltip,
   Kbd,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Add01Icon,
   Analytics01Icon,

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { AutoSaveStatus, Button } from "@atrium/ui"
+import { AutoSaveStatus, Button } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function AutoSavePage() {

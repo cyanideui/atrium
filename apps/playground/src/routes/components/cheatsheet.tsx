@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, KeyboardCheatsheet, useCheatsheetHotkey, Keycap } from "@atrium/ui"
+import { Button, KeyboardCheatsheet, useCheatsheetHotkey, Keycap } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const SHORTCUT_GROUPS = [

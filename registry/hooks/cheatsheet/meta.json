@@ -12,7 +12,7 @@
     }
   ],
   "dependencies": {
-    "npm": ["@atrium/ui", "react"]
+    "npm": ["@cyanideui/ui", "react"]
   },
   "postInstall": [
     "Edit the GROUPS array to match your app's shortcuts. Mount <GlobalCheatsheet /> once at the root."

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Pagination } from "@atrium/ui"
+import { Pagination } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function PaginationPage() {

@@ -3,15 +3,15 @@
 > A calm, content-first React component library for ERP and admin apps.
 > **Inspiration:** Notion (information density & calm surfaces), Shopify Polaris (button chrome & compact tables), Linear (precision motion & keyboard-first interactions).
 > **Stack:** shadcn/ui + Tailwind CSS v4 + hugeicons (Stroke Rounded).
-> **Package:** `@atrium/ui`. Repo: `ledger-ui`. Workspace folders stay at `packages/ui/` and `apps/playground/` for now.
+> **Package:** `@cyanideui/ui`. Repo: `ledger-ui`. Workspace folders stay at `packages/ui/` and `apps/playground/` for now.
 
-> **Changelog v1.0.0 — Renamed from `@erp-ds/ui` to `@atrium/ui`, four templates, route code-splitting, Next.js reference consumer**
+> **Changelog v1.0.0 — Renamed from `@erp-ds/ui` to `@cyanideui/ui`, four templates, route code-splitting, Next.js reference consumer**
 >
 > Renamed the entire project from "ERP Design System" to **Atrium UI**. The name reflects what the system is for — admin / ERP screens, where business records (the literal "ledger") are the primary content. Version reset to **1.0.0** to mark the first stable release under the new name.
 >
 > **Rename**
-> - Package `@erp-ds/ui` → **`@atrium/ui`** (left room for `@ledger-ui/icons`, `@ledger-ui/charts` later).
-> - Package `@erp-ds/playground` → **`@atrium/playground`**.
+> - Package `@erp-ds/ui` → **`@cyanideui/ui`** (left room for `@ledger-ui/icons`, `@ledger-ui/charts` later).
+> - Package `@erp-ds/playground` → **`@cyanideui/playground`**.
 > - Monorepo `erp-ds-monorepo` → **`atrium-monorepo`**.
 > - Sidebar brand "ERP DS" → **"Atrium UI"**, logo "DS" → "L".
 > - localStorage keys `erp-ds.theme` / `erp-ds.density` → **`atrium.theme`** / **`atrium.density`**.
@@ -19,10 +19,10 @@
 > - **CSS class prefix stays `ds-*`** (`.ds-btn`, `.ds-radio`, `.ds-segmented-pill`, etc.). The prefix means "design system" generically, isn't user-facing, and renaming would touch ~50 internal selectors with no public-API benefit.
 >
 > **Next.js 15 reference consumer (new)**
-> - Added `apps/example-next/` — a real Next.js 15 App Router app that consumes `@atrium/ui` as a workspace dependency. Three pages (`/` dashboard, `/orders` CRUD list, `/settings` tabbed form), wired through `next/link` + `usePathname()` for active-state, with `<DocShell>` + `<PageShell>` driving the layout.
-> - **`"use client"` banner on the published bundle.** A postbuild script (`packages/ui/scripts/add-use-client.mjs`) prepends `"use client";` to `dist/index.js`. Without it, RSC server components that import from `@atrium/ui` fail with `createContext is not a function` because Next.js treats the bundle as a server module by default. With it, Next.js inserts the client boundary at the import site and consumer pages don't need their own `"use client"` directive — server components can render Atrium primitives like `<Badge>`, `<Sparkline>`, `<Table>` server-side without per-component opt-in.
-> - **Tailwind v4 `@source` requirement.** Tailwind only scans the consumer's `src/` by default, so utility classes used inside `@atrium/ui` (compoundVariants, gap-*, h-*, etc.) wouldn't be generated. The Next example's `globals.css` adds `@source "../../../../packages/ui/src"` to point at the real source. For non-monorepo consumers, point at `node_modules/@atrium/ui/dist` instead.
-> - Build verified: `pnpm --filter @atrium/example-next build` → all three pages prerendered as static HTML.
+> - Added `apps/example-next/` — a real Next.js 15 App Router app that consumes `@cyanideui/ui` as a workspace dependency. Three pages (`/` dashboard, `/orders` CRUD list, `/settings` tabbed form), wired through `next/link` + `usePathname()` for active-state, with `<DocShell>` + `<PageShell>` driving the layout.
+> - **`"use client"` banner on the published bundle.** A postbuild script (`packages/ui/scripts/add-use-client.mjs`) prepends `"use client";` to `dist/index.js`. Without it, RSC server components that import from `@cyanideui/ui` fail with `createContext is not a function` because Next.js treats the bundle as a server module by default. With it, Next.js inserts the client boundary at the import site and consumer pages don't need their own `"use client"` directive — server components can render Atrium primitives like `<Badge>`, `<Sparkline>`, `<Table>` server-side without per-component opt-in.
+> - **Tailwind v4 `@source` requirement.** Tailwind only scans the consumer's `src/` by default, so utility classes used inside `@cyanideui/ui` (compoundVariants, gap-*, h-*, etc.) wouldn't be generated. The Next example's `globals.css` adds `@source "../../../../packages/ui/src"` to point at the real source. For non-monorepo consumers, point at `node_modules/@cyanideui/ui/dist` instead.
+> - Build verified: `pnpm --filter @cyanideui/example-next build` → all three pages prerendered as static HTML.
 > - New root scripts: `pnpm dev:next` (runs at http://localhost:3000), `pnpm build:next`.
 >
 > **Four app templates (was: 1)**
@@ -45,9 +45,9 @@
 > - No findings worth shipping a fix for.
 >
 > **Builds**
-> - `pnpm --filter @atrium/ui build` — green (197 KB ESM, 75 KB DTS, postbuild prepends `"use client"`).
-> - `pnpm --filter @atrium/playground build` — green (3.6 s).
-> - `pnpm --filter @atrium/example-next build` — green (Next.js 15, all 3 routes prerendered static).
+> - `pnpm --filter @cyanideui/ui build` — green (197 KB ESM, 75 KB DTS, postbuild prepends `"use client"`).
+> - `pnpm --filter @cyanideui/playground build` — green (3.6 s).
+> - `pnpm --filter @cyanideui/example-next build` — green (Next.js 15, all 3 routes prerendered static).
 >
 > **Consolidation round (foundation polish)**
 >
@@ -64,9 +64,9 @@
 >
 > **Bundle splitting — subpath entries**
 > - Added two opt-in subpath imports to keep the heavy components from bloating consumers that don't use them:
->   - `@atrium/ui/command-palette` — pulls cmdk (~30 KB) only when imported.
->   - `@atrium/ui/date-picker` — pulls react-day-picker (~80 KB) only when imported.
-> - Main `@atrium/ui` entry still re-exports everything for one-stop convenience. Bundle-size-conscious consumers who only need basic primitives use the main entry; those who need a date picker or command palette opt in via the subpath. The bundler tree-shakes the rest.
+>   - `@cyanideui/ui/command-palette` — pulls cmdk (~30 KB) only when imported.
+>   - `@cyanideui/ui/date-picker` — pulls react-day-picker (~80 KB) only when imported.
+> - Main `@cyanideui/ui` entry still re-exports everything for one-stop convenience. Bundle-size-conscious consumers who only need basic primitives use the main entry; those who need a date picker or command palette opt in via the subpath. The bundler tree-shakes the rest.
 > - tsup `splitting: true` produces shared chunks across entries so common deps (Radix primitives, our `cn` helper, Icon, etc.) aren't duplicated.
 > - **Library bundle**: main `index.js` 200 KB → 188 KB (the heavy components are now in their own chunks, not the main bundle).
 > - Postbuild script (`scripts/add-use-client.mjs`) updated to walk every emitted `.js` file in `dist/` so each chunk gets the `"use client"` directive — including subpath entries and shared chunks.
@@ -77,7 +77,7 @@
 >   - Components: `<Button>`, `<Input>`, `<Switch>`, `<Checkbox>`, `<Badge>`, `<Modal>`, `<Select>`, `<Table>`, `<DatePicker>`, `<DateField>`, `<CommandPalette>`, `<Toaster>`, `<ShortcutHint>`.
 >   - Hooks: `useDensity`, `<DensityProvider>` scoping, `<DensityRoot>` cycle/persist/DOM sync, `useDensity` no-op fallback outside a provider.
 > - `vitest.setup.ts` polyfills the jsdom-missing APIs Radix + cmdk both need: `ResizeObserver`, `IntersectionObserver`, `matchMedia`, `Element.scrollIntoView`, `Element.hasPointerCapture`/`releasePointerCapture`/`setPointerCapture`, `PointerEvent`. Test boilerplate stays minimal as a result.
-> - Added `pnpm --filter @atrium/ui test` script. Future component additions get a smoke test as part of the §1b Component Readiness Checklist.
+> - Added `pnpm --filter @cyanideui/ui test` script. Future component additions get a smoke test as part of the §1b Component Readiness Checklist.
 >
 > **Publish path**
 > - `packages/ui/CHANGELOG.md` (new) — first stable release notes + migration guide from `@erp-ds/ui`.
@@ -85,12 +85,12 @@
 > - `.github/workflows/ci.yml` — lightweight CI that runs build + test + typecheck for the library, plus playground + Next.js example builds. Triggers on push + PR to main.
 >
 > **Verification**
-> - `pnpm --filter @atrium/ui build` — green (188 KB main + small subpath chunks, 6 emitted files all carrying `"use client"`).
-> - `pnpm --filter @atrium/ui test` — 54 / 54 passing.
-> - `pnpm --filter @atrium/playground build` — green (3.24 s).
-> - `pnpm --filter @atrium/example-next build` — green.
+> - `pnpm --filter @cyanideui/ui build` — green (188 KB main + small subpath chunks, 6 emitted files all carrying `"use client"`).
+> - `pnpm --filter @cyanideui/ui test` — 54 / 54 passing.
+> - `pnpm --filter @cyanideui/playground build` — green (3.24 s).
+> - `pnpm --filter @cyanideui/example-next build` — green.
 >
-> **`@atrium/cli` + copy-paste registry (new)**
+> **`@cyanideui/cli` + copy-paste registry (new)**
 >
 > A shadcn-style scaffolding system so new apps can adopt the playground's chrome in one command. The CLI copies **source files** into the consumer's repo — they own the code, no version lock.
 >
@@ -108,7 +108,7 @@
 > - Block-based, not token-interpolation: a block survives whole or is removed whole. The CLI refuses to write a file that still has unresolved markers.
 > - v1 supports **Next.js (App Router)** and **Vite + React Router**.
 >
-> **CLI** (`@atrium/cli`, published as a bin)
+> **CLI** (`@cyanideui/cli`, published as a bin)
 > - `atrium init` — guides framework setup + Tailwind wiring, then runs `add shell-doc`.
 > - `atrium add <item>` — resolves transitive registry deps (hooks land before the shell that references them), detects the framework, transforms + writes files, records the add in `.atrium/manifest.json`, prints missing npm deps + post-install notes. Flags: `--overwrite`, `--dry-run`, `--framework`.
 > - `atrium list [category]` — browse the registry.
@@ -123,10 +123,10 @@
 >
 > **Verification (registry round)**
 > - `pnpm build:registry` — index.json with 4 items, all validated.
-> - `pnpm --filter @atrium/cli build` — green (15 KB bin).
-> - `pnpm --filter @atrium/cli test` — 15 / 15 passing.
+> - `pnpm --filter @cyanideui/cli build` — green (15 KB bin).
+> - `pnpm --filter @cyanideui/cli test` — 15 / 15 passing.
 > - `pnpm typecheck` — clean across all 4 packages.
-> - `pnpm --filter @atrium/ui test` — 54 / 54 still passing.
+> - `pnpm --filter @cyanideui/ui test` — 54 / 54 still passing.
 > - Playground + example-next builds — both green.
 >
 > **Publish prep + template expansion + cold-start (new)**
@@ -134,7 +134,7 @@
 > Took the registry/CLI from "works in the monorepo sandbox" to "publishable + validated as a real npm artifact".
 >
 > **Registry now bundles inside the CLI package**
-> - Re-architected source resolution: the default registry is `dist/registry/` *inside the published `@atrium/cli`*, not a GitHub raw URL. A postbuild step (`scripts/copy-registry.mjs`) copies `registry/` into `dist/registry/` on every CLI build. **This is the key decision for a private source repo** — the registry files travel with the npm package, so the CLI works offline, with no auth, regardless of repo visibility. `ATRIUM_REGISTRY=file:…` still overrides for dev.
+> - Re-architected source resolution: the default registry is `dist/registry/` *inside the published `@cyanideui/cli`*, not a GitHub raw URL. A postbuild step (`scripts/copy-registry.mjs`) copies `registry/` into `dist/registry/` on every CLI build. **This is the key decision for a private source repo** — the registry files travel with the npm package, so the CLI works offline, with no auth, regardless of repo visibility. `ATRIUM_REGISTRY=file:…` still overrides for dev.
 >
 > **Four templates promoted to registry items (4 → 8 items total)**
 > - `template-dashboard`, `template-crud-list`, `template-settings`, `template-detail` — ported from `apps/playground/src/routes/templates/`, with `// @atrium:if next/vite` blocks switching the export style (`export default function` for Next.js pages vs named `export function` for Vite routes). Fixed the mojibake corruption that had crept into the detail template's comments.
@@ -142,15 +142,15 @@
 > **`--yes` flag** added to `atrium add` for non-interactive automation (and the cold-start test).
 >
 > **True cold-start validation**
-> - `pnpm pack`'d both packages, `npm install`'d the tarballs into a fresh project *outside the monorepo*, ran the **installed** CLI (`node node_modules/@atrium/cli/dist/index.js add shell-doc --yes`), and ran `tsc --noEmit` on the generated files against the installed `@atrium/ui`.
+> - `pnpm pack`'d both packages, `npm install`'d the tarballs into a fresh project *outside the monorepo*, ran the **installed** CLI (`node node_modules/@cyanideui/cli/dist/index.js add shell-doc --yes`), and ran `tsc --noEmit` on the generated files against the installed `@cyanideui/ui`.
 > - **Caught a real bug**: `nav-link-item.tsx`'s Next.js branch had a defensive `@ts-expect-error` on `href={to}` — but `<SidebarNavItem>` already accepts `href`, so the directive was unused and *errors* under strict TS. Removed it from the Next block (kept it in the Vite block, where `to` genuinely isn't a known prop). Re-verified: **`tsc --noEmit` → 0 errors** on the generated files. This is the strongest cold-start signal — fresh project, packed tarballs, generated code, clean compile.
 > - Confirmed the CLI tarball contains `dist/registry/**` (all 8 items + index.json), and that the installed CLI resolves the bundled registry with zero config.
 >
 > **Publishing** — both packages set `publishConfig.registry = https://npm.pkg.github.com` (GitHub Packages, private) + `access: restricted` + `prepublishOnly: test && build`. `PUBLISHING.md` documents the full flow (org/scope requirement, PAT setup, `.npmrc`, publish order: ui before cli).
 >
 > **Verification (publish round)**
-> - `pnpm --filter @atrium/cli test` — 18 / 18 passing (added template export-style + bundled-registry-resolution cases).
-> - Cold-start `tsc --noEmit` on generated files — **0 errors** against the packed `@atrium/ui`.
+> - `pnpm --filter @cyanideui/cli test` — 18 / 18 passing (added template export-style + bundled-registry-resolution cases).
+> - Cold-start `tsc --noEmit` on generated files — **0 errors** against the packed `@cyanideui/ui`.
 > - `pnpm typecheck` — clean across all 4 packages.
 > - Library + playground + example-next builds — all green.
 >
@@ -242,7 +242,7 @@
 > **`<RouteLoading>` (new)**
 > - Five drop-in skeleton scaffolds for the common route patterns: `dashboard` (KPIs + table), `list` (header + table), `detail` (title + 2-column form), `form` (sectioned form), `card`. Pass `pattern="..."` and the helper composes the right primitive skeletons.
 > - Pair with `<DocContent pulseKey={pathname}>` (already wired in the playground) so the scrollbar pulses on the loading-to-loaded transition.
-> - Lives at `packages/ui/src/components/route-loading.tsx`. Exports `RouteLoading` + types from `@atrium/ui`.
+> - Lives at `packages/ui/src/components/route-loading.tsx`. Exports `RouteLoading` + types from `@cyanideui/ui`.
 >
 > **Dark-mode audit (spot-fixes done)**
 > - Spot-checked Banner, EmptyState, Skeleton (shimmer), ProgressCircle, Table selected rows, dropdown items — all token-driven and dark-aware. The previous v3.18 / v3.21 audits caught the bulk; this pass confirmed no further regressions.
@@ -411,7 +411,7 @@
 > - **Localised formatters:** `formatDate` and `formatRange` props let you swap the display (e.g. plug in `date-fns` `format`). Defaults use `Intl.DateTimeFormat`-equivalent options and collapse the year on same-year ranges.
 > - **Disabled days:** all `react-day-picker` matchers pass through (`{ before: today }`, `{ from, to }`, `{ dayOfWeek: [0, 6] }`, etc.).
 > - **Size parity:** `sm | md | lg` on `<DateField>` matches `<Input>` exactly so they line up in mixed-control rows.
-> - **Re-exports:** `DateRange` is re-exported from `@atrium/ui` so consumers don't need a direct dep on `react-day-picker`.
+> - **Re-exports:** `DateRange` is re-exported from `@cyanideui/ui` so consumers don't need a direct dep on `react-day-picker`.
 > - **Base CSS:** `react-day-picker/style.css` is now imported from the library's `globals.css` for the calendar grid layout (animation keyframes, table structure). All visual tokens still come from our `classNames` overrides.
 > - **All 50 `design.md` components are now stable.** No more `todo` pages in the playground.
 >
@@ -461,7 +461,7 @@
 > - `<SidebarNav>` + `<SidebarNavSection>` + `<SidebarNavItem>` — composable app-shell sidebar with active rail (2px left edge) and badge support.
 > - `<AutoSaveStatus>` — Saved / Saving / Save failed pill, paired with page titles. Spin animation on saving, retry handler on error.
 >
-> **Sidebar progress in playground:** 50 done / 0 todo — all components from `design.md` §5 now ship as stable in `@atrium/ui`.
+> **Sidebar progress in playground:** 50 done / 0 todo — all components from `design.md` §5 now ship as stable in `@cyanideui/ui`.
 >
 > **Changelog v3.12 — Round 1 + 2 components, radius unification, micro-tweaks**
 >
@@ -641,8 +641,8 @@ Things we **avoid**:
 - [ ] **`status` flipped** — `apps/playground/src/nav.ts` entry changed from `"todo"` to `"done"`.
 
 ### Verification (run before declaring done)
-- [ ] **`pnpm --filter @atrium/ui build`** passes with no TS errors.
-- [ ] **`pnpm --filter @atrium/playground build`** passes with no TS errors.
+- [ ] **`pnpm --filter @cyanideui/ui build`** passes with no TS errors.
+- [ ] **`pnpm --filter @cyanideui/playground build`** passes with no TS errors.
 - [ ] **Visual smoke test** — open the showcase page, click every interactive element, hover every clickable surface, press Tab through the page, toggle dark mode, then enable `prefers-reduced-motion` in DevTools and click through again.
 
 ---
@@ -697,7 +697,7 @@ Past bugs we've shipped, kept here so they don't recur.
 | Vite EACCES on port 5173 | Another process owns the port (often a Windows reserved range or a previous Node lockup). | Bump the port in `vite.config.ts`. |
 | Production CSS is huge (~5MB) | Shiki includes every language by default. | At runtime only the requested `lang` is loaded; production size is acceptable. |
 | Next.js consumer crashes with `(0, _.createContext) is not a function` on first server render | The published `dist/index.js` is a single ESM bundle and Next.js's React Server Components treats every imported module as a server module by default. The bundle internally calls `React.createContext(...)` at module top-level (Radix, our own DocShell context, etc.), which is illegal in a server component. | Prepend `"use client";` to `dist/index.js` as a postbuild step. tsup's `banner.js` option gets stripped by treeshaking, so use a `node scripts/add-use-client.mjs` step. With the directive in place, Next.js sets the client boundary at the import site automatically and pure-prop primitives (Badge, Sparkline, Avatar, Table) still server-render fine. |
-| Next.js `tailwindcss` doesn't generate utilities used inside `@atrium/ui` | Tailwind v4 only auto-scans descendants of the entry CSS file. Workspace-symlinked `node_modules/@atrium/ui` is ignored, and so is the published `dist/index.js`. | Add `@source` to the consumer's globals.css. In a workspace consumer, point at `../../../packages/ui/src`. In a non-monorepo consumer, point at `node_modules/@atrium/ui/dist`. Mirror of the same gotcha as the playground (Tailwind v4 specific table above). |
+| Next.js `tailwindcss` doesn't generate utilities used inside `@cyanideui/ui` | Tailwind v4 only auto-scans descendants of the entry CSS file. Workspace-symlinked `node_modules/@cyanideui/ui` is ignored, and so is the published `dist/index.js`. | Add `@source` to the consumer's globals.css. In a workspace consumer, point at `../../../packages/ui/src`. In a non-monorepo consumer, point at `node_modules/@cyanideui/ui/dist`. Mirror of the same gotcha as the playground (Tailwind v4 specific table above). |
 | Advertised hotkey doesn't fire (`T` to toggle theme, `B` to toggle sidebar, etc.) | Cheatsheet mentions a key but no `keydown` listener is mounted, so the key has no effect. | Every advertised shortcut **must** be wired in code, not just listed in the cheatsheet. Mount listeners at the App root (or inside the relevant component context) with the standard "skip while typing" guard (`INPUT`/`TEXTAREA`/`isContentEditable`) and `e.preventDefault()`. Keep the cheatsheet, the code listener, and the visible UI affordance (toggle button) in sync. |
 | App shell (DocShell) collapse button only appears on hover, leaving users without a visible affordance | The button was `opacity-0 group-hover/shell:opacity-100` to keep the chrome calm, but that hides the only collapse cue when the sidebar's tooltip is also hidden. | Show the floating collapse button at `opacity-70` at rest, `opacity-100` on hover. Keep a redundant top-bar toggle in the content card so the affordance is always visible regardless of which surface the user is hovering. |
 | Top bar / page chrome missing inside the content card | A separate `<DocPageHeader>` exists but isn't always rendered by every showcase page. The standalone HTML preview had a sticky top bar with breadcrumb + actions; the React playground accidentally only used per-page eyebrows. | Always include a sticky top-bar inside the content card for app-shell-style apps — sidebar toggle on the left, breadcrumb in the middle, theme/help/GitHub on the right. The per-page header below it carries title/eyebrow only. |
@@ -1888,7 +1888,7 @@ Multi-value form control. Built on top of Chip + Text Input.
 
 **Don't:**
 
-- Don't import `react-day-picker` directly in consumers — go through `<DatePicker>` so styles stay token-driven. Use the re-exported `DateRange` type from `@atrium/ui`.
+- Don't import `react-day-picker` directly in consumers — go through `<DatePicker>` so styles stay token-driven. Use the re-exported `DateRange` type from `@cyanideui/ui`.
 - Don't combine `variant="card"` with embedding inside a `<Popover>` — the popover already provides chrome. Use `variant="bare"` (or just use `<DateField>`).
 
 ### 5.22 File Upload
@@ -2248,7 +2248,7 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 ## 10. Versioning & Governance
 
 - **Version:** 1.0.0 (renamed from `@erp-ds/ui` v3.23 — see top-of-file changelog)
-- **Status:** Production-ready, shadcn-compatible, Tailwind v4. **53 of 53 components stable.** Package: **`@atrium/ui`**.
+- **Status:** Production-ready, shadcn-compatible, Tailwind v4. **53 of 53 components stable.** Package: **`@cyanideui/ui`**.
 - **Changelog convention:** SemVer. Breaking changes (renamed tokens, removed components) bump major.
 - **Component status badges:** `Stable` / `Beta` / `Deprecated` shown in component docs.
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.

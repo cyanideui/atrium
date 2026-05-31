@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SearchField } from "@atrium/ui"
+import { SearchField } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function SearchFieldPage() {

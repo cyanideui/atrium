@@ -21,7 +21,7 @@ import {
   Badge,
   useDensity,
   type Density,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section } from "../../components/page-shell"
 
 /**

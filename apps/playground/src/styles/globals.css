@@ -1,5 +1,5 @@
 /* Pull in tokens + base styles from the library so the playground is dogfooded. */
-@import "@atrium/ui/styles/globals.css";
+@import "@cyanideui/ui/styles/globals.css";
 
 /* Animation utilities (animate-in, fade-in-0, zoom-in-95, slide-in-from-*) used
  * by Modal, Dropdown Menu, Tooltip, Popover, Drawer, etc. Tailwind v4 successor
@@ -8,7 +8,7 @@
 
 /*
  * Tailwind v4 only scans descendants of this CSS file's directory by default,
- * which means utility classes used INSIDE @atrium/ui components
+ * which means utility classes used INSIDE @cyanideui/ui components
  * (gap-2, px-3.5, the tone compoundVariants, etc.) wouldn't be generated.
  * The library is reached through a pnpm workspace symlink that lands in
  * node_modules, which Tailwind ignores. Point at the real source explicitly.

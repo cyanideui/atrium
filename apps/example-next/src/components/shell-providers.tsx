@@ -1,6 +1,6 @@
 "use client"
 
-import { Toaster, DensityRoot } from "@atrium/ui"
+import { Toaster, DensityRoot } from "@cyanideui/ui"
 
 /**
  * Minimal client-side provider wrapper. Mount once at the root layout.

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChipInput, Label } from "@atrium/ui"
+import { ChipInput, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function ChipInputPage() {

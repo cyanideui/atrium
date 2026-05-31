@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Chip, ClickableChip, Icon } from "@atrium/ui"
+import { Chip, ClickableChip, Icon } from "@cyanideui/ui"
 import { Tag01Icon } from "@hugeicons/core-free-icons"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 

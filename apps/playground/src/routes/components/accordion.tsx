@@ -3,7 +3,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function AccordionPage() {

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Stepper, Button, ButtonGroup } from "@atrium/ui"
+import { Stepper, Button, ButtonGroup } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const STEPS = [

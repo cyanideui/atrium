@@ -1,4 +1,4 @@
-import { ImportPreview, ImportRowStatusBadge, Button } from "@atrium/ui"
+import { ImportPreview, ImportRowStatusBadge, Button } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const ROWS = [

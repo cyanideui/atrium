@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { MoneyField, Label } from "@atrium/ui"
+import { MoneyField, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function MoneyFieldPage() {

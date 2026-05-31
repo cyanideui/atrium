@@ -1,10 +1,10 @@
 import * as React from "react"
-import { cn } from "@atrium/ui"
+import { cn } from "@cyanideui/ui"
 import { CodeBlock } from "./code-block"
 
 /**
  * Showcase page shell. Provides title, eyebrow, description, and a Section helper.
- * (Distinct from the future <PageShell> *component* in @atrium/ui.)
+ * (Distinct from the future <PageShell> *component* in @cyanideui/ui.)
  */
 
 export function PageHeader({

@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@atrium/ui"
+import { Breadcrumbs } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function BreadcrumbsPage() {

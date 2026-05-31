@@ -19,7 +19,7 @@ import {
   Icon,
   Kbd,
   useDensity,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   HomeIcon,
   Moon02Icon,

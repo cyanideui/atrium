@@ -22,7 +22,7 @@ import {
   SidebarNavItem,
   Avatar,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   HomeIcon,
   ShoppingBag01Icon,

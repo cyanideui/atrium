@@ -1,4 +1,4 @@
-# @atrium/cli
+# @cyanideui/cli
 
 Scaffold Atrium-styled apps and copy shell / hook starters from the registry into your project.
 
@@ -8,7 +8,7 @@ Same model as shadcn/ui: the CLI copies **source files** into your repo. You own
 
 ```bash
 # Bootstrap a new app (guides framework setup, adds the shell)
-pnpm dlx @atrium/cli init
+pnpm dlx @cyanideui/cli init
 
 # Add a registry item (and its dependencies) to the current project
 atrium add shell-doc

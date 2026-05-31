@@ -12,7 +12,7 @@ import {
   Badge,
   Banner,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Moon02Icon,
   HelpCircleIcon,

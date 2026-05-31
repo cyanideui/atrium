@@ -1,4 +1,4 @@
-import { FloatingLabelInput } from "@atrium/ui"
+import { FloatingLabelInput } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function FloatingLabelPage() {

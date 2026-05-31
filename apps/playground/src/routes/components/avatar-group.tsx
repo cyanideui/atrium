@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup } from "@atrium/ui"
+import { Avatar, AvatarGroup } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function AvatarGroupPage() {

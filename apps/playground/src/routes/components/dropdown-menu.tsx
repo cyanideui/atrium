@@ -8,7 +8,7 @@ import {
   DropdownMenuShortcut,
   Button,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Edit02Icon,
   Copy01Icon,

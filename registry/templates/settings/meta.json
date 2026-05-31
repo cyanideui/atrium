@@ -12,7 +12,7 @@
     }
   ],
   "dependencies": {
-    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+    "npm": ["@cyanideui/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
   },
   "postInstall": [
     "Replace the mock autosave effect with your real mutation/save logic.",

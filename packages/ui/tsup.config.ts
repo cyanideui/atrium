@@ -4,11 +4,11 @@ import { defineConfig } from "tsup"
  * Build configuration.
  *
  * Three entry points:
- *   - `src/index.ts`            → the main `@atrium/ui` import. Re-exports
+ *   - `src/index.ts`            → the main `@cyanideui/ui` import. Re-exports
  *                                  everything for one-stop convenience.
- *   - `src/command-palette.ts`  → `@atrium/ui/command-palette` subpath.
+ *   - `src/command-palette.ts`  → `@cyanideui/ui/command-palette` subpath.
  *                                  Pulls cmdk (~30 KB) only when imported.
- *   - `src/date-picker.ts`      → `@atrium/ui/date-picker` subpath. Pulls
+ *   - `src/date-picker.ts`      → `@cyanideui/ui/date-picker` subpath. Pulls
  *                                  react-day-picker (~80 KB) only when imported.
  *
  * Bundle-size-conscious consumers can opt out of the heavy components by

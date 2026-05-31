@@ -3,7 +3,7 @@ import {
   SegmentedControl,
   Badge,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   CalendarBlock01Icon,
   ChartLineData01Icon,

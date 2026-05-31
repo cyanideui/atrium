@@ -17,7 +17,7 @@ import {
   Icon,
   WorkflowTimeline,
   WorkflowTimelineItem,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Edit02Icon,
   Mail01Icon,

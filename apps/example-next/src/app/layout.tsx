@@ -6,7 +6,7 @@ import { AppShell } from "../components/app-shell"
 
 export const metadata: Metadata = {
   title: "Atrium UI — Next.js example",
-  description: "Reference Next.js 15 consumer for @atrium/ui",
+  description: "Reference Next.js 15 consumer for @cyanideui/ui",
 }
 
 export default function RootLayout({

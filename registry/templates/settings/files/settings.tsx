@@ -20,7 +20,7 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { Camera01Icon } from "@hugeicons/core-free-icons"
 
 /**

@@ -12,7 +12,7 @@ import {
   CommandPaletteFooter,
   Icon,
   Kbd,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   HomeIcon,
   ShoppingBag01Icon,

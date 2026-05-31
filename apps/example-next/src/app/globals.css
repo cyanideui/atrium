@@ -1,12 +1,12 @@
 /*
  * Atrium UI — Next.js consumer entry.
- * Imports all base styles + tokens from @atrium/ui.
+ * Imports all base styles + tokens from @cyanideui/ui.
  */
-@import "@atrium/ui/styles/globals.css";
+@import "@cyanideui/ui/styles/globals.css";
 
 /*
  * Tailwind v4 only scans the consumer app's `src/` by default, which means
- * utility classes used INSIDE @atrium/ui's components (gap-2, px-3.5, the
+ * utility classes used INSIDE @cyanideui/ui's components (gap-2, px-3.5, the
  * tone compoundVariants, etc.) wouldn't be generated. Workspace symlinks
  * land in node_modules, which Tailwind ignores by default. Point at the
  * real source explicitly.

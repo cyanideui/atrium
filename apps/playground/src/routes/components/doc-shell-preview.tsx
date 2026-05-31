@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Button, Banner, Icon, Kbd, KbdGroup } from "@atrium/ui"
+import { Button, Banner, Icon, Kbd, KbdGroup } from "@cyanideui/ui"
 import { ArrowRight02Icon, Sun02Icon } from "@hugeicons/core-free-icons"
 import { PageHeader, Section } from "../../components/page-shell"
 import { CodeBlock } from "../../components/code-block"

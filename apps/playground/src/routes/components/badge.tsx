@@ -1,4 +1,4 @@
-import { Badge } from "@atrium/ui"
+import { Badge } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 const TONES = [

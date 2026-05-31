@@ -21,7 +21,7 @@ import {
   PopoverContent,
   Icon,
   Kbd,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   Settings02Icon,
   Moon02Icon,

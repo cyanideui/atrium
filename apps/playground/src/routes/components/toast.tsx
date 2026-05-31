@@ -1,4 +1,4 @@
-import { Button, toast } from "@atrium/ui"
+import { Button, toast } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function ToastPage() {

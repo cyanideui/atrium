@@ -1,5 +1,5 @@
 {
-  "name": "@atrium/cli",
+  "name": "@cyanideui/cli",
   "version": "0.1.0",
   "description": "Scaffold Atrium-styled apps and copy shell/template/hook starters from the registry.",
   "keywords": ["atrium", "cli", "scaffold", "registry", "design-system"],
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Joyblacke/atrium.git",
+    "url": "git+https://github.com/cyanideui/atrium.git",
     "directory": "packages/cli"
   },
   "scripts": {

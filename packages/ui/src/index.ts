@@ -1,5 +1,5 @@
 /**
- * @atrium/ui — public API
+ * @cyanideui/ui — public API
  * Source of truth: design.md
  */
 

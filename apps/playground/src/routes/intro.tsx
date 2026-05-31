@@ -1,4 +1,4 @@
-import { Badge, Banner } from "@atrium/ui"
+import { Badge, Banner } from "@cyanideui/ui"
 import { PageHeader, Section } from "../components/page-shell"
 import { CodeBlock } from "../components/code-block"
 
@@ -37,8 +37,8 @@ export function IntroPage() {
         <p>From inside the monorepo:</p>
         <CodeBlock
           language="tsx"
-          code={`import { Button, Badge, Modal } from "@atrium/ui"
-import "@atrium/ui/styles/globals.css" // tokens + base styles
+          code={`import { Button, Badge, Modal } from "@cyanideui/ui"
+import "@cyanideui/ui/styles/globals.css" // tokens + base styles
 
 function App() {
   return <Button variant="primary" tone="critical">Delete</Button>
@@ -46,7 +46,7 @@ function App() {
         />
         <p>
           To consume from a separate project, build the package
-          (<code>pnpm --filter @atrium/ui build</code>) and either link via{" "}
+          (<code>pnpm --filter @cyanideui/ui build</code>) and either link via{" "}
           <code>file:</code>, publish to a private registry, or copy{" "}
           <code>packages/ui/src/components</code> directly.
         </p>

@@ -10,7 +10,7 @@ import {
   TableCell,
   Avatar,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   ArrowUpRight01Icon,
   ArrowDown01Icon,
@@ -81,7 +81,7 @@ export default function DashboardPage() {
           </div>
           <h1 className="m-0 text-[24px] font-semibold tracking-tight text-ink">Dashboard</h1>
           <p className="mt-1 max-w-[640px] text-[13px] text-ink-3">
-            A reference Next.js consumer for `@atrium/ui`. Server-rendered KPI tiles + sparklines + recent-orders table.
+            A reference Next.js consumer for `@cyanideui/ui`. Server-rendered KPI tiles + sparklines + recent-orders table.
           </p>
         </div>
         <div className="flex items-center gap-2">

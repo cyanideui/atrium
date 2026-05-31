@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { FileUpload, Label } from "@atrium/ui"
+import { FileUpload, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function FileUploadPage() {

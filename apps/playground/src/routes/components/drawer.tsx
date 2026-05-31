@@ -12,7 +12,7 @@ import {
   Input,
   Label,
   Badge,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function DrawerPage() {

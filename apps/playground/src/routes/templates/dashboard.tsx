@@ -11,7 +11,7 @@ import {
   Avatar,
   Icon,
   cn,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   ArrowUpRight01Icon,
   ArrowDown01Icon,

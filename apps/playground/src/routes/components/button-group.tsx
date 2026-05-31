@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button, ButtonGroup } from "@atrium/ui"
+import { Button, ButtonGroup } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function ButtonGroupPage() {

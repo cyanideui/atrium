@@ -1,4 +1,4 @@
-import { Input, Label } from "@atrium/ui"
+import { Input, Label } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function InputPage() {

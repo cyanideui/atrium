@@ -5,7 +5,7 @@ import {
   SidebarNavItem,
   SidebarNavParent,
   Icon,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import {
   DashboardSquare01Icon,
   ShoppingBag01Icon,

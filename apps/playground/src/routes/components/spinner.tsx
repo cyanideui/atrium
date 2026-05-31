@@ -1,4 +1,4 @@
-import { Spinner, Button } from "@atrium/ui"
+import { Spinner, Button } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function SpinnerPage() {

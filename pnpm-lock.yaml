@@ -17,7 +17,7 @@ importers:
 
   apps/example-next:
     dependencies:
-      '@atrium/ui':
+      '@cyanideui/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@hugeicons/core-free-icons':
@@ -60,7 +60,7 @@ importers:
 
   apps/playground:
     dependencies:
-      '@atrium/ui':
+      '@cyanideui/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@hugeicons/core-free-icons':

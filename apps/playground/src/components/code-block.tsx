@@ -4,7 +4,7 @@ import {
   type HighlighterCore,
 } from "shiki/core"
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
-import { Icon, cn } from "@atrium/ui"
+import { Icon, cn } from "@cyanideui/ui"
 import { Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons"
 import { useTheme } from "../hooks/use-theme"
 

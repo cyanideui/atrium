@@ -1,5 +1,5 @@
 import * as React from "react"
-import { KeyboardCheatsheet, useCheatsheetHotkey } from "@atrium/ui"
+import { KeyboardCheatsheet, useCheatsheetHotkey } from "@cyanideui/ui"
 
 /**
  * Edit this list to match your app's global shortcuts.

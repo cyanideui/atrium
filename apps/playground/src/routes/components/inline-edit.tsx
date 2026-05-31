@@ -7,7 +7,7 @@ import {
   TableHead,
   TableCell,
   InlineEdit,
-} from "@atrium/ui"
+} from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function InlineEditPage() {

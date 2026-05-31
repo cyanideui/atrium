@@ -1,4 +1,4 @@
-import { EmptyState, Button } from "@atrium/ui"
+import { EmptyState, Button } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function EmptyStatePage() {

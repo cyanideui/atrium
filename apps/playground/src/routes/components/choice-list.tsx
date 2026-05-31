@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChoiceList } from "@atrium/ui"
+import { ChoiceList } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function ChoiceListPage() {
