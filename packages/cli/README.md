@@ -1,22 +1,27 @@
-# @cyanideui/cli
+# cyanideui
 
-Scaffold Atrium-styled apps and copy shell / hook starters from the registry into your project.
+Scaffold Atrium-styled apps and copy components, shells, templates, and hooks from the public registry into your project.
 
 Same model as shadcn/ui: the CLI copies **source files** into your repo. You own them — modify freely, no version lock.
 
 ## Usage
 
 ```bash
+# Add a component (copies source + transitive deps into src/)
+npx cyanideui add button
+
 # Bootstrap a new app (guides framework setup, adds the shell)
-pnpm dlx @cyanideui/cli init
+npx cyanideui init
 
 # Add a registry item (and its dependencies) to the current project
-atrium add shell-doc
+npx cyanideui add shell-doc
 
 # Browse what's available
-atrium list
-atrium list hooks
+npx cyanideui list
+npx cyanideui list components
 ```
+
+> `npx` is universal. pnpm / yarn / bun users: `pnpm dlx cyanideui …`, `yarn dlx cyanideui …`, `bunx cyanideui …`.
 
 ## Commands
 

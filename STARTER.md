@@ -2,30 +2,33 @@
 
 You want a new app that looks like the playground — sidebar on the left, content card on the right, sticky topbar, command palette, keyboard shortcuts. Here's how.
 
-## The fast path (CLI)
+## The fast path (CLI — copy-paste, no token)
 
 ```bash
 # 1. Scaffold a base app with your framework's tool
-pnpm create next-app@latest my-app --ts --app --tailwind
+npx create-next-app@latest my-app --ts --app --tailwind
 cd my-app
 
-# 2. Add Atrium + icons
-pnpm add @cyanideui/ui @hugeicons/core-free-icons @hugeicons/react
+# 2. Add the shell — copies the chrome + every component it needs into src/
+npx cyanideui add shell-doc
 
-# 3. Wire Tailwind — in src/app/globals.css:
+# 3. The CLI prints the npm deps the copied files need — install them:
+npm install clsx tailwind-merge class-variance-authority @radix-ui/react-dialog ...
+#   (+ @hugeicons/core-free-icons @hugeicons/react for the icons)
+
+# 4. Wire Tailwind — in src/app/globals.css, add the design tokens:
 #      @import "@cyanideui/ui/styles/globals.css";
-#      @source "../node_modules/@cyanideui/ui/dist";
+#   (no @source needed — the copied components live in your own src/)
 
-# 4. Add the shell
-pnpm dlx @cyanideui/cli add shell-doc
-
-# 5. Wire it into your root layout (see below), then:
-pnpm dev
+# 5. Wire <ShellProviders> into your root layout (see below), then:
+npm run dev
 ```
 
-You now have the playground's chrome, empty and waiting for your content.
+The shell + all its components are now **your source** under `src/` — no `@cyanideui/ui` install, no token, no `.npmrc`. Edit anything freely.
 
-## What `atrium add shell-doc` gives you
+> Examples use `npx` (universal). pnpm / yarn / bun users: `pnpm dlx cyanideui …`, `yarn dlx cyanideui …`, `bunx cyanideui …` — all equivalent.
+
+## What `cyanideui add shell-doc` gives you
 
 ```
 src/
@@ -92,10 +95,10 @@ export function App() {
 ## Browsing what else is available
 
 ```bash
-atrium list
+npx cyanideui list
 ```
 
-The registry ships **inside** the `@cyanideui/cli` package, so it works offline and with a private source repo — no registry server, no auth beyond installing the package.
+The registry source lives in the **public GitHub repo** (fetched over raw HTTPS — no auth) and is also bundled inside the published CLI. Either way: no registry server, no token.
 
 | Item | What it is |
 |---|---|

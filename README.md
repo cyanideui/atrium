@@ -142,8 +142,8 @@ pnpm create next-app@latest my-app --ts --app --tailwind
 cd my-app
 
 # 2. Add components — each copies its source + transitive deps into src/
-pnpm dlx cyanideui add button
-pnpm dlx cyanideui add table badge modal
+npx cyanideui add button
+npx cyanideui add table badge modal
 
 # 3. The CLI prints the npm deps each component needs (Radix, cva, etc.):
 pnpm add clsx tailwind-merge class-variance-authority @radix-ui/react-slot ...
@@ -151,12 +151,14 @@ pnpm add clsx tailwind-merge class-variance-authority @radix-ui/react-slot ...
 
 `add button` lands `src/components/ui/button.tsx` + its transitive deps (`spinner`, `src/lib/utils.ts`) using `@/` path aliases — exactly like shadcn. No `@cyanideui/ui` import anywhere; the code is yours to edit.
 
+> Examples use `npx` (universal). pnpm / yarn / bun users can swap the runner: `pnpm dlx cyanideui …`, `yarn dlx cyanideui …`, `bunx cyanideui …` — all equivalent.
+
 ### The full shell + templates
 
 ```bash
-pnpm dlx cyanideui add shell-doc          # sidebar + topbar + palette + shortcuts
-pnpm dlx cyanideui add template-dashboard # a ready-made page
-pnpm dlx cyanideui list                   # browse everything (59 components, shells, templates, hooks)
+npx cyanideui add shell-doc          # sidebar + topbar + palette + shortcuts
+npx cyanideui add template-dashboard # a ready-made page
+npx cyanideui list                   # browse everything (59 components, shells, templates, hooks)
 ```
 
 ### Tailwind wiring
