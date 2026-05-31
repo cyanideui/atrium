@@ -164,12 +164,13 @@
 > - `comfortable` — unchanged. 52 px rows, 40 px form-md.
 > - The `D` hotkey now **cycles** all three: `compact-plus → compact → comfortable → compact-plus`.
 >
-> **Tokens scale on four axes (was: heights only)**
+> **Tokens scale on five axes (was: heights only)**
 > - Heights (rows + form-h-{sm,md,lg}) — unchanged.
 > - **Gaps** — `--density-gap-{xs,sm,md,lg}` — `2/4/6/8 px` (compact-plus) → `4/6/8/12 px` (compact) → `6/8/12/16 px` (comfortable).
 > - **Paddings** — `--density-pad-x` / `--density-pad-y` for section/card containers.
 > - **Type scale** — `--density-text-{xs,sm,md}` — small bumps that, paired with the height changes, make comfortable feel genuinely roomier without looking blown up.
-> - Radii stay fixed across modes so the visual identity is constant.
+> - **Timeline rhythm** — `--density-timeline-pb` (event vertical spacing) + `--density-timeline-gap` (dot-to-content) — `12/8 px` (compact-plus) → `16/10 px` (compact) → `24/12 px` (comfortable = original). Consumed by `<WorkflowTimeline>` and the `audit-log` block.
+> - Radii — and fixed glyphs like the timeline status dot — stay constant across modes so the visual identity holds.
 >
 > **Form components reflow (was: hardcoded h-7/h-9/h-10)**
 > - **Wired to `--density-form-h-{sm,md,lg}`**: `<Input>`, `<SearchField>`, `<MoneyField>`, `<NumberStepper>`, `<ChipInput>`, `<DateField>`, `<SelectTrigger>`, `<SavedFilters>` trigger.

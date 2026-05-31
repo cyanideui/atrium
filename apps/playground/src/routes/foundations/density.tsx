@@ -19,6 +19,8 @@ import {
   TableHeader,
   TableRow,
   Badge,
+  WorkflowTimeline,
+  WorkflowTimelineItem,
   useDensity,
   type Density,
 } from "@cyanideui/ui"
@@ -97,7 +99,7 @@ export function DensityPage() {
       <PageHeader
         eyebrow="Foundations"
         title="Density"
-        description="Three rhythm modes — compact-plus (dense ERP), compact (Notion / Linear scale, default), and comfortable (touch-friendly). Heights, gaps, paddings, and type all scale; radii stay fixed so the visual identity stays consistent."
+        description="Three rhythm modes — compact-plus (dense ERP), compact (Notion / Linear scale, default), and comfortable (touch-friendly). Heights, gaps, paddings, type, and the timeline event rhythm all scale; radii and icon/dot sizes stay fixed so the visual identity stays consistent."
       />
 
       <Section
@@ -187,6 +189,22 @@ export function DensityPage() {
                 ))}
               </TableBody>
             </Table>
+          )}
+        </DensityRow>
+      </Section>
+
+      <Section
+        title="Timeline"
+        description="The workflow timeline (and the audit-log block built on it) scales its event rhythm too. Dots stay the same size; only the vertical spacing tightens. Comfortable matches the original spacing."
+      >
+        <DensityRow title="Order fulfillment steps">
+          {() => (
+            <WorkflowTimeline>
+              <WorkflowTimelineItem status="complete" title="Order placed" meta="09:42" />
+              <WorkflowTimelineItem status="complete" title="Payment received" meta="09:42" />
+              <WorkflowTimelineItem status="active" title="Packing" meta="11:15" />
+              <WorkflowTimelineItem status="pending" title="Shipped" isLast />
+            </WorkflowTimeline>
           )}
         </DensityRow>
       </Section>
