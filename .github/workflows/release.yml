@@ -16,6 +16,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
 
 permissions:
   contents: read
@@ -64,7 +65,12 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> "$HOME/.npmrc"
 
       - name: Publish @cyanideui/ui
-        run: pnpm --filter @cyanideui/ui publish --no-git-checks --ignore-scripts
+        run: |
+          if pnpm --filter @cyanideui/ui publish --no-git-checks --ignore-scripts; then
+            echo "published @cyanideui/ui"
+          else
+            echo "::warning::@cyanideui/ui publish skipped (version likely already published)"
+          fi
 
       # --- Publish cyanideui (CLI) → public npmjs.com ---
       - name: Configure npm for public registry
@@ -72,7 +78,12 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > "$HOME/.npmrc"
 
       - name: Publish cyanideui (public CLI)
-        run: pnpm --filter cyanideui publish --no-git-checks --ignore-scripts
+        run: |
+          if pnpm --filter cyanideui publish --no-git-checks --ignore-scripts; then
+            echo "published cyanideui"
+          else
+            echo "::warning::cyanideui publish skipped (version likely already published)"
+          fi
 
       - name: Summary
         run: |

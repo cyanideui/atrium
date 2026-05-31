@@ -10,7 +10,7 @@ Two packages, two registries:
 The registry (component source) is fetched from the **public raw-GitHub URL** — no auth, since the repo is public. So the *consumer* experience is fully tokenless: `pnpm dlx cyanideui add button` needs nothing.
 
 - Repo: https://github.com/cyanideui/atrium (public)
-- Public CLI: https://www.npmjs.com/package/cyanideui (after first publish)
+- Public CLI: https://www.npmjs.com/package/cyanideui — **published, `cyanideui@0.1.0` live**
 
 ---
 
@@ -26,6 +26,12 @@ pnpm --filter cyanideui build      # bundles the registry into dist/
 cd packages/cli
 npm publish                         # publishConfig already targets public npm + public access
 ```
+
+> **2FA note:** if your npm account has 2FA enabled, plain `npm publish` fails with
+> `E403 ... Two-factor authentication ... required`. Either pass a live code with
+> `npm publish --otp=123456`, or publish with a **granular access token** that has
+> write access (granular tokens bypass the interactive OTP). The token route is also
+> what CI uses — see `NPM_TOKEN` below.
 
 Verify: https://www.npmjs.com/package/cyanideui
 
