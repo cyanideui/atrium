@@ -1,7 +1,7 @@
 {
   "name": "@cyanideui/ui",
   "version": "1.0.0",
-  "description": "Atrium UI â€?calm, content-first React component library for ERP and admin apps. Built with shadcn/ui patterns + Tailwind v4 + hugeicons (Stroke Rounded). Inspired by Notion, Shopify Polaris, and Linear.",
+  "description": "Atrium UI - calm, content-first React component library for ERP and admin apps. Built with shadcn/ui patterns + Tailwind v4 + hugeicons (Stroke Rounded). Inspired by Notion, Shopify Polaris, and Linear.",
   "keywords": [
     "react",
     "design-system",
