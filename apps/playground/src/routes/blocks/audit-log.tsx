@@ -27,7 +27,7 @@ export function AuditLogBlock() {
         eyebrow="Blocks"
         title="Audit log"
         status="stable"
-        description="Chronological activity feed on the WorkflowTimeline primitive — actor, action, timestamp, and optional tone badge per entry. Use for record history, audit trails, and change logs."
+        description="Chronological activity feed on the WorkflowTimeline primitive — actor, action, timestamp, and optional tone badge per entry. Density-aware (press D to cycle): the event rhythm tightens in compact modes. Use for record history, audit trails, and change logs."
       />
 
       <Section title="Preview">

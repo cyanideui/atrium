@@ -1,4 +1,4 @@
-import { Button, WorkflowTimeline, WorkflowTimelineItem, Badge } from "@cyanideui/ui"
+import { Button, WorkflowTimeline, WorkflowTimelineItem, Badge, DensityProvider } from "@cyanideui/ui"
 import { PageHeader, Section, Demo } from "../../components/page-shell"
 
 export function WorkflowTimelinePage() {
@@ -55,6 +55,27 @@ export function WorkflowTimelinePage() {
             </WorkflowTimeline>
           </div>
         </Demo>
+      </Section>
+
+      <Section
+        title="Density modes"
+        description="The event rhythm scales with density (press D to cycle globally, or scope a region with <DensityProvider>). Dots stay the same size; only the vertical spacing tightens. The comfortable mode matches the original spacing."
+      >
+        <div className="grid gap-4 sm:grid-cols-3">
+          {(["compact-plus", "compact", "comfortable"] as const).map((d) => (
+            <div key={d} className="rounded-md border border-hairline bg-canvas p-4">
+              <div className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-ink-3">{d}</div>
+              <DensityProvider density={d}>
+                <WorkflowTimeline>
+                  <WorkflowTimelineItem status="complete" title="Order placed" meta="09:42" />
+                  <WorkflowTimelineItem status="complete" title="Payment received" meta="09:42" />
+                  <WorkflowTimelineItem status="active" title="Packing" meta="11:15" />
+                  <WorkflowTimelineItem status="pending" title="Shipped" isLast />
+                </WorkflowTimeline>
+              </DensityProvider>
+            </div>
+          ))}
+        </div>
       </Section>
 
       <Section title="With a failed step">

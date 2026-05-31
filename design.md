@@ -2254,6 +2254,11 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Component changelog (WorkflowTimeline density)
+
+**Changed**
+- `<WorkflowTimeline>` is now **density-aware**. The per-event vertical rhythm (`--density-timeline-pb`) and the dot-to-content gap (`--density-timeline-gap`) scale with the active density mode; the status-dot size stays fixed so the visual identity is constant. The original fixed spacing (24px / 12px) is preserved as the **comfortable** value; `compact` (default, 16/10px) and `compact-plus` (12/8px) tighten it. `block-audit-log` inherits this automatically (it's built on the timeline). New tokens added to all density scopes in `tokens.css`. Playground: added a side-by-side density-modes section on the timeline page.
+
 ### Registry changelog (Tier 5 — high-value blocks)
 
 **Added — 6 blocks (copy-paste, `@/components/ui/*`):**

@@ -8,6 +8,12 @@ import { Icon } from "./icon"
  * Vertical event timeline with status dots + dotted connectors. Linear-ish.
  *
  * Use <WorkflowTimelineItem> per row. Statuses: complete · active · pending · failed.
+ *
+ * Density-aware: the per-event vertical rhythm (`--density-timeline-pb`) and
+ * the dot-to-content gap (`--density-timeline-gap`) scale with the active
+ * density mode. The original spacing is the `comfortable` value; `compact`
+ * (default) and `compact-plus` tighten it. The status-dot size stays fixed so
+ * the visual identity is constant across modes.
  */
 
 export type WorkflowStatus = "complete" | "active" | "pending" | "failed"
@@ -48,7 +54,8 @@ export const WorkflowTimelineItem = React.forwardRef<HTMLLIElement, WorkflowTime
   ({ className, status, title, meta, badge, isLast, children, ...rest }, ref) => (
     <li
       ref={ref}
-      className={cn("relative flex gap-3", isLast ? "pb-0" : "pb-6", className)}
+      style={{ gap: "var(--density-timeline-gap)", paddingBottom: isLast ? 0 : "var(--density-timeline-pb)" }}
+      className={cn("relative flex", className)}
       {...rest}
     >
       <div className="relative flex flex-col items-center">

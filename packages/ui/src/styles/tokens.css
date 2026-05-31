@@ -117,6 +117,11 @@
   --density-gap-md: 8px;
   --density-gap-lg: 12px;
 
+  /* Workflow timeline (event vertical rhythm + dot-to-content gap).
+     :root mirrors compact; comfortable matches the original fixed spacing. */
+  --density-timeline-pb: 16px;
+  --density-timeline-gap: 10px;
+
   /* Paddings (used by section/card containers) */
   --density-pad-x: 12px;
   --density-pad-y: 8px;
@@ -159,6 +164,8 @@
   --density-gap-sm: 4px;
   --density-gap-md: 6px;
   --density-gap-lg: 8px;
+  --density-timeline-pb: 12px;
+  --density-timeline-gap: 8px;
   --density-pad-x: 10px;
   --density-pad-y: 4px;
   --density-cell-py: 0px;
@@ -193,6 +200,8 @@
   --density-text-xs: 11px;
   --density-text-sm: 12.5px;
   --density-text-md: 13px;
+  --density-timeline-pb: 16px;
+  --density-timeline-gap: 10px;
 }
 
 [data-density="comfortable"],
@@ -221,6 +230,8 @@
   --density-text-xs: 11.5px;
   --density-text-sm: 13px;
   --density-text-md: 13.5px;
+  --density-timeline-pb: 24px;
+  --density-timeline-gap: 12px;
 }
 
 /* -------------------------------------------------------------
