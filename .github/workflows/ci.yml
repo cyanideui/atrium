@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install
@@ -33,7 +33,7 @@ jobs:
         run: pnpm --filter @cyanideui/ui test
 
       - name: Build registry index
-        run: pnpm build:registry
+        run: node scripts/build-registry-index.mjs
 
       - name: Build CLI
         run: pnpm --filter cyanideui build
