@@ -25,8 +25,14 @@
 /* react-day-picker base layout (grid, table, animation keyframes).
  * Our DatePicker overrides almost every class via the `classNames` prop, but
  * the base file still provides the calendar grid layout, animation keyframes,
- * and the `:popover-open` plumbing the library relies on. */
-@import "react-day-picker/style.css";
+ * and the `:popover-open` plumbing the library relies on.
+ *
+ * IMPORTANT — cascade: imported INTO `@layer base` so our `.ds-datepicker`
+ * rules in `@layer components` win (components is ordered above base in
+ * Tailwind v4). Imported UNLAYERED, rdp's defaults (--rdp-accent-color: blue,
+ * 100% day radius, 42px cells, 2px selected border) beat every layered
+ * override — which rendered days as oversized blue circles. */
+@import "react-day-picker/style.css" layer(base);
 
 /* ----------------- KEYFRAMES (unlayered — do not participate in cascade) */
 
@@ -392,8 +398,8 @@
     --rdp-accent-color: var(--ink);
     --rdp-accent-background-color: var(--surface-2);
 
-    --rdp-day-height: 32px;
-    --rdp-day-width: 32px;
+    --rdp-day-height: 30px;
+    --rdp-day-width: 30px;
     --rdp-day_button-height: 28px;
     --rdp-day_button-width: 28px;
     --rdp-day_button-border: 1px solid transparent;
@@ -414,8 +420,8 @@
 
     --rdp-nav_button-height: 28px;
     --rdp-nav_button-width: 28px;
-    --rdp-nav-height: 36px;
-    --rdp-months-gap: 1.5rem;
+    --rdp-nav-height: 34px;
+    --rdp-months-gap: 1rem;
 
     --rdp-weekday-opacity: 1;
     --rdp-weekday-padding: 0.25rem 0;
@@ -468,7 +474,22 @@
   .ds-datepicker .rdp-today:not(.rdp-selected) .rdp-day_button {
     font-weight: 600;
     color: var(--ink);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+    position: relative;
+  }
+  /* "Today" marker — a small dot under the number rather than a full ring.
+   * A ring reads like a selection/focus border (the "why is 31 bordered?"
+   * confusion); a dot clearly says "this is today" without competing with the
+   * selected/range styling. */
+  .ds-datepicker .rdp-today:not(.rdp-selected) .rdp-day_button::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: var(--radius-pill);
+    background-color: var(--ink-3);
   }
   .ds-datepicker .rdp-outside .rdp-day_button {
     color: var(--ink-4);

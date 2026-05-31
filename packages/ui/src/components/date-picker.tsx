@@ -18,13 +18,19 @@ import { Icon } from "./icon"
  *   • <DatePicker variant="card"> — bordered card with elev-1 shadow (default).
  *   • <DatePicker variant="bare"> — no chrome, for embedding inside Popover.
  *
+ * Range selection (`resetOnSelect`): we opt into rdp's reset behavior so the
+ * flow is predictable —
+ *   1st click → sets `from` (clears `to`)
+ *   2nd click → sets `to` (auto-ordered if earlier than `from`)
+ *   3rd click → starts a fresh range from the clicked day
+ * Without it, rdp keeps *extending* the existing range on every later click.
+ *
  * Layout strategy (after multiple iterations — see §1c gotchas):
  *   We override visuals only via CSS custom properties + targeted .ds-datepicker
  *   .rdp-* rules in globals.css. We do NOT override structural classNames
  *   (root, month_grid, weekdays, week, day) because doing so collapsed the
- *   layout. We use captionLayout="label" + navLayout="around" so the prev/next
- *   chevrons sit on either side of the month name (the default `inset-end`
- *   layout overlapped them on top of the caption).
+ *   layout. We use navLayout="around" so the prev/next chevrons sit on either
+ *   side of the month name.
  */
 
 export type DatePickerProps = DayPickerProps & {
@@ -43,15 +49,13 @@ export function DatePicker({
       className={cn(
         "ds-datepicker inline-block p-3 text-ink",
         variant === "card" && "rounded-md border border-hairline bg-canvas shadow-elev-1",
-        className
+        className,
       )}
     >
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <DayPicker
         animate
         showOutsideDays
         navLayout="around"
-        mode={mode as any}
         components={{
           Chevron: ({ orientation }) => (
             <Icon
@@ -60,6 +64,11 @@ export function DatePicker({
             />
           ),
         }}
+        // Predictable range flow (from → to → reset). Consumers can still
+        // override by passing their own resetOnSelect.
+        {...(mode === "range" ? { resetOnSelect: true } : {})}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        mode={mode as any}
         {...rest}
       />
     </div>

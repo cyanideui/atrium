@@ -7,6 +7,12 @@ import { cn } from "../lib/cn"
  * between rest and edit. Both states render at the exact same dimensions —
  * only the border + bg + caret appear/disappear.
  *
+ * IMPORTANT for tables: put InlineEdit inside a `<Table fixed>` (table-layout:
+ * fixed) with explicit column widths. In an auto-layout table, column widths
+ * are computed from cell content — swapping the rest-state text for an input
+ * changes the content width and the column re-measures (visible shift). Fixed
+ * layout pins the widths so editing never moves anything.
+ *
  * Implementation key: a single <span>-like rest state and <input> edit state
  * with identical box model. We use a wrapping <div> that holds either the
  * static text or the input, both styled with the same padding, font-size,
@@ -72,9 +78,11 @@ export const InlineEdit = React.forwardRef<HTMLInputElement, InlineEditProps>(
      *   - 8px horizontal padding
      *   - 1px border (transparent at rest, ink when editing)
      *   - same font-size (inherited from cell)
+     *   - min-w-0 so the input never forces its cell/column wider (spreadsheet
+     *     feel): the column width is owned by the rest-state text, not the input.
      */
     const sharedBox = cn(
-      "relative flex h-7 w-full items-center rounded-sm",
+      "relative flex h-7 w-full min-w-0 items-center rounded-sm",
       "border border-transparent px-2 text-[13px] leading-none",
       "transition-[border-color,background-color,box-shadow] duration-[var(--dur-fast)]",
       alignClass[align],
@@ -86,6 +94,9 @@ export const InlineEdit = React.forwardRef<HTMLInputElement, InlineEditProps>(
         <input
           ref={inputRef}
           type="text"
+          // size={1} kills the input's default ~20ch intrinsic width so it
+          // never widens its table column / flex cell when editing begins.
+          size={1}
           value={draft}
           disabled={disabled}
           placeholder={placeholder}
@@ -102,7 +113,10 @@ export const InlineEdit = React.forwardRef<HTMLInputElement, InlineEditProps>(
           }}
           className={cn(
             sharedBox,
-            "border-ink bg-canvas text-ink ring-1 ring-ink outline-none",
+            "border-ink bg-canvas text-ink outline-none",
+            // Inset ring keeps the focus emphasis INSIDE the box so it can't
+            // nudge layout (an outer ring-1 paints 1px beyond the border).
+            "shadow-[inset_0_0_0_1px_var(--ink)]",
             // Pull text alignment into the input
             align === "right" && "text-right",
             align === "center" && "text-center",

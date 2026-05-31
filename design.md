@@ -2254,6 +2254,19 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Fixes changelog (date picker + playground nav)
+
+**Fixed**
+- **Inline edit shifted its table column on edit.** Two causes: (1) the `<input>` carried the default `size=20` → ~20ch intrinsic width that widened flex/grid cells; fixed with `size={1}` + `min-w-0` + an inset focus ring (was `ring-1`, which paints outside the box). (2) In a `table-layout: auto` table, column widths are computed from cell content, so swapping text↔input re-measured the column. Added a **`fixed` prop to `<Table>`** (`table-layout: fixed`) — the spreadsheet pattern — and updated the inline-edit demo + docstring to use `<Table fixed>` with explicit column widths. Editing now changes only the border/bg, never the layout.
+- **Detail card polish.** Switched from `justify-between` + `max-w-[60%] flex-1` to a fixed two-column grid (`140px | 1fr`) so the value column is stable; left-aligned values (right-aligned inline inputs read awkwardly); uniform row heights; added a `readOnly` field flag (demoed on "Customer since").
+- **Date picker rendered as oversized blue circles.** `react-day-picker/style.css` was `@import`ed **unlayered**, so its defaults (`--rdp-accent-color: blue`, `100%` day radius, `42px` cells, `2px` selected border) beat all our `.ds-datepicker` overrides in `@layer components` (unlayered wins over every layer — the §1c gotcha). Fixed by importing it into `@layer base` via `@import "react-day-picker/style.css" layer(base)`. Days now use `--radius-sm` (squared), ink accent, 28/30px sizing.
+- **Date range flow was unpredictable.** First attempt added a custom `onDayClick` that raced rdp's internal range selection. Replaced with rdp's built-in **`resetOnSelect`** (confirmed against its `useRange` source): 1st click sets `from`, 2nd sets `to` (auto-ordered), 3rd resets to a fresh `from`. `<DateField>` closes on the completed span.
+- **"Today" looked like a selectable border.** Replaced the inset ring on today's cell with a small dot under the number.
+- **Playground sidebar lit up two items at once.** `nav-link-item.tsx` matched routes with `end: false` (prefix), so `/blocks` stayed active on every `/blocks/*` child. Defaulted to exact matching (`end ?? true`), with an `end={false}` escape hatch.
+
+**Also**
+- Tightened the calendar: day cells 32→30px, months-gap 1.5→1rem, nav-height 36→34px.
+
 ### Registry changelog (Tier 4 — blocks + minimal shell)
 
 **Added — `blocks` category (8 items, copy-paste, `@/components/ui/*` imports):**

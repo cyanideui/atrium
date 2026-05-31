@@ -26,6 +26,10 @@ import {
  * actions menu) over editable rows. Values are inline-editable via InlineEdit.
  * Use for record summaries: customer, payment, shipping, metadata, etc.
  *
+ * Layout: each row is a fixed two-column grid (label | value). The value
+ * column width is stable, so clicking into edit never shifts the layout —
+ * spreadsheet feel.
+ *
  * Swap the initial FIELDS for your data and wire onCommit to a mutation.
  */
 
@@ -33,15 +37,16 @@ interface Field {
   key: string
   label: string
   value: string
-  align?: "left" | "right"
+  /** Render as a read-only row (no inline edit). */
+  readOnly?: boolean
 }
 
 const INITIAL_FIELDS: Field[] = [
   { key: "name", label: "Customer", value: "Acme Corporation" },
   { key: "email", label: "Email", value: "ap@acme.com" },
-  { key: "since", label: "Customer since", value: "Mar 2024" },
-  { key: "spend", label: "Total spend", value: "$48,210", align: "right" },
-  { key: "open", label: "Open orders", value: "3", align: "right" },
+  { key: "since", label: "Customer since", value: "Mar 2024", readOnly: true },
+  { key: "spend", label: "Total spend", value: "$48,210" },
+  { key: "open", label: "Open orders", value: "3" },
 ]
 
 export function DetailCard() {
@@ -51,7 +56,7 @@ export function DetailCard() {
     setFields((prev) => prev.map((f) => (f.key === key ? { ...f, value: next } : f)))
 
   return (
-    <section className="rounded-md border border-hairline bg-canvas">
+    <section className="overflow-hidden rounded-md border border-hairline bg-canvas">
       <header className="flex items-center justify-between gap-3 border-b border-hairline px-4 py-2.5">
         <div className="flex items-center gap-2">
           <h2 className="m-0 text-[13px] font-semibold text-ink">Customer</h2>
@@ -73,17 +78,25 @@ export function DetailCard() {
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
-      <dl className="flex flex-col divide-y divide-hairline">
+      <dl className="m-0 flex flex-col divide-y divide-hairline">
         {fields.map((f) => (
-          <div key={f.key} className="flex items-center justify-between gap-3 px-4 py-1.5">
-            <dt className="text-[12.5px] text-ink-3">{f.label}</dt>
-            <dd className="m-0 min-w-0 max-w-[60%] flex-1">
-              <InlineEdit
-                value={f.value}
-                onCommit={(next) => commit(f.key, next)}
-                align={f.align ?? "right"}
-                textClassName="text-[12.5px] font-medium text-ink"
-              />
+          <div
+            key={f.key}
+            className="grid grid-cols-[minmax(0,140px)_minmax(0,1fr)] items-center gap-3 px-3 py-px"
+          >
+            <dt className="truncate py-2 pl-1 text-[12.5px] text-ink-3">{f.label}</dt>
+            <dd className="m-0 min-w-0">
+              {f.readOnly ? (
+                <span className="block truncate px-2 py-2 text-[12.5px] font-medium text-ink">
+                  {f.value}
+                </span>
+              ) : (
+                <InlineEdit
+                  value={f.value}
+                  onCommit={(next) => commit(f.key, next)}
+                  textClassName="text-[12.5px] font-medium text-ink"
+                />
+              )}
             </dd>
           </div>
         ))}

@@ -29,19 +29,29 @@ export function InlineEditPage() {
         description="Spreadsheet-style cell editor. Click a value to edit. Enter commits, Esc cancels, Tab moves to the next."
       />
 
-      <Section title="Inside a table" description="Click any cell to edit. Enter commits, Esc cancels. The cell itself never resizes.">
+      <Section title="Inside a table" description="Click any cell to edit. Enter commits, Esc cancels. The table uses fixed column widths, so editing never resizes or shifts the layout — true spreadsheet feel.">
         <Demo
-          code={`<TableCell className="p-1">
-  <InlineEdit value={row.price} align="right" onCommit={(v) => update(row.id, "price", v)} />
-</TableCell>`}
+          code={`<Table fixed>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Product</TableHead>
+      <TableHead className="w-[120px] text-right">Price</TableHead>
+      <TableHead className="w-[100px] text-right">Stock</TableHead>
+    </TableRow>
+  </TableHeader>
+  …
+  <TableCell className="p-1">
+    <InlineEdit value={row.price} align="right" onCommit={(v) => update(row.id, "price", v)} />
+  </TableCell>
+</Table>`}
         >
           <div className="w-full rounded-md border border-hairline bg-canvas">
-            <Table>
+            <Table fixed>
               <TableHeader>
                 <TableRow>
                   <TableHead>Product</TableHead>
-                  <TableHead className="text-right">Price</TableHead>
-                  <TableHead className="text-right">Stock</TableHead>
+                  <TableHead className="w-[120px] text-right">Price</TableHead>
+                  <TableHead className="w-[100px] text-right">Stock</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

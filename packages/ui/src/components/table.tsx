@@ -8,13 +8,23 @@ import { cn } from "../lib/cn"
 
 export const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableElement> & {
+    /**
+     * Use `table-layout: fixed` — column widths come from the header / explicit
+     * `<col>`/`width` and never recompute from body content. Essential for
+     * inline-edit grids: without it, swapping a cell's text for an input
+     * re-measures the column and the table visibly shifts. Pair with widths on
+     * your `<TableHead>`s.
+     */
+    fixed?: boolean
+  }
+>(({ className, fixed, ...props }, ref) => (
   <div className="relative w-full overflow-auto">
     <table
       ref={ref}
       className={cn(
         "w-full caption-bottom border-collapse text-[13px] tabular-nums text-ink",
+        fixed && "table-fixed",
         // Round the first/last cells of the first row so a `bg-surface` header
         // doesn't paint past a rounded parent. Pure CSS, no JS needed.
         "[&_thead_tr:first-child_th:first-child]:rounded-tl-md",

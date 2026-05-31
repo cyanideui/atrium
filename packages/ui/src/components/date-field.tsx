@@ -142,6 +142,8 @@ export function DateField(props: DateFieldProps) {
             selected={props.value ?? undefined}
             onSelect={(r) => {
               props.onChange?.(r ?? null)
+              // DatePicker's range logic sets `to` only on the 2nd click, so a
+              // complete { from, to } here means the span is done → snap closed.
               if (r?.from && r?.to) setOpen(false)
             }}
           />
