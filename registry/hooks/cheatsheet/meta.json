@@ -1,0 +1,20 @@
+{
+  "name": "hook-cheatsheet",
+  "category": "hooks",
+  "title": "GlobalCheatsheet",
+  "description": "Wires the ? hotkey to a KeyboardCheatsheet modal listing your app's global shortcuts. Controlled or uncontrolled.",
+  "version": "1.0.0",
+  "frameworks": ["next", "vite-react-router"],
+  "files": [
+    {
+      "from": "use-global-cheatsheet.tsx",
+      "to": "src/hooks/use-global-cheatsheet.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": ["@atrium/ui", "react"]
+  },
+  "postInstall": [
+    "Edit the GROUPS array to match your app's shortcuts. Mount <GlobalCheatsheet /> once at the root."
+  ]
+}

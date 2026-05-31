@@ -1,0 +1,676 @@
+/* =============================================================
+ * Atrium UI — Global base styles
+ * Loaded by consumers after tokens.css
+ *
+ * CASCADE STRATEGY
+ *   Tailwind v4 layer order (low → high):
+ *     @layer base  →  @layer components  →  @layer utilities
+ *
+ *   Unlayered rules win over EVERY layer regardless of specificity.
+ *   That's the recurring "Unlayered CSS overrides Tailwind utilities"
+ *   gotcha — see design.md §1c.
+ *
+ *   Strategy here:
+ *     • @layer base       — resets, body, scrollbar, focus, cursors.
+ *     • @layer components — every `.ds-*` component class so Tailwind
+ *                           utilities on the SAME element can override
+ *                           on state (data-[state=…], aria-[…], hover, etc).
+ *     • Unlayered         — keyframes only (don't participate in cascade).
+ *
+ *   Adding a new component class? Drop it inside `@layer components`.
+ * ============================================================= */
+
+@import "./tokens.css";
+
+/* react-day-picker base layout (grid, table, animation keyframes).
+ * Our DatePicker overrides almost every class via the `classNames` prop, but
+ * the base file still provides the calendar grid layout, animation keyframes,
+ * and the `:popover-open` plumbing the library relies on. */
+@import "react-day-picker/style.css";
+
+/* ----------------- KEYFRAMES (unlayered — do not participate in cascade) */
+
+@keyframes ds-scroll-pulse {
+  0%   { background-color: var(--hairline-strong); }
+  35%  { background-color: var(--info); }
+  100% { background-color: transparent; }
+}
+
+@keyframes ds-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================= */
+/* COMPONENTS LAYER                                              */
+/* ============================================================= */
+
+@layer components {
+  /* ---------- Overlay scrollbar (Notion / Linear / Raycast style) ----------
+   * Applied via the `.ds-scroll-overlay` class. The track is transparent at rest
+   * and the thumb fades in only while the user is hovering the container OR
+   * actively scrolling. After ~300ms of idle scroll the thumb fades back out.
+   *
+   * Bonus 1 — grippy feel: thumb darkens to --ink-3 on hover and stays dark
+   * during active drag (`::-webkit-scrollbar-thumb:active`).
+   *
+   * Bonus 2 — pulse on new content: setting `data-pulse="true"` on the
+   * container plays a one-shot color flash on the thumb. Use the `pulse()`
+   * function returned by `useScrollOverlay()` (or DocContent's `pulseOnChange`
+   * prop) to trigger it.
+   *
+   * `scrollbar-gutter: stable` reserves space for the bar on the right edge
+   * so content doesn't shift when the bar appears mid-scroll. Containers that
+   * need their content perfectly centered in a narrow rail (e.g. the
+   * collapsed `<DocSidebar>`'s 56 px nav) opt out by adding the data-attribute
+   * `data-no-scroll-gutter` — without it, the gutter eats ~10 px from the
+   * right edge and centered icons drift left. The bar still appears on hover
+   * because the overlay always paints at the right inset.
+   */
+  .ds-scroll-overlay {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 200ms ease-out;
+  }
+  .ds-scroll-overlay[data-no-scroll-gutter] {
+    scrollbar-gutter: auto;
+  }
+  .ds-scroll-overlay:hover,
+  .ds-scroll-overlay[data-scrolling="true"] {
+    scrollbar-color: var(--hairline-strong) transparent;
+  }
+  .ds-scroll-overlay::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .ds-scroll-overlay::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .ds-scroll-overlay::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition:
+      background-color 200ms ease-out,
+      border-width 100ms ease-out,
+      transform 80ms ease-out;
+  }
+  .ds-scroll-overlay:hover::-webkit-scrollbar-thumb,
+  .ds-scroll-overlay[data-scrolling="true"]::-webkit-scrollbar-thumb {
+    background-color: var(--hairline-strong);
+  }
+  .ds-scroll-overlay::-webkit-scrollbar-thumb:hover {
+    background-color: var(--ink-3);
+  }
+  .ds-scroll-overlay::-webkit-scrollbar-thumb:active {
+    background-color: var(--ink-3);
+    border-width: 1px;
+  }
+  .ds-scroll-overlay[data-pulse="true"]::-webkit-scrollbar-thumb {
+    animation: ds-scroll-pulse 800ms ease-out 1;
+  }
+  .ds-scroll-overlay[data-pulse="true"] {
+    scrollbar-color: var(--hairline-strong) transparent;
+  }
+
+  /* ---------- Trigger button (Polaris-style chrome) ----------
+   * Shared gradient + inset chrome for "button-like" form triggers that open
+   * a Popover/Select/Menu — i.e. components that look like inputs but behave
+   * like buttons. Currently used by:
+   *   - <SavedFilters> trigger
+   *   - <DateField> trigger
+   *   - <SelectTrigger>
+   */
+  .ds-trigger {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f7 100%);
+    border-color: var(--hairline-strong);
+    box-shadow:
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04),
+      0 1px 0 0 rgba(0, 0, 0, 0.04);
+  }
+  .ds-trigger:hover:not(:disabled) {
+    background: linear-gradient(180deg, #f6f6f7 0%, #ebecee 100%);
+    border-color: var(--ink-3);
+  }
+  .ds-trigger:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+  }
+  .ds-trigger[data-state="open"] {
+    background: #ebecee;
+    border-color: var(--ink-3);
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  }
+  .ds-trigger:disabled {
+    background: var(--surface);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .dark .ds-trigger {
+    background: linear-gradient(180deg, #2a2a2e 0%, #1f1f22 100%);
+    border-color: var(--hairline-strong);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.30);
+  }
+  .dark .ds-trigger:hover:not(:disabled) {
+    background: linear-gradient(180deg, #303035 0%, #25252a 100%);
+    border-color: var(--ink-3);
+  }
+  .dark .ds-trigger[data-state="open"] {
+    background: #303035;
+    border-color: var(--ink-3);
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  }
+  .dark .ds-trigger:disabled {
+    background: var(--surface);
+    box-shadow: none;
+  }
+
+  /* ---------- Shortcut hint chip (Polaris-style chrome) ----------
+   * Pill-shaped chip used by `<ShortcutHint>` for the default tone only —
+   * tinted tones (info/success/warning/critical) keep their flat tone-bg
+   * so the color reads cleanly. Default tone gets the same gradient +
+   * insets as the rest of the family so a chip floating at bottom-center
+   * reads as a real surface, not a flat label.
+   *
+   * Shadow strategy: a tight elev-2 outset (matches the React component's
+   * shadow-elev-2) plus an inset top highlight so the gradient looks lit.
+   * The bottom inset that other family members use (`.ds-trigger`,
+   * `.ds-segmented-pill`) is omitted because the chip already has a real
+   * elev-2 outset shadow underneath — adding the bottom inset would
+   * double-darken the lower edge.
+   */
+  .ds-shortcut-hint {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f7 100%);
+    border-color: var(--hairline-strong);
+    color: var(--ink);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.55),
+      0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  }
+  .dark .ds-shortcut-hint {
+    background: linear-gradient(180deg, #2a2a2e 0%, #1f1f22 100%);
+    border-color: var(--hairline-strong);
+    color: var(--ink);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      0 2px 8px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* ---------- Sidebar search button (Polaris-style chrome) ---------- */
+  .ds-sb-search {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f7 100%);
+    color: var(--ink-2);
+    border-color: var(--hairline-strong);
+    box-shadow:
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04),
+      0 1px 0 0 rgba(0, 0, 0, 0.04);
+  }
+  .ds-sb-search:hover {
+    background: linear-gradient(180deg, #f6f6f7 0%, #ebecee 100%);
+    border-color: var(--ink-3);
+    color: var(--ink);
+  }
+  .ds-sb-search:active {
+    background: #ebecee;
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  }
+  .dark .ds-sb-search {
+    background: linear-gradient(180deg, #2a2a2e 0%, #1f1f22 100%);
+    color: var(--ink-2);
+    border-color: var(--hairline-strong);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.30);
+  }
+  .dark .ds-sb-search:hover {
+    background: linear-gradient(180deg, #303035 0%, #25252a 100%);
+    border-color: var(--ink-3);
+    color: var(--ink);
+  }
+
+  /* ---------- Segmented control sliding pill ---------- */
+  .ds-segmented-pill {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f7 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.40),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.06),
+      0 1px 0 0 rgba(0, 0, 0, 0.04);
+  }
+  .dark .ds-segmented-pill {
+    background: linear-gradient(180deg, #2a2a2e 0%, #1f1f22 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.30),
+      0 1px 0 0 rgba(0, 0, 0, 0.30);
+  }
+
+  /* ---------- Switch (Polaris-style chrome) ---------- */
+  .ds-switch {
+    background: linear-gradient(180deg, #efeeec 0%, #e5e3df 100%);
+    box-shadow:
+      inset 0 1px 2px 0 rgba(0, 0, 0, 0.06),
+      inset 0 0 0 1px var(--hairline-strong);
+  }
+  .ds-switch[data-state="checked"][data-tone="default"] {
+    background: linear-gradient(180deg, #404040 0%, #1a1a1a 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.30),
+      inset 0 0 0 1px #1a1a1a;
+  }
+  .ds-switch[data-state="checked"][data-tone="success"] {
+    background: linear-gradient(180deg, #1aae39 0%, #0c8b29 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.18),
+      inset 0 0 0 1px #0c8b29;
+  }
+  .ds-switch[data-state="checked"][data-tone="warning"] {
+    background: linear-gradient(180deg, #dd5b00 0%, #b84a00 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.18),
+      inset 0 0 0 1px #b84a00;
+  }
+  .ds-switch[data-state="checked"][data-tone="critical"] {
+    background: linear-gradient(180deg, #e51c00 0%, #cc1a00 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.20),
+      inset 0 0 0 1px #b81700;
+  }
+  .ds-switch[data-state="checked"][data-tone="info"] {
+    background: linear-gradient(180deg, #2563eb 0%, #1e4fc4 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.18),
+      inset 0 0 0 1px #1e4fc4;
+  }
+  .ds-switch-thumb {
+    background: linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.06),
+      0 1px 2px 0 rgba(0, 0, 0, 0.18),
+      0 0 0 0.5px rgba(0, 0, 0, 0.10);
+  }
+  .dark .ds-switch {
+    background: linear-gradient(180deg, #1f1f22 0%, #18181a 100%);
+    box-shadow:
+      inset 0 1px 2px 0 rgba(0, 0, 0, 0.4),
+      inset 0 0 0 1px var(--hairline-strong);
+  }
+  .dark .ds-switch[data-state="checked"][data-tone="default"] {
+    background: linear-gradient(180deg, #f4f4f5 0%, #d4d4d6 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.40),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.10),
+      inset 0 0 0 1px #b8b8bb;
+  }
+  .dark .ds-switch-thumb {
+    background: linear-gradient(180deg, #f4f4f5 0%, #c8c8cc 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.50),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.10),
+      0 1px 2px 0 rgba(0, 0, 0, 0.45),
+      0 0 0 0.5px rgba(0, 0, 0, 0.30);
+  }
+  .dark .ds-switch[data-state="checked"][data-tone="default"] .ds-switch-thumb {
+    background: linear-gradient(180deg, #2a2a2e 0%, #1f1f22 100%);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.30),
+      0 1px 2px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  /* ---------- Radio (Direction B — filled-on-checked) ---------- */
+  .ds-radio[data-state="checked"] {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.20);
+  }
+  .ds-radio-dot {
+    background: radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #e8e8ea 50%,
+      #a8a4a0 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.70),
+      0 0.5px 1px 0 rgba(0, 0, 0, 0.25);
+  }
+  .dark .ds-radio-dot {
+    background: radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #d4d4d6 50%,
+      #8e8e93 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.40),
+      0 0.5px 1px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  /* ---------- Checkbox (Polaris-style chrome) ---------- */
+  .ds-checkbox[data-state="unchecked"] {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f7 100%);
+    box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+  }
+  .ds-checkbox[data-state="unchecked"]:hover:not([disabled]) {
+    border-color: var(--ink-3);
+  }
+  .dark .ds-checkbox[data-state="unchecked"] {
+    background: linear-gradient(180deg, #1f1f22 0%, #18181a 100%);
+    box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.30);
+  }
+
+  /* ---------- Command palette overlay ----------
+   * cmdk renders [cmdk-overlay] as a sibling of the dialog content (not a
+   * descendant of our wrapper), so Tailwind descendant selectors on the wrapper
+   * never match. Style it globally so the palette gets the same blur as Modal,
+   * Drawer, and the rest. */
+  [cmdk-overlay] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    animation: ds-overlay-in 80ms ease-out;
+  }
+
+  /* ---------- Date picker token overrides ----------
+   * react-day-picker v10 exposes everything we need via --rdp-* CSS variables.
+   * We rebind them to our tokens, and add a small handful of targeted rules for
+   * states the variables don't cover (today ring, hover, range-edge rounding). */
+  .ds-datepicker .rdp-root {
+    --rdp-accent-color: var(--ink);
+    --rdp-accent-background-color: var(--surface-2);
+
+    --rdp-day-height: 32px;
+    --rdp-day-width: 32px;
+    --rdp-day_button-height: 28px;
+    --rdp-day_button-width: 28px;
+    --rdp-day_button-border: 1px solid transparent;
+    --rdp-day_button-border-radius: var(--radius-sm);
+
+    --rdp-disabled-opacity: 0.4;
+    --rdp-outside-opacity: 0.5;
+    --rdp-today-color: var(--ink);
+
+    --rdp-range_middle-background-color: var(--surface-2);
+    --rdp-range_middle-color: var(--ink);
+    --rdp-range_start-color: var(--canvas);
+    --rdp-range_start-date-background-color: var(--ink);
+    --rdp-range_end-color: var(--canvas);
+    --rdp-range_end-date-background-color: var(--ink);
+
+    --rdp-selected-border: 0;
+
+    --rdp-nav_button-height: 28px;
+    --rdp-nav_button-width: 28px;
+    --rdp-nav-height: 36px;
+    --rdp-months-gap: 1.5rem;
+
+    --rdp-weekday-opacity: 1;
+    --rdp-weekday-padding: 0.25rem 0;
+    --rdp-weekday-text-transform: uppercase;
+    --rdp-animation_duration: 200ms;
+    --rdp-animation_timing: var(--ease-standard);
+
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .ds-datepicker .rdp-month_caption {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .ds-datepicker .rdp-weekday {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-4);
+  }
+  .ds-datepicker .rdp-day_button {
+    font-feature-settings: "tnum";
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color var(--dur-fast), color var(--dur-fast);
+  }
+  .ds-datepicker .rdp-day_button:hover:not([disabled]) {
+    background-color: var(--surface);
+    color: var(--ink);
+  }
+  /* Selected (single mode) — neutralize upstream font-size / font-weight. */
+  .ds-datepicker .rdp-selected,
+  .ds-datepicker .rdp-selected .rdp-day_button {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  .ds-datepicker .rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle) .rdp-day_button {
+    background-color: var(--ink);
+    color: var(--canvas);
+    font-weight: 500;
+    border-color: transparent;
+  }
+  .ds-datepicker .rdp-selected:not(.rdp-range_start):not(.rdp-range_end):not(.rdp-range_middle) .rdp-day_button:hover {
+    background-color: var(--ink);
+    color: var(--canvas);
+  }
+  .ds-datepicker .rdp-today:not(.rdp-selected) .rdp-day_button {
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+  }
+  .ds-datepicker .rdp-outside .rdp-day_button {
+    color: var(--ink-4);
+    opacity: 0.7;
+  }
+  .ds-datepicker .rdp-disabled .rdp-day_button {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+  .ds-datepicker .rdp-range_middle {
+    background-color: var(--surface-2);
+  }
+  .ds-datepicker .rdp-range_middle .rdp-day_button {
+    background-color: transparent;
+    color: var(--ink);
+    border-radius: 0;
+    border-color: transparent;
+  }
+  .ds-datepicker .rdp-range_middle .rdp-day_button:hover {
+    background-color: color-mix(in srgb, var(--ink) 6%, transparent);
+    border-radius: var(--radius-sm);
+  }
+  .ds-datepicker .rdp-range_start {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 50%,
+      var(--surface-2) 50%,
+      var(--surface-2) 100%
+    );
+  }
+  .ds-datepicker .rdp-range_end {
+    background: linear-gradient(
+      to right,
+      var(--surface-2) 0%,
+      var(--surface-2) 50%,
+      transparent 50%,
+      transparent 100%
+    );
+  }
+  .ds-datepicker .rdp-range_start .rdp-day_button,
+  .ds-datepicker .rdp-range_end .rdp-day_button {
+    background-color: var(--ink);
+    color: var(--canvas);
+    font-weight: 500;
+    border-color: transparent;
+    border-radius: var(--radius-sm);
+  }
+  .ds-datepicker .rdp-range_start.rdp-range_end {
+    background: transparent;
+  }
+  .ds-datepicker .rdp-button_previous,
+  .ds-datepicker .rdp-button_next {
+    cursor: pointer;
+    color: var(--ink-3);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--dur-fast), color var(--dur-fast);
+  }
+  .ds-datepicker .rdp-button_previous:hover,
+  .ds-datepicker .rdp-button_next:hover {
+    background-color: var(--surface);
+    color: var(--ink);
+  }
+  .ds-datepicker .rdp-chevron {
+    fill: currentColor;
+  }
+}
+
+/* ============================================================= */
+/* BASE LAYER (resets, body, scrollbar, focus, cursors)          */
+/* ============================================================= */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: var(--hairline);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-feature-settings: "cv11", "ss01", "tnum";
+    overscroll-behavior: none;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Lock the document to the viewport so the browser's rubber-band scroll
+     * doesn't bounce past the page edges. App shells use their own scroll
+     * containers (e.g. <DocContent>'s card) and never want the document
+     * to scroll. */
+    overscroll-behavior: none;
+  }
+
+  /* Tabular numbers in tables and metric tiles */
+  table,
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Focus ring — visible, never color-only */
+  :where(button, [role="button"], a, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* Scrollbar — calm, light-touch */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--hairline-strong);
+    border-radius: 999px;
+    border: 2px solid var(--canvas);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-3);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 80ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 80ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Print — strip chrome */
+  @media print {
+    body {
+      background: white;
+      color: black;
+    }
+    [data-print-hide] {
+      display: none !important;
+    }
+  }
+
+  /* Suppress native search clear button — we render our own. */
+  input[type="search"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+
+  /* ---------- CURSORS ----------
+   * Browsers default <button> to cursor: default and Tailwind's preflight
+   * doesn't override it, so clickable controls feel "dead" without this. */
+  button,
+  [role="button"],
+  [role="menuitem"],
+  [role="menuitemradio"],
+  [role="menuitemcheckbox"],
+  [role="tab"],
+  [role="option"],
+  [role="switch"],
+  [role="checkbox"],
+  [role="radio"],
+  summary,
+  a[href] {
+    cursor: pointer;
+  }
+  label[for] {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled="true"],
+  [data-disabled],
+  :disabled {
+    cursor: not-allowed;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]):not([type="image"]):not([type="color"]):not([type="range"]),
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+  }
+  input:read-only:not([type="checkbox"]):not([type="radio"]):not([type="button"]),
+  textarea:read-only {
+    cursor: text;
+  }
+}

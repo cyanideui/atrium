@@ -1,0 +1,21 @@
+{
+  "name": "template-detail",
+  "category": "templates",
+  "title": "Record Detail",
+  "description": "Record detail page — breadcrumb + status + 2-column grid (line items + workflow timeline on the left, customer + payment cards on the right) + Drawer-based activity log.",
+  "version": "1.0.0",
+  "frameworks": ["next", "vite-react-router"],
+  "files": [
+    {
+      "from": "detail.tsx",
+      "to": "src/pages/detail.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+  },
+  "postInstall": [
+    "Swap TIMELINE / LINE_ITEMS and the customer/payment cards for your record data.",
+    "Next.js: move to src/app/orders/[id]/page.tsx and read params. Vite: route via <Route path='/orders/:id' element={<DetailPage />} />."
+  ]
+}

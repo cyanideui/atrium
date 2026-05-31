@@ -1,0 +1,43 @@
+{
+  "name": "shell-doc",
+  "category": "shells",
+  "title": "DocShell layout",
+  "description": "Notion-style sidebar + content card. Sidebar with brand, search, nav, footer. Sticky topbar with breadcrumbs + theme toggle + settings menu. Bundled with command palette, keyboard cheatsheet, and shortcut toasts. This is the playground's chrome, emptied of content.",
+  "version": "1.0.0",
+  "frameworks": ["next", "vite-react-router"],
+  "files": [
+    {
+      "from": "lib/nav.ts",
+      "to": "src/lib/nav.ts"
+    },
+    {
+      "from": "components/app-shell.tsx",
+      "to": "src/components/app-shell.tsx"
+    },
+    {
+      "from": "components/shell-providers.tsx",
+      "to": "src/components/shell-providers.tsx"
+    },
+    {
+      "from": "components/command-palette.tsx",
+      "to": "src/components/command-palette.tsx"
+    },
+    {
+      "from": "components/nav-link-item.tsx",
+      "to": "src/components/nav-link-item.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"],
+    "registry": ["hook-theme", "hook-shortcut-toasts", "hook-cheatsheet"]
+  },
+  "tailwind": {
+    "globalsImport": "@atrium/ui/styles/globals.css",
+    "sourcePath": "../../node_modules/@atrium/ui/dist"
+  },
+  "postInstall": [
+    "Wire <ShellProviders><AppShell>{children}</AppShell></ShellProviders> into your root (Next.js: src/app/layout.tsx, Vite: src/App.tsx).",
+    "Edit src/lib/nav.ts to set your routes.",
+    "Edit the brand (logo + name) in src/components/app-shell.tsx."
+  ]
+}

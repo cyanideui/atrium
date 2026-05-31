@@ -1,0 +1,335 @@
+/* =============================================================
+ * ERP Design System — Tokens (Light + Dark)
+ * Tailwind v4 @theme directive maps these to utility classes.
+ * Source of truth: design.md §2 + §8.2
+ * ============================================================= */
+
+@import "tailwindcss";
+
+/* The dark variant is opt-in via the `dark` class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* -------------------------------------------------------------
+ * 1. Tokens — Light (default)
+ * ------------------------------------------------------------- */
+:root {
+  /* Surface */
+  --canvas: #ffffff;
+  --surface: #f6f5f4;
+  --surface-2: #efeeec;
+  --hairline: #e5e3df;
+  --hairline-strong: #c8c4be;
+
+  /* Ink (text) */
+  --ink: #1a1a1a;
+  --ink-2: #3d3d3d;
+  --ink-3: #6b6b6b;
+  --ink-4: #9a9a9a;
+
+  /* Semantic — vivid (validation, sparkline, focus rings) */
+  --success: #1aae39;       --success-tint: #e9f7ec;
+  --warning: #dd5b00;       --warning-tint: #fdeee2;
+  --error:   #e03131;       --error-tint:   #fbe6e6;
+  --info:    #2563eb;       --info-tint:    #e6efff;
+
+  /* Tone — calm (badges, banners) */
+  --tone-default-bg:   #efeeec;  --tone-default-fg:   #3d3d3d;
+  --tone-success-bg:   #cdfee1;  --tone-success-fg:   #0c5132;
+  --tone-warning-bg:   #ffeacc;  --tone-warning-fg:   #5b3300;
+  --tone-critical-bg:  #fee9e7;  --tone-critical-fg:  #8e1f0b;
+  --tone-info-bg:      #d2efff;  --tone-info-fg:      #00527c;
+  --tone-attention-bg: #fff1d6;  --tone-attention-fg: #5b3300;
+  --tone-new-bg:       #e3e0f8;  --tone-new-fg:       #38298b;
+  --tone-readonly-bg:  #efeeec;  --tone-readonly-fg:  #6b6b6b;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --elev-1: 0 1px 2px rgba(0,0,0,.04);
+  --elev-2: 0 2px 8px rgba(0,0,0,.06);
+  --elev-3: 0 8px 24px rgba(0,0,0,.08);
+  --elev-4: 0 16px 48px rgba(0,0,0,.12);
+
+  /* Motion */
+  --dur-fast: 80ms;
+  --dur-base: 150ms;
+  --dur-slide: 250ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasis: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* ---------- Density ----------
+   * Three levels — compact-plus < compact (default) < comfortable.
+   *
+   *  • `compact-plus`  — 36 px rows, 28 px form-md. For high-volume
+   *                       operators (logistics dashboards, audit logs).
+   *  • `compact`       — 44 px rows, 36 px form-md. Default. Reads dense
+   *                       without feeling crowded. Notion / Linear scale.
+   *  • `comfortable`   — 52 px rows, 40 px form-md. Touch-friendly,
+   *                       extra whitespace. ERP forms, settings pages.
+   *
+   * Tokens scale on FOUR axes — heights, gaps, paddings, type. Radii stay
+   * fixed so visual identity is constant across modes.
+   *
+   * SCOPING — the same `--density-*` block is emitted from THREE selectors:
+   *   1. `:root` defaults (compact)
+   *   2. `[data-density="..."]`        — applies globally when set on <html>
+   *   3. `.ds-density-...`             — scoped override for nested regions
+   *      (e.g. a "compact summary table inside a comfortable settings page")
+   *
+   * Components that read these vars don't care which selector wrote them —
+   * the cascade picks up the closest one, so dropping `.ds-density-compact`
+   * on a single `<Table>` is enough to override the surrounding scope.
+   */
+
+  /* Heights */
+  --density-row-h: 44px;        /* table rows */
+  --density-head-h: 36px;       /* table headers */
+  --density-form-h-sm: 28px;    /* form size="sm" */
+  --density-form-h-md: 36px;    /* form size="md" (default) */
+  --density-form-h-lg: 40px;    /* form size="lg" */
+  /** alias for callers using `--density-form-h` (md). */
+  --density-form-h: 36px;
+
+  /* Buttons + switch — separate scale so action affordances don't ride
+     directly on form heights. Buttons scale less aggressively than form
+     fields so toolbars stay readable in compact-plus, but they DO scale
+     so the system reflows as one piece. */
+  --density-btn-h-micro: 24px;
+  --density-btn-h-sm: 28px;
+  --density-btn-h-md: 32px;
+  --density-btn-h-lg: 40px;
+
+  --density-switch-track-w: 32px;
+  --density-switch-track-h: 18px;
+  --density-switch-thumb-size: 14px;
+  /** how far the thumb travels at checked state. (track-w − thumb − 4 px padding) */
+  --density-switch-thumb-translate: 16px;
+
+  /* Gaps */
+  --density-gap-xs: 4px;
+  --density-gap-sm: 6px;
+  --density-gap-md: 8px;
+  --density-gap-lg: 12px;
+
+  /* Paddings (used by section/card containers) */
+  --density-pad-x: 12px;
+  --density-pad-y: 8px;
+  --density-cell-py: 0px;       /* extra vertical padding on table cells */
+
+  /* Type scale — small bumps that, paired with the height changes, make
+     comfortable feel genuinely roomier without looking blown up. */
+  --density-text-xs: 11px;
+  --density-text-sm: 12.5px;
+  --density-text-md: 13px;
+}
+
+/* -------------------------------------------------------------
+ * 1b. Density scopes
+ *
+ * Two selectors apply the same overrides:
+ *   - `[data-density=…]`  set on <html> (or any ancestor) — global default
+ *   - `.ds-density-…`     scoped class — wins for any subtree
+ *
+ * Each block lists ONLY the tokens that change vs. compact, so missing
+ * keys fall through to the :root defaults above.
+ * ------------------------------------------------------------- */
+[data-density="compact-plus"],
+.ds-density-compact-plus {
+  --density-row-h: 36px;
+  --density-head-h: 32px;
+  --density-form-h-sm: 24px;
+  --density-form-h-md: 28px;
+  --density-form-h-lg: 32px;
+  --density-form-h: 28px;
+  --density-btn-h-micro: 20px;
+  --density-btn-h-sm: 24px;
+  --density-btn-h-md: 28px;
+  --density-btn-h-lg: 32px;
+  --density-switch-track-w: 28px;
+  --density-switch-track-h: 16px;
+  --density-switch-thumb-size: 12px;
+  --density-switch-thumb-translate: 14px;
+  --density-gap-xs: 2px;
+  --density-gap-sm: 4px;
+  --density-gap-md: 6px;
+  --density-gap-lg: 8px;
+  --density-pad-x: 10px;
+  --density-pad-y: 4px;
+  --density-cell-py: 0px;
+  --density-text-xs: 10.5px;
+  --density-text-sm: 12px;
+  --density-text-md: 12.5px;
+}
+
+[data-density="compact"],
+.ds-density-compact {
+  --density-row-h: 44px;
+  --density-head-h: 36px;
+  --density-form-h-sm: 28px;
+  --density-form-h-md: 36px;
+  --density-form-h-lg: 40px;
+  --density-form-h: 36px;
+  --density-btn-h-micro: 24px;
+  --density-btn-h-sm: 28px;
+  --density-btn-h-md: 32px;
+  --density-btn-h-lg: 40px;
+  --density-switch-track-w: 32px;
+  --density-switch-track-h: 18px;
+  --density-switch-thumb-size: 14px;
+  --density-switch-thumb-translate: 16px;
+  --density-gap-xs: 4px;
+  --density-gap-sm: 6px;
+  --density-gap-md: 8px;
+  --density-gap-lg: 12px;
+  --density-pad-x: 12px;
+  --density-pad-y: 8px;
+  --density-cell-py: 0px;
+  --density-text-xs: 11px;
+  --density-text-sm: 12.5px;
+  --density-text-md: 13px;
+}
+
+[data-density="comfortable"],
+.ds-density-comfortable {
+  --density-row-h: 52px;
+  --density-head-h: 40px;
+  --density-form-h-sm: 32px;
+  --density-form-h-md: 40px;
+  --density-form-h-lg: 44px;
+  --density-form-h: 40px;
+  --density-btn-h-micro: 28px;
+  --density-btn-h-sm: 32px;
+  --density-btn-h-md: 36px;
+  --density-btn-h-lg: 44px;
+  --density-switch-track-w: 36px;
+  --density-switch-track-h: 20px;
+  --density-switch-thumb-size: 16px;
+  --density-switch-thumb-translate: 18px;
+  --density-gap-xs: 6px;
+  --density-gap-sm: 8px;
+  --density-gap-md: 12px;
+  --density-gap-lg: 16px;
+  --density-pad-x: 16px;
+  --density-pad-y: 12px;
+  --density-cell-py: 4px;
+  --density-text-xs: 11.5px;
+  --density-text-sm: 13px;
+  --density-text-md: 13.5px;
+}
+
+/* -------------------------------------------------------------
+ * 2. Tokens — Dark
+ * Calm, not OLED-black. Maintains AA contrast.
+ * ------------------------------------------------------------- */
+.dark {
+  --canvas: #0e0e0f;
+  --surface: #18181a;
+  --surface-2: #1f1f22;
+  --hairline: #2a2a2e;
+  --hairline-strong: #3a3a3f;
+
+  --ink: #f4f4f5;
+  --ink-2: #c8c8cc;
+  --ink-3: #8e8e93;
+  --ink-4: #5a5a5f;
+
+  --success: #2ec452;       --success-tint: #103a1c;
+  --warning: #f48238;       --warning-tint: #3a2010;
+  --error:   #f04848;       --error-tint:   #3a1414;
+  --info:    #4a85f4;       --info-tint:    #0e1e3a;
+
+  --tone-default-bg:   #2a2a2e;  --tone-default-fg:   #c8c8cc;
+  --tone-success-bg:   #103a1c;  --tone-success-fg:   #8de2a3;
+  --tone-warning-bg:   #3a2010;  --tone-warning-fg:   #ffba7a;
+  --tone-critical-bg:  #3a1414;  --tone-critical-fg:  #ff9d8e;
+  --tone-info-bg:      #0e1e3a;  --tone-info-fg:      #8ab8ff;
+  --tone-attention-bg: #3a2a10;  --tone-attention-fg: #ffce85;
+  --tone-new-bg:       #1f1c3a;  --tone-new-fg:       #b9b3ff;
+  --tone-readonly-bg:  #1f1f22;  --tone-readonly-fg:  #8e8e93;
+
+  --elev-1: 0 1px 2px rgba(0,0,0,.4);
+  --elev-2: 0 2px 8px rgba(0,0,0,.5);
+  --elev-3: 0 8px 24px rgba(0,0,0,.55);
+  --elev-4: 0 16px 48px rgba(0,0,0,.6);
+}
+
+/* -------------------------------------------------------------
+ * 3. Tailwind v4 @theme — exposes tokens as utility classes
+ *    e.g. bg-canvas, text-ink-2, border-hairline, ring-info
+ * ------------------------------------------------------------- */
+@theme inline {
+  /* Colors */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+
+  --color-success: var(--success);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-warning-tint: var(--warning-tint);
+  --color-error: var(--error);
+  --color-error-tint: var(--error-tint);
+  --color-info: var(--info);
+  --color-info-tint: var(--info-tint);
+
+  --color-tone-default-bg:   var(--tone-default-bg);
+  --color-tone-default-fg:   var(--tone-default-fg);
+  --color-tone-success-bg:   var(--tone-success-bg);
+  --color-tone-success-fg:   var(--tone-success-fg);
+  --color-tone-warning-bg:   var(--tone-warning-bg);
+  --color-tone-warning-fg:   var(--tone-warning-fg);
+  --color-tone-critical-bg:  var(--tone-critical-bg);
+  --color-tone-critical-fg:  var(--tone-critical-fg);
+  --color-tone-info-bg:      var(--tone-info-bg);
+  --color-tone-info-fg:      var(--tone-info-fg);
+  --color-tone-attention-bg: var(--tone-attention-bg);
+  --color-tone-attention-fg: var(--tone-attention-fg);
+  --color-tone-new-bg:       var(--tone-new-bg);
+  --color-tone-new-fg:       var(--tone-new-fg);
+  --color-tone-readonly-bg:  var(--tone-readonly-bg);
+  --color-tone-readonly-fg:  var(--tone-readonly-fg);
+
+  /* Radius — v4 reads --radius-* automatically */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+  --shadow-elev-3: var(--elev-3);
+  --shadow-elev-4: var(--elev-4);
+
+  /* Font family */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Accordion height transitions — Radix sets --radix-accordion-content-height
+ * on the content element, which we use for a smooth open/close. */
+@keyframes accordion-down {
+  from { height: 0; }
+  to   { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to   { height: 0; }
+}
+.animate-accordion-down { animation: accordion-down var(--dur-base) var(--ease-standard); }
+.animate-accordion-up   { animation: accordion-up   var(--dur-base) var(--ease-standard); }

@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    name: Build + test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build library
+        run: pnpm --filter @atrium/ui build
+
+      - name: Test library
+        run: pnpm --filter @atrium/ui test
+
+      - name: Build registry index
+        run: pnpm build:registry
+
+      - name: Build CLI
+        run: pnpm --filter @atrium/cli build
+
+      - name: Test CLI
+        run: pnpm --filter @atrium/cli test
+
+      - name: Typecheck workspace
+        run: pnpm typecheck
+
+      - name: Build playground
+        run: pnpm --filter @atrium/playground build
+
+      - name: Build Next.js example
+        run: pnpm --filter @atrium/example-next build

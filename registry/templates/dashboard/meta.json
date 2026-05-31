@@ -1,0 +1,21 @@
+{
+  "name": "template-dashboard",
+  "category": "templates",
+  "title": "Dashboard",
+  "description": "ERP overview page — KPI tiles with inline sparklines + recent-activity table. Drop-in starter for any landing/overview screen.",
+  "version": "1.0.0",
+  "frameworks": ["next", "vite-react-router"],
+  "files": [
+    {
+      "from": "dashboard.tsx",
+      "to": "src/pages/dashboard.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+  },
+  "postInstall": [
+    "Swap the KPIS / ORDERS constants for your real data.",
+    "Next.js: move to src/app/dashboard/page.tsx (it already has the default export). Vite: route it via <Route element={<DashboardPage />} />."
+  ]
+}

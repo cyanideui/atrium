@@ -1,0 +1,43 @@
+{
+  "name": "@atrium/cli",
+  "version": "0.1.0",
+  "description": "Scaffold Atrium-styled apps and copy shell/template/hook starters from the registry.",
+  "keywords": ["atrium", "cli", "scaffold", "registry", "design-system"],
+  "license": "UNLICENSED",
+  "type": "module",
+  "bin": {
+    "atrium": "dist/index.js"
+  },
+  "files": ["dist", "README.md"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joyblacke/atrium.git",
+    "directory": "packages/cli"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-registry-index.mjs && tsup && node scripts/copy-registry.mjs",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm test && pnpm build"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

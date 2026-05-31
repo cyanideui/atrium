@@ -1,0 +1,52 @@
+/* Pull in tokens + base styles from the library so the playground is dogfooded. */
+@import "@atrium/ui/styles/globals.css";
+
+/* Animation utilities (animate-in, fade-in-0, zoom-in-95, slide-in-from-*) used
+ * by Modal, Dropdown Menu, Tooltip, Popover, Drawer, etc. Tailwind v4 successor
+ * to the v3 tailwindcss-animate plugin. */
+@import "tw-animate-css";
+
+/*
+ * Tailwind v4 only scans descendants of this CSS file's directory by default,
+ * which means utility classes used INSIDE @atrium/ui components
+ * (gap-2, px-3.5, the tone compoundVariants, etc.) wouldn't be generated.
+ * The library is reached through a pnpm workspace symlink that lands in
+ * node_modules, which Tailwind ignores. Point at the real source explicitly.
+ */
+@source "../../../../packages/ui/src";
+
+/* Playground-only chrome lives here */
+@layer components {
+  .ds-prose h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .ds-prose h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 32px 0 8px;
+  }
+  .ds-prose h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 24px 0 6px;
+  }
+  .ds-prose p {
+    color: var(--ink-2);
+    margin: 0 0 12px;
+    max-width: 720px;
+  }
+  .ds-prose code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: var(--surface);
+    padding: 1px 6px;
+    border-radius: var(--radius-xs);
+    color: var(--ink);
+  }
+}

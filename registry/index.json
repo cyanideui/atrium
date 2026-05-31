@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-31T07:02:26.763Z",
+  "items": [
+    {
+      "name": "hook-cheatsheet",
+      "category": "hooks",
+      "title": "GlobalCheatsheet",
+      "description": "Wires the ? hotkey to a KeyboardCheatsheet modal listing your app's global shortcuts. Controlled or uncontrolled.",
+      "version": "1.0.0",
+      "path": "hooks/cheatsheet"
+    },
+    {
+      "name": "hook-shortcut-toasts",
+      "category": "hooks",
+      "title": "useShortcutToasts",
+      "description": "Fires a compact ShortcutHint chip when a global UI mode changes — theme, density, sidebar collapse, body width. Deduped per mode, first-paint guarded.",
+      "version": "1.0.0",
+      "path": "hooks/shortcut-toasts"
+    },
+    {
+      "name": "hook-theme",
+      "category": "hooks",
+      "title": "useTheme",
+      "description": "Light/dark theme state backed by a module-level external store (useSyncExternalStore), so every call site shares one value. Persists to localStorage, applies `.dark` on <html>.",
+      "version": "1.0.0",
+      "path": "hooks/theme"
+    },
+    {
+      "name": "shell-doc",
+      "category": "shells",
+      "title": "DocShell layout",
+      "description": "Notion-style sidebar + content card. Sidebar with brand, search, nav, footer. Sticky topbar with breadcrumbs + theme toggle + settings menu. Bundled with command palette, keyboard cheatsheet, and shortcut toasts. This is the playground's chrome, emptied of content.",
+      "version": "1.0.0",
+      "path": "shells/doc-shell"
+    },
+    {
+      "name": "template-crud-list",
+      "category": "templates",
+      "title": "CRUD List",
+      "description": "Search + saved filter presets + bulk actions + sticky table + pagination + empty state. The reference for any 'list of records' screen (orders, customers, products, invoices).",
+      "version": "1.0.0",
+      "path": "templates/crud-list"
+    },
+    {
+      "name": "template-dashboard",
+      "category": "templates",
+      "title": "Dashboard",
+      "description": "ERP overview page — KPI tiles with inline sparklines + recent-activity table. Drop-in starter for any landing/overview screen.",
+      "version": "1.0.0",
+      "path": "templates/dashboard"
+    },
+    {
+      "name": "template-detail",
+      "category": "templates",
+      "title": "Record Detail",
+      "description": "Record detail page — breadcrumb + status + 2-column grid (line items + workflow timeline on the left, customer + payment cards on the right) + Drawer-based activity log.",
+      "version": "1.0.0",
+      "path": "templates/detail"
+    },
+    {
+      "name": "template-settings",
+      "category": "templates",
+      "title": "Settings",
+      "description": "Tabbed sectioned form with autosave — Profile / Notifications / Security / Billing. Drop-in for /settings, /account, /workspace/preferences.",
+      "version": "1.0.0",
+      "path": "templates/settings"
+    }
+  ]
+}

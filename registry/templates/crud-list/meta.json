@@ -1,0 +1,21 @@
+{
+  "name": "template-crud-list",
+  "category": "templates",
+  "title": "CRUD List",
+  "description": "Search + saved filter presets + bulk actions + sticky table + pagination + empty state. The reference for any 'list of records' screen (orders, customers, products, invoices).",
+  "version": "1.0.0",
+  "frameworks": ["next", "vite-react-router"],
+  "files": [
+    {
+      "from": "crud-list.tsx",
+      "to": "src/pages/orders.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": ["@atrium/ui", "@hugeicons/core-free-icons", "@hugeicons/react", "react"]
+  },
+  "postInstall": [
+    "Swap ALL_ORDERS for your data source; the filter/search/pagination logic is client-side and ready to wire to a query.",
+    "Next.js: move to src/app/orders/page.tsx. Vite: route via <Route element={<OrdersPage />} />."
+  ]
+}
