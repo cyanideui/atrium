@@ -1,0 +1,56 @@
+import { Icon, Sparkline, cn } from "@cyanideui/ui"
+import { ArrowUpRight01Icon, ArrowDown01Icon } from "@hugeicons/core-free-icons"
+import { PageHeader, Section } from "../../components/page-shell"
+import { CodeBlock } from "../../components/code-block"
+
+interface Stat {
+  label: string
+  value: string
+  delta: string
+  up: boolean
+  spark: number[]
+}
+
+const STATS: Stat[] = [
+  { label: "Total revenue", value: "$124,592", delta: "+12.5%", up: true, spark: [12, 15, 14, 18, 22, 20, 24, 28, 27, 32, 30, 36] },
+  { label: "Orders", value: "1,847", delta: "+8.2%", up: true, spark: [40, 38, 42, 45, 48, 47, 50, 52, 51, 55, 58, 60] },
+  { label: "Pending", value: "342", delta: "−2.1%", up: false, spark: [80, 75, 78, 72, 70, 68, 65, 62, 60, 58, 55, 52] },
+  { label: "Fulfillment", value: "98.2%", delta: "+0.4%", up: true, spark: [94, 95, 95, 96, 96, 97, 97, 98, 98, 98, 98, 98] },
+]
+
+export function StatCardsBlock() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Blocks"
+        title="Stat cards"
+        status="stable"
+        description="Responsive KPI tile row — value, trend delta, and inline sparkline per metric. Drop at the top of any overview screen."
+      />
+
+      <Section title="Preview">
+        <div className="rounded-md border border-hairline bg-surface p-6">
+          <section aria-label="Key metrics" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-2 rounded-md border border-hairline bg-canvas p-4">
+                <div className="flex items-baseline justify-between">
+                  <div className="text-[12px] uppercase tracking-wider text-ink-3">{stat.label}</div>
+                  <div className={cn("inline-flex items-center gap-0.5 text-[12px] font-medium tabular-nums", stat.up ? "text-success" : "text-error")}>
+                    <Icon icon={stat.up ? ArrowUpRight01Icon : ArrowDown01Icon} size={12} />
+                    {stat.delta}
+                  </div>
+                </div>
+                <div className="text-[24px] font-semibold tabular-nums tracking-tight text-ink">{stat.value}</div>
+                <Sparkline data={stat.spark} tone={stat.up ? "success" : "critical"} height={32} className="-mx-1" />
+              </div>
+            ))}
+          </section>
+        </div>
+      </Section>
+
+      <Section title="Install" description="Copy-paste into your project via the CLI. Pulls the block plus its component dependencies.">
+        <CodeBlock language="bash" code={`npx cyanideui add stat-cards`} />
+      </Section>
+    </>
+  )
+}

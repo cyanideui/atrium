@@ -2273,6 +2273,7 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - Blocks live in `registry/blocks/<name>/{meta.json, files/*}` and install to `src/components/blocks/`. They're authored directly with `@/` aliases (pure copy-paste) and carry framework markers (`@atrium:if next`) for the `"use client"` directive where stateful.
 - Registry index now has **78 items** (was 69). CLI prefix-resolution already supported `block-` (so `add data-table` → `block-data-table`).
 - Verified end-to-end: cold-start install (Next + Vite) of `block-data-table` and `shell-minimal` resolves the full transitive dep graph, transforms cleanly (no marker/cross-framework leakage), and the generated output typechecks.
+- **Playground showcase:** added a `Blocks` nav section + live demo pages for all 8 blocks (`/blocks` overview + one page each), each with a working interactive preview and the `npx cyanideui add <block>` install command. The command palette picks them up automatically (it derives pages from `nav.ts`).
 
 ### Infra changelog (distribution — publishing, CLI, registry, CI)
 

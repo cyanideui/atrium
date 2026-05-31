@@ -99,6 +99,16 @@ const CrudListTemplate = lazyNamed(() => import("./routes/templates/crud-list"),
 const SettingsTemplate = lazyNamed(() => import("./routes/templates/settings"), "SettingsTemplate")
 const DetailTemplate = lazyNamed(() => import("./routes/templates/detail"), "DetailTemplate")
 
+const BlocksIndex = lazyNamed(() => import("./routes/blocks/index"), "BlocksIndex")
+const StatCardsBlock = lazyNamed(() => import("./routes/blocks/stat-cards"), "StatCardsBlock")
+const DataTableBlock = lazyNamed(() => import("./routes/blocks/data-table"), "DataTableBlock")
+const PageHeaderBlock = lazyNamed(() => import("./routes/blocks/page-header"), "PageHeaderBlock")
+const EmptyStateBlock = lazyNamed(() => import("./routes/blocks/empty-state"), "EmptyStateBlock")
+const SettingsSectionBlock = lazyNamed(() => import("./routes/blocks/settings-section"), "SettingsSectionBlock")
+const AuditLogBlock = lazyNamed(() => import("./routes/blocks/audit-log"), "AuditLogBlock")
+const FilterBarBlock = lazyNamed(() => import("./routes/blocks/filter-bar"), "FilterBarBlock")
+const DetailCardBlock = lazyNamed(() => import("./routes/blocks/detail-card"), "DetailCardBlock")
+
 /** Playground chrome — DocShell wrapping the route's content via Outlet. */
 function DocsLayout({
   onOpenCheatsheet,
@@ -282,6 +292,17 @@ function AppShell() {
           <Route path="/templates/crud-list" element={<CrudListTemplate />} />
           <Route path="/templates/settings" element={<SettingsTemplate />} />
           <Route path="/templates/detail" element={<DetailTemplate />} />
+
+          {/* Blocks */}
+          <Route path="/blocks" element={<BlocksIndex />} />
+          <Route path="/blocks/stat-cards" element={<StatCardsBlock />} />
+          <Route path="/blocks/data-table" element={<DataTableBlock />} />
+          <Route path="/blocks/page-header" element={<PageHeaderBlock />} />
+          <Route path="/blocks/empty-state" element={<EmptyStateBlock />} />
+          <Route path="/blocks/settings-section" element={<SettingsSectionBlock />} />
+          <Route path="/blocks/audit-log" element={<AuditLogBlock />} />
+          <Route path="/blocks/filter-bar" element={<FilterBarBlock />} />
+          <Route path="/blocks/detail-card" element={<DetailCardBlock />} />
 
           {/* Catch-all for stub pages */}
           <Route path="/components/*" element={<TodoPage />} />

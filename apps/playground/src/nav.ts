@@ -210,4 +210,18 @@ export const NAV: NavSection[] = [
       { label: "Record Detail", path: "/templates/detail", status: "done", icon: File01Icon },
     ],
   },
+  {
+    title: "Blocks",
+    entries: [
+      { label: "Overview", path: "/blocks", status: "done", icon: PuzzleIcon },
+      { label: "Stat cards", path: "/blocks/stat-cards", status: "done", icon: ChartUpIcon },
+      { label: "Data table", path: "/blocks/data-table", status: "done", icon: TableIcon },
+      { label: "Page header", path: "/blocks/page-header", status: "done", icon: File01Icon },
+      { label: "Empty state", path: "/blocks/empty-state", status: "done", icon: StickyNote01Icon },
+      { label: "Settings section", path: "/blocks/settings-section", status: "done", icon: Settings02Icon },
+      { label: "Audit log", path: "/blocks/audit-log", status: "done", icon: WorkflowSquare01Icon },
+      { label: "Filter bar", path: "/blocks/filter-bar", status: "done", icon: FilterIcon },
+      { label: "Detail card", path: "/blocks/detail-card", status: "done", icon: Album02Icon },
+    ],
+  },
 ]
