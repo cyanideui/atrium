@@ -3,7 +3,6 @@ import {
   Badge,
   BulkActionsBar,
   Button,
-  ButtonGroup,
   Checkbox,
   Icon,
   Pagination,
@@ -111,14 +110,14 @@ export function DataTableBlock() {
               count={selected.length}
               onDismiss={() => setSelected([])}
               actions={
-                <ButtonGroup>
-                  <Button variant="secondary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</Button>
-                  <Button variant="secondary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</Button>
-                  <Button variant="secondary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>Export</Button>
-                </ButtonGroup>
+                <>
+                  <Button variant="tertiary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</Button>
+                  <Button variant="tertiary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</Button>
+                  <Button variant="tertiary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>Export</Button>
+                </>
               }
               destructive={
-                <Button variant="secondary" tone="critical" size="sm" leading={<Icon icon={Delete02Icon} size="sm" />}>Delete</Button>
+                <Button variant="tertiary" tone="critical" size="sm" leading={<Icon icon={Delete02Icon} size="sm" />}>Delete</Button>
               }
             />
           )}

@@ -6,7 +6,6 @@ import {
   Badge,
   BulkActionsBar,
   Button,
-  ButtonGroup,
   Checkbox,
   Icon,
   Pagination,
@@ -150,21 +149,21 @@ export default function OrdersPage() {
           count={selected.length}
           onDismiss={() => setSelected([])}
           actions={
-            <ButtonGroup>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>
+            <>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>
                 Edit
               </Button>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>
                 Duplicate
               </Button>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>
                 Export
               </Button>
-            </ButtonGroup>
+            </>
           }
           destructive={
             <Button
-              variant="secondary"
+              variant="tertiary"
               tone="critical"
               size="sm"
               leading={<Icon icon={Delete02Icon} size="sm" />}

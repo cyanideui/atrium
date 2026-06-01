@@ -4,7 +4,6 @@ import { Avatar } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { BulkActionsBar } from "@/components/ui/bulk-actions-bar"
 import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Icon } from "@/components/ui/icon"
 import { Pagination } from "@/components/ui/pagination"
@@ -132,14 +131,14 @@ export function OrdersPage() {
           count={selected.length}
           onDismiss={() => setSelected([])}
           actions={
-            <ButtonGroup>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</Button>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</Button>
-              <Button variant="secondary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>Export</Button>
-            </ButtonGroup>
+            <>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Edit02Icon} size="sm" />}>Edit</Button>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Copy01Icon} size="sm" />}>Duplicate</Button>
+              <Button variant="tertiary" size="sm" leading={<Icon icon={Download04Icon} size="sm" />}>Export</Button>
+            </>
           }
           destructive={
-            <Button variant="secondary" tone="critical" size="sm" leading={<Icon icon={Delete02Icon} size="sm" />}>
+            <Button variant="tertiary" tone="critical" size="sm" leading={<Icon icon={Delete02Icon} size="sm" />}>
               Delete
             </Button>
           }
