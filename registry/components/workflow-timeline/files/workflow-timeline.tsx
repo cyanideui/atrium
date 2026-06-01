@@ -69,7 +69,7 @@ export const WorkflowTimelineItem = React.forwardRef<HTMLLIElement, WorkflowTime
             <Icon icon={Tick02Icon} size={10} strokeWidth={2.5} />
           )}
           {status === "active" && (
-            <span aria-hidden className="absolute inset-0 animate-ping rounded-pill bg-info opacity-50" />
+            <span aria-hidden className="absolute inset-0 animate-ping rounded-pill bg-info opacity-50 motion-reduce:hidden" />
           )}
         </div>
         {!isLast && (

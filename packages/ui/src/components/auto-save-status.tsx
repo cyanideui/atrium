@@ -41,7 +41,7 @@ export const AutoSaveStatus = React.forwardRef<HTMLDivElement, AutoSaveStatusPro
         <Icon
           icon={c.icon}
           size={14}
-          className={cn(c.tone, state === "saving" && "animate-spin")}
+          className={cn(c.tone, state === "saving" && "animate-spin motion-reduce:animate-none")}
           aria-hidden
         />
         <span className={state === "error" ? "text-error" : "text-ink-3"}>{label}</span>

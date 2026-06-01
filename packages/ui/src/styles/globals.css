@@ -622,7 +622,11 @@
     background: var(--ink-3);
   }
 
-  /* Reduced motion */
+  /* Reduced motion — respect the OS/browser "reduce motion" setting.
+   * 1. Cap every transition + one-shot enter animation to 80ms opacity-ish.
+   * 2. Hard-stop the *looping* utilities (spin/ping/pulse/bounce) and our
+   *    keyframed loops so nothing freezes mid-cycle on machines with motion
+   *    disabled — belt-and-suspenders behind the per-component guards. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -631,6 +635,14 @@
       animation-iteration-count: 1 !important;
       transition-duration: 80ms !important;
       scroll-behavior: auto !important;
+    }
+    .animate-spin,
+    .animate-ping,
+    .animate-pulse,
+    .animate-bounce,
+    .ds-skeleton-shimmer,
+    .ds-skeleton-pulse {
+      animation: none !important;
     }
   }
 
