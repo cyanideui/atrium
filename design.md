@@ -1902,7 +1902,7 @@ Multi-value form control. Built on top of Chip + Text Input.
 ### 5.23 Bulk Actions Bar
 
 - Appears above table when rows are selected.
-- **Content-width, horizontally centered** (`mx-auto w-fit`) — a floating pill (Linear/Notion-style), not a full-width band. `bg-surface`, `radius-md`, `p-2`, 1px `hairline`, `shadow-elev-1`. Override via `className` (`mx-0` to left-align, `w-full` to span).
+- **Content-width, horizontally centered** (`mx-auto w-fit`) — a floating pill (Linear/Notion-style), not a full-width band. White `bg-canvas`, `radius-md`, `p-2`, 1px `hairline`, `shadow-elev-2` so it reads as lifted above the page. Override via `className` (`mx-0` to left-align, `w-full` to span).
 - Layout: `[N selected]  [Edit · Copy · Export]  | divider | Delete  ×`.
 - Non-destructive actions grouped together; **Delete** is isolated by a 1px divider and uses Danger styling.
 - Trailing × (sits right after the content) dismisses / clears selection.

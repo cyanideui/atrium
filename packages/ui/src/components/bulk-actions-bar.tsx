@@ -32,7 +32,7 @@ export const BulkActionsBar = React.forwardRef<HTMLDivElement, BulkActionsBarPro
       role="region"
       aria-label="Bulk actions"
       className={cn(
-        "mx-auto flex w-fit items-center gap-3 rounded-md border border-hairline bg-surface px-3 py-2 shadow-elev-1",
+        "mx-auto flex w-fit items-center gap-3 rounded-md border border-hairline bg-canvas px-3 py-2 shadow-elev-2",
         "animate-in fade-in-0 slide-in-from-top-1 duration-[var(--dur-base)]",
         className
       )}
@@ -58,7 +58,7 @@ export const BulkActionsBar = React.forwardRef<HTMLDivElement, BulkActionsBarPro
           className={cn(
             "ml-1 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-sm text-ink-3",
             "transition-[background-color,color,transform] duration-[var(--dur-fast)]",
-            "hover:bg-canvas hover:text-ink active:scale-95"
+            "hover:bg-surface hover:text-ink active:scale-95"
           )}
         >
           <Icon icon={MultiplicationSignIcon} size="sm" />
