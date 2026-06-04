@@ -623,17 +623,26 @@
   }
 
   /* Reduced motion — respect the OS/browser "reduce motion" setting.
-   * 1. Cap every transition + one-shot enter animation to 80ms opacity-ish.
+   * Goal: *no perceptible motion at all* (no dropdown/select/popover/modal
+   * fade-zoom-slide, no transitions), while still letting JS-driven exit
+   * unmounts work.
+   * 1. Collapse every animation + transition to 0.01ms with zero delay. We use
+   *    0.01ms (not 0 / none) on purpose: Radix primitives wait for
+   *    `animationend` / `transitionend` before unmounting exit content, so a
+   *    near-instant-but-real animation keeps overlays from getting stuck
+   *    mounted while being imperceptible to the user.
    * 2. Hard-stop the *looping* utilities (spin/ping/pulse/bounce) and our
-   *    keyframed loops so nothing freezes mid-cycle on machines with motion
-   *    disabled — belt-and-suspenders behind the per-component guards. */
+   *    keyframed loops so nothing spins or freezes mid-cycle — belt-and-
+   *    suspenders behind the per-component guards. */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-      animation-duration: 80ms !important;
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 80ms !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
     .animate-spin,

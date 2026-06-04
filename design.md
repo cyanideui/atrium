@@ -540,7 +540,7 @@ The system is built on five tenets:
 
 1. **Bordered, not borderless.** Inputs and surfaces use a 1px hairline with a subtle inset shadow. Forms read as crisp, scannable, Polaris-grade. (v3.8 was borderless on tinted backgrounds; v3.9+ corrected this.) Inline-edit cells in tables remain borderless on purpose — see §5.3.
 2. **Compact density by default.** ERP users scan; we optimize for information per pixel without crowding. Tables, forms, and toolbars use Shopify-grade compactness.
-3. **Calm, layered motion.** Three speeds — fast (60–80ms) for press feedback, base (150ms) for hover, slide (250ms) for mount/dismiss. Easings: `ease-standard` for chrome, `ease-emphasis` for elements that should feel "physical" (pressed buttons, sliding pills, dropping checkmarks). All animations collapse to 80ms opacity-only under `prefers-reduced-motion: reduce`.
+3. **Calm, layered motion.** Three speeds — fast (60–80ms) for press feedback, base (150ms) for hover, slide (250ms) for mount/dismiss. Easings: `ease-standard` for chrome, `ease-emphasis` for elements that should feel "physical" (pressed buttons, sliding pills, dropping checkmarks). Under `prefers-reduced-motion: reduce` all animation collapses to `0.01ms` — an instant cut with no perceptible motion.
 4. **Keyboard-first.** Every workflow has a shortcut. ⌘+K is the universal entry point.
 5. **Single accent, separated intent.** A pure dark primary (near-black) carries authority. Buttons separate **shape** (`variant`) from **intent** (`tone`) — same component, layered color treatment. Color is reserved for semantic meaning, never decoration.
 
@@ -609,7 +609,7 @@ Things we **avoid**:
 - [ ] **Active / pressed state** — distinct from hover. Press feedback (`translateY(0.5px)` for buttons, `scale(0.95)` for icon buttons, etc.) must be present and time-bound (`dur-fast`).
 - [ ] **Disabled state** — visually muted (50% opacity or `ink-4` text), `cursor: not-allowed`, `pointer-events-none` if interactive.
 - [ ] **Dark mode** — checked under `<html class="dark">`. Borders, gradients, shadows, hover bgs must all swap to dark-mode tokens. Don't assume tokens cascade automatically — verify.
-- [ ] **Reduced motion** — under `prefers-reduced-motion: reduce`, transforms collapse to opacity-only at 80ms.
+- [ ] **Reduced motion** — under `prefers-reduced-motion: reduce`, all animation/transition collapses to `0.01ms` (instant cut, no perceptible motion); looping utilities hard-stopped.
 - [ ] **Mount / unmount animation** — overlays fade + slide; inline elements fade + small translate. No snap-in.
 - [ ] **No double affordances** — only one ✕ button (no native ✕ + custom ✕), only one focus ring, only one hover bg.
 
@@ -925,15 +925,19 @@ The global rule:
 ```css
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 80ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 80ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
+  .animate-spin, .animate-ping, .animate-pulse, .animate-bounce,
+  .ds-skeleton-shimmer, .ds-skeleton-pulse { animation: none !important; }
 }
 ```
 
-Every transform-based animation collapses to opacity-only. Sliding pills, knob bounces, modal scale-ins all become instant snap + 80ms cross-fade. Skeleton shimmer becomes a static block. Spinners stop animating and show as a 50%-opacity dotted ring.
+The goal is **no perceptible motion at all** — not a faster animation. Every transition and one-shot enter animation (dropdown/select/popover/modal/drawer fade-zoom-slide, sliding pills, knob bounces) collapses to `0.01ms`, which reads as an instant cut. We use `0.01ms` rather than `0` / `none` on purpose: Radix primitives wait for the `animationend` / `transitionend` event before unmounting exit content, so a near-instant-but-real animation keeps overlays from getting stuck mounted while staying invisible to the user. Looping utilities are hard-stopped with `animation: none` so they can't freeze mid-cycle. Skeleton shimmer becomes a static block; spinners stop and show as a 50%-opacity dotted ring.
 
 #### Common antipatterns to avoid
 
@@ -2085,7 +2089,7 @@ When clicking a table row's primary cell, slide a drawer in from the right with 
 
 - **Contrast:** WCAG AA enforced for every text/background pair. Run audits in CI.
 - **Focus:** Every interactive element has a visible focus ring (2px outline, 2px offset, `var(--ink)` by default; tone-colored ring for tone-aware components like `<Button tone="critical">`). Never rely on color alone.
-- **Reduced motion:** `prefers-reduced-motion: reduce` collapses **every** transition to 80ms opacity. No transforms, no shimmer, no pulse, no slide, no scale. The global rule also **hard-stops looping utilities** (`.animate-{spin,ping,pulse,bounce}`, skeleton shimmer/pulse) with `animation: none` so they can't freeze mid-cycle — backed by per-component guards: `<Spinner>` → `motion-reduce:animate-none` + 50% dotted ring, `<AutoSaveStatus>` saving icon → `motion-reduce:animate-none`, `<WorkflowTimeline>` active-dot ping → `motion-reduce:hidden`, `<Skeleton>` → static block, Search Field clear ✕ → hidden. Covered by a guard test suite (`reduced-motion.test.tsx`). Blocks/templates inherit this automatically (they compose these guarded primitives + the global cap).
+- **Reduced motion:** `prefers-reduced-motion: reduce` collapses **every** transition and one-shot enter animation to `0.01ms` — an instant cut, **no perceptible motion at all** (no dropdown/select/popover/modal/drawer fade-zoom-slide, no transforms, no shimmer, no pulse, no slide, no scale). `0.01ms` (not `0`/`none`) is deliberate: Radix waits for `animationend`/`transitionend` before unmounting exit content, so a near-instant-but-real animation keeps overlays from getting stuck mounted while staying invisible. The global rule also **hard-stops looping utilities** (`.animate-{spin,ping,pulse,bounce}`, skeleton shimmer/pulse) with `animation: none` so they can't freeze mid-cycle — backed by per-component guards: `<Spinner>` → `motion-reduce:animate-none` + 50% dotted ring, `<AutoSaveStatus>` saving icon → `motion-reduce:animate-none`, `<WorkflowTimeline>` active-dot ping → `motion-reduce:hidden`, `<Skeleton>` → static block, Search Field clear ✕ → hidden. Covered by a guard test suite (`reduced-motion.test.tsx`). Blocks/templates inherit this automatically (they compose these guarded primitives + the global rule).
 - **ARIA:** Use shadcn primitives (Radix) for dialogs, popovers, tabs, accordion, dropdown — these provide correct roles, labels, and focus management out of the box.
 - **Screen readers:** Icon-only buttons require `aria-label`. Decorative icons get `aria-hidden`.
 - **Keyboard:** Every action reachable without a mouse. Visible focus order matches DOM order.
@@ -2255,6 +2259,13 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Component status badges:** `Stable` / `Beta` / `Deprecated` shown in component docs.
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
+
+### Component changelog (reduced-motion → full hard-cut) — shipped in `@cyanideui/ui` v1.2.1+
+
+**Changed**
+- The global `prefers-reduced-motion: reduce` rule in `globals.css` was strengthened from an **80ms cap** to a **0.01ms hard-cut**. The 80ms cap still played a brief, visible fade/zoom/slide on every overlay (dropdown menu, select, popover, modal, drawer, tooltip) — the user reported "when I click a dropdown there's still unnecessary animation." Now: `animation-duration`/`transition-duration` collapse to `0.01ms` with `animation-delay`/`transition-delay` zeroed, so motion-disabled machines get an **instant cut with no perceptible motion**.
+- Kept `0.01ms` (not `0` / `animation: none`) for transitions/one-shot animations on purpose: Radix-based primitives (Dropdown, Select, Popover, Modal, Drawer) wait for the `animationend` / `transitionend` event before unmounting their exit content. A near-instant-but-real animation still fires that event synchronously, so overlays never get stuck mounted — while staying invisible to the user. The looping utilities (`.animate-{spin,ping,pulse,bounce}`, skeleton shimmer/pulse) keep their explicit `animation: none` hard-stop.
+- No component-file changes needed — the fix is one global rule, and both apps (`example-next`, `playground`) plus the registry's copy-paste consumers `@import "@cyanideui/ui/styles/globals.css"`, so they inherit it automatically. Library tests stay at 64 passing; playground rebuild confirmed the compiled CSS now emits `transition-duration:.01ms`.
 
 ### Registry changelog (Tier 7 — Card-built blocks)
 
