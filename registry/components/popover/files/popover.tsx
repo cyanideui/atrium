@@ -25,7 +25,7 @@ export const PopoverContent = React.forwardRef<
       sideOffset={sideOffset}
       collisionPadding={8}
       className={cn(
-        "z-30 min-w-[200px] rounded-md border border-hairline bg-canvas p-3 shadow-elev-3",
+        "z-50 min-w-[200px] rounded-md border border-hairline bg-canvas p-3 shadow-elev-3",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
         "data-[side=top]:data-[state=open]:slide-in-from-bottom-2",

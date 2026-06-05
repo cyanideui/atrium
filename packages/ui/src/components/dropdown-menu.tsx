@@ -24,7 +24,7 @@ export const DropdownMenuContent = React.forwardRef<
       sideOffset={sideOffset}
       collisionPadding={8}
       className={cn(
-        "z-30 min-w-[200px] overflow-hidden rounded-md border border-hairline bg-canvas p-1 shadow-elev-3",
+        "z-50 min-w-[200px] overflow-hidden rounded-md border border-hairline bg-canvas p-1 shadow-elev-3",
         // Origin per side keeps the scale-in pivot near the trigger.
         "data-[side=top]:origin-bottom data-[side=bottom]:origin-top data-[side=left]:origin-right data-[side=right]:origin-left",
         // Animate from the trigger's edge — fade + slide in the direction the

@@ -92,7 +92,7 @@ export const SelectContent = React.forwardRef<
       ref={ref}
       position={position}
       className={cn(
-        "relative z-30 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-hairline bg-canvas p-1 text-ink shadow-elev-3",
+        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-hairline bg-canvas p-1 text-ink shadow-elev-3",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
         "data-[side=top]:data-[state=open]:slide-in-from-bottom-2",

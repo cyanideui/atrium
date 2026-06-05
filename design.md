@@ -871,10 +871,12 @@ This keeps the Atrium feel calm. ERP screens are stared at for hours; shadow-eve
 |---|---|
 | Sticky headers | `10` |
 | Sidebar | `20` |
-| Dropdowns / popovers | `30` |
 | Modals / drawers | `40` |
-| Toasts | `50` |
+| Dropdowns / popovers / selects / tooltips | `50` |
+| Toasts | `50` (Sonner overrides with its own very high z, so always on top in practice) |
 | Command palette | `60` |
+
+> **Popper content sits ABOVE modals (`50` > `40`) on purpose.** Dropdowns, Selects, Popovers, and Tooltips all portal to `<body>`, and the common case is opening one *from inside* a modal or drawer (e.g. a status `<Select>` in a "New order" form modal). If popper content stayed below the modal's `z-40` dim overlay, it would render behind/outside the modal. A modal never needs to cover its own child menu, so the popper tier always wins. (This was a real bug: Select/Dropdown menus inside the Overlays template appeared outside the modal until the popper tier moved `30 → 50`.)
 
 ### 2.7 Motion & Microinteractions
 
@@ -1525,7 +1527,7 @@ Generic anchored overlay primitive. Base layer that powers Tooltip, Dropdown Men
 - Container: `bg-canvas`, 1px `hairline`, `radius-md`, `elev-3`, `p-3` (default).
 - Anchored to a trigger element. Auto-flips on viewport edges.
 - Optional 8px arrow pointing to trigger (toggle via `arrow` prop).
-- Z-index: `30` (below modals, above sticky chrome).
+- Z-index: `50` (above modals/drawers so popovers opened inside them render on top; above sticky chrome).
 
 **Behavior:**
 - Opens on `click` (default) or `hover` (`trigger="hover"`).
@@ -2260,6 +2262,13 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Component status badges:** `Stable` / `Beta` / `Deprecated` shown in component docs.
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
+
+### Component changelog (z-index — popper tier above modals) — shipped in `@cyanideui/ui` v1.2.3+
+
+**Fixed**
+- **Dropdowns/Selects/Popovers opened inside a Modal or Drawer rendered behind it** (appeared "outside" the modal). Root cause: the popper tier sat at `z-30` while modal/drawer overlay + content sit at `z-40`. Since Radix portals popper content to `<body>`, a `<Select>` opened from a form inside a modal landed below the modal's `z-40` dim overlay. Surfaced in the new Overlays template (status Select in the "New order" modal, the row DropdownMenu, the filter Popover).
+- **Fix:** moved the popper tier `30 → 50` (above modals) across `DropdownMenuContent`, `PopoverContent`, `SelectContent`, and `TooltipContent`. A modal never needs to cover its own child menu, so popper content always wins. Matches the shadcn convention (`z-50` for popper content). Toasts (Sonner) set their own very high z-index, so they still float above everything in practice.
+- **§2.6 Z-Index scale updated** to document the new ordering + rationale; §5.6a Popover note updated (`30 → 50`). Registry copies regenerated so the copy-paste path carries the fix too. Library tests stay at 64 passing; full workspace typecheck green.
 
 ### Registry changelog (templates — Overlays)
 
