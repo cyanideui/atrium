@@ -626,11 +626,11 @@
    * Goal: *no perceptible motion at all* (no dropdown/select/popover/modal
    * fade-zoom-slide, no transitions), while still letting JS-driven exit
    * unmounts work.
-   * 1. Collapse every animation + transition to 0.01ms with zero delay. We use
-   *    0.01ms (not 0 / none) on purpose: Radix primitives wait for
-   *    `animationend` / `transitionend` before unmounting exit content, so a
-   *    near-instant-but-real animation keeps overlays from getting stuck
-   *    mounted while being imperceptible to the user.
+   * 1. Collapse every animation + transition to 0ms with zero delay — a true
+   *    instant cut. Radix primitives gate their exit-content unmount on the
+   *    `animationend` event, which still fires for a 0s-duration animation
+   *    (the `animate-out` utilities keep a non-"none" animation-name, so Radix
+   *    waits for the event, gets it instantly, and unmounts cleanly).
    * 2. Hard-stop the *looping* utilities (spin/ping/pulse/bounce) and our
    *    keyframed loops so nothing spins or freezes mid-cycle — belt-and-
    *    suspenders behind the per-component guards. */
@@ -638,10 +638,10 @@
     *,
     *::before,
     *::after {
-      animation-duration: 0.01ms !important;
+      animation-duration: 0ms !important;
       animation-delay: 0ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-duration: 0ms !important;
       transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
