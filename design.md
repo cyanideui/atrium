@@ -2261,6 +2261,18 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Registry changelog (templates — Overlays)
+
+**Added — `template-overlays` (copy-paste, `@/components/ui/*`)**
+- A 5th app template: an **overlay-driven CRUD screen** ("Orders") that demonstrates the canonical ERP overlay recipes in one working page — every interaction is an overlay:
+  - **Popover** — anchored filter flyout (status `<Select>` + min-amount `<Input>`) with Reset + Apply (`<PopoverClose>`), and an active-filter count badge on the trigger.
+  - **Modal (md)** — a single *controlled* create/edit form (one modal serves both; `editingId` switches title + submit label), footer action row, `<Select>` + `<Input>` fields.
+  - **Modal (sm)** — destructive confirm, controlled by `pendingDelete`, isolated `variant="primary" tone="critical"` action.
+  - **DropdownMenu** — per-row action menu (Edit ⌘E / Duplicate / Export · divider · Delete in the `tone="critical"` danger zone), opened from a `tertiary` icon button.
+- All actions mutate real page state and fire `toast()` confirmations, so the demo is fully interactive, not static.
+- Ships at `apps/playground/src/routes/templates/overlays.tsx` (playground page, route `/templates/overlays`, "Overlays" entry in the Templates nav) **and** as registry item `template-overlays` (`registry/templates/overlays/`), with `@atrium:if next` / `vite-react-router` export-style markers.
+- Registry index now has **95 items** (was 94). Verified end-to-end: cold-start install into a Next.js dir resolves the full transitive dep graph (badge, button, card, dropdown-menu, icon, input, label, modal, popover, select, table, toaster + lib-utils), transforms cleanly (`"use client"` + default export kept, markers stripped), and the generated output typechecks (exit 0). Playground builds + typechecks.
+
 ### Component changelog (reduced-motion → full hard-cut) — shipped in `@cyanideui/ui` v1.2.1+
 
 **Changed**

@@ -210,6 +210,7 @@ export const NAV: NavSection[] = [
       { label: "CRUD List", path: "/templates/crud-list", status: "done", icon: TableIcon },
       { label: "Settings", path: "/templates/settings", status: "done", icon: Settings02Icon },
       { label: "Record Detail", path: "/templates/detail", status: "done", icon: File01Icon },
+      { label: "Overlays", path: "/templates/overlays", status: "done", icon: Layers01Icon },
     ],
   },
   {

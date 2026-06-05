@@ -99,6 +99,7 @@ const DashboardTemplate = lazyNamed(() => import("./routes/templates/dashboard")
 const CrudListTemplate = lazyNamed(() => import("./routes/templates/crud-list"), "CrudListTemplate")
 const SettingsTemplate = lazyNamed(() => import("./routes/templates/settings"), "SettingsTemplate")
 const DetailTemplate = lazyNamed(() => import("./routes/templates/detail"), "DetailTemplate")
+const OverlaysTemplate = lazyNamed(() => import("./routes/templates/overlays"), "OverlaysTemplate")
 
 const BlocksIndex = lazyNamed(() => import("./routes/blocks/index"), "BlocksIndex")
 const StatCardsBlock = lazyNamed(() => import("./routes/blocks/stat-cards"), "StatCardsBlock")
@@ -308,6 +309,7 @@ function AppShell() {
           <Route path="/templates/crud-list" element={<CrudListTemplate />} />
           <Route path="/templates/settings" element={<SettingsTemplate />} />
           <Route path="/templates/detail" element={<DetailTemplate />} />
+          <Route path="/templates/overlays" element={<OverlaysTemplate />} />
 
           {/* Blocks */}
           <Route path="/blocks" element={<BlocksIndex />} />

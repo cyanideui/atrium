@@ -1,0 +1,43 @@
+{
+  "name": "template-overlays",
+  "category": "templates",
+  "title": "Overlays",
+  "description": "Overlay-driven CRUD screen — Popover filter flyout, Modal create/edit form, destructive confirm Modal, and a per-row DropdownMenu action menu. The reference for how overlays compose in an ERP list view.",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "overlays.tsx",
+      "to": "src/pages/overlays.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [
+      "@hugeicons/core-free-icons",
+      "@hugeicons/react",
+      "react"
+    ],
+    "registry": [
+      "component-badge",
+      "component-button",
+      "component-card",
+      "component-dropdown-menu",
+      "component-icon",
+      "component-input",
+      "component-label",
+      "component-modal",
+      "component-popover",
+      "component-select",
+      "component-table",
+      "component-toaster"
+    ]
+  },
+  "postInstall": [
+    "Swap SEED for your data source and replace the saveForm/confirmDelete/duplicate handlers with API calls.",
+    "Mount a <Toaster /> once at your app root so the toast() confirmations render (the shell-doc / shell-minimal templates already do this).",
+    "Next.js: move to src/app/orders/page.tsx. Vite: route via <Route path='/orders' element={<OverlaysPage />} />."
+  ]
+}
