@@ -1908,8 +1908,9 @@ Multi-value form control. Built on top of Chip + Text Input.
 - Appears above table when rows are selected.
 - **Content-width, horizontally centered** (`mx-auto w-fit`) — a floating pill (Linear/Notion-style), not a full-width band. White `bg-canvas`, `radius-md`, `p-2`, 1px `hairline`, `shadow-elev-2` so it reads as lifted above the page. Override via `className` (`mx-0` to left-align, `w-full` to span).
 - Layout: `[N selected]  [Edit · Copy · Export]  | divider | Delete  ×`.
-- Non-destructive actions grouped together; **Delete** is isolated by a 1px divider and uses Danger styling.
-- Trailing × (sits right after the content) dismisses / clears selection.
+- **All action buttons are flat `<Button variant="tertiary" size="sm">`** (no `ButtonGroup` wrapper, no `secondary` chrome) so the pill stays calm and the elevated surface does the visual lifting. The destructive action is the same flat shape, just tone-shifted: `<Button variant="tertiary" tone="critical">` — isolated from the non-destructive cluster by a 1px `hairline` divider rather than by a heavier button treatment.
+- The bar itself is style-agnostic about the buttons — it just renders the `actions` and `destructive` slots; the tertiary convention lives in the consumers (data-table block, crud-list template, example-next orders page).
+- Trailing × dismiss (`h-6 w-6`, `text-ink-3`, hover `bg-surface` + `text-ink`, `active:scale-95`) sits right after the content and clears the selection.
 
 ### 5.24 Workflow Timeline
 
@@ -2266,6 +2267,18 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - The global `prefers-reduced-motion: reduce` rule in `globals.css` was strengthened from an **80ms cap** to a **0.01ms hard-cut**. The 80ms cap still played a brief, visible fade/zoom/slide on every overlay (dropdown menu, select, popover, modal, drawer, tooltip) — the user reported "when I click a dropdown there's still unnecessary animation." Now: `animation-duration`/`transition-duration` collapse to `0.01ms` with `animation-delay`/`transition-delay` zeroed, so motion-disabled machines get an **instant cut with no perceptible motion**.
 - Kept `0.01ms` (not `0` / `animation: none`) for transitions/one-shot animations on purpose: Radix-based primitives (Dropdown, Select, Popover, Modal, Drawer) wait for the `animationend` / `transitionend` event before unmounting their exit content. A near-instant-but-real animation still fires that event synchronously, so overlays never get stuck mounted — while staying invisible to the user. The looping utilities (`.animate-{spin,ping,pulse,bounce}`, skeleton shimmer/pulse) keep their explicit `animation: none` hard-stop.
 - No component-file changes needed — the fix is one global rule, and both apps (`example-next`, `playground`) plus the registry's copy-paste consumers `@import "@cyanideui/ui/styles/globals.css"`, so they inherit it automatically. Library tests stay at 64 passing; playground rebuild confirmed the compiled CSS now emits `transition-duration:.01ms`.
+
+### Component changelog (BulkActionsBar — floating-pill restyle)
+
+**Changed (UI style — §5.23)**
+- `<BulkActionsBar>` went from a **full-width gray band** to a **content-width, horizontally-centered floating pill** (`mx-auto flex w-fit`). It now reads as lifted above the page (Linear/Notion-style) instead of a toolbar stuck to the table edge.
+- Surface: white `bg-canvas` (was `bg-surface` gray) + `rounded-md` + `border-hairline` + **`shadow-elev-2`** for the lift. Padding `px-3 py-2`, `gap-3`. Enters with `fade-in-0 slide-in-from-top-1` at `--dur-base`.
+- Dismiss ✕ moved from `ml-auto` (which only worked on a full-width bar) to `ml-1 shrink-0`, so it tucks right after the content in the content-width pill. Hover is `bg-surface` + `text-ink`, press `active:scale-95`.
+- `className` still overrides the defaults — pass `mx-0` to left-align or `w-full` to span the container (the old full-width behavior).
+
+**Changed (action buttons — consumers)**
+- Standardized **every** bulk-bar action button to flat `<Button variant="tertiary" size="sm">`. Dropped the previous `<ButtonGroup>` wrapper + `secondary` gradient chrome — flat actions sit calmer inside the now-elevated pill, and the surface does the visual lifting instead of the buttons. The destructive action is the same flat shape, tone-shifted: `variant="tertiary" tone="critical"`, isolated by the 1px divider (not by heavier styling).
+- Applied across `block-data-table`, `template-crud-list`, the playground data-table + crud-list pages, and `apps/example-next/src/app/orders/page.tsx`. Removed the now-unused `ButtonGroup` imports and dropped `component-button-group` from the `data-table` + `crud-list` registry meta deps.
 
 ### Registry changelog (Tier 7 — Card-built blocks)
 
