@@ -5,6 +5,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Icon } from "@/components/ui/icon"
+import { NotificationBadge } from "@/components/ui/notification-badge"
 import { cn } from "@/lib/utils"
 import * as React from "react"
 import {
@@ -12,6 +13,7 @@ import {
   AlertCircleIcon,
   ShoppingBag01Icon,
   Mail01Icon,
+  Notification03Icon,
 } from "@hugeicons/core-free-icons"
 import type { IconSvgElement } from "@hugeicons/react"
 
@@ -63,13 +65,12 @@ export function NotificationFeed() {
   return (
     <Card className="flex w-full max-w-[400px] flex-col">
       <CardHeader>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
+          <span className="relative inline-grid h-7 w-7 place-items-center rounded-md bg-surface-2 text-ink-2">
+            <Icon icon={Notification03Icon} size={15} />
+            <NotificationBadge count={unread} />
+          </span>
           <CardTitle>Notifications</CardTitle>
-          {unread > 0 && (
-            <span className="flex h-4 min-w-4 items-center justify-center rounded-pill bg-ink px-1 text-[10px] font-semibold tabular-nums text-canvas">
-              {unread}
-            </span>
-          )}
         </div>
         <Button variant="tertiary" size="sm" onClick={markAllRead} disabled={unread === 0}>
           Mark all read

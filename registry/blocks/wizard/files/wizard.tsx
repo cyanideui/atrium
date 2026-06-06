@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Stepper } from "@/components/ui/stepper"
+import { SuccessCheck } from "@/components/ui/success-check"
 import * as React from "react"
 
 /**
@@ -33,6 +34,7 @@ interface WizardData {
 
 export function Wizard({ onFinish }: { onFinish?: (data: WizardData) => void }) {
   const [step, setStep] = React.useState(0)
+  const [done, setDone] = React.useState(false)
   const [data, setData] = React.useState<WizardData>({ name: "", email: "", workspace: "", invite: "" })
   const set = (k: keyof WizardData, v: string) => setData((p) => ({ ...p, [k]: v }))
 
@@ -52,8 +54,38 @@ export function Wizard({ onFinish }: { onFinish?: (data: WizardData) => void }) 
   const back = () => setStep((s) => Math.max(0, s - 1))
   const next = () => {
     if (!stepValid) return
-    if (isLast) onFinish?.(data)
-    else setStep((s) => Math.min(STEPS.length - 1, s + 1))
+    if (isLast) {
+      setDone(true)
+      onFinish?.(data)
+    } else {
+      setStep((s) => Math.min(STEPS.length - 1, s + 1))
+    }
+  }
+
+  // Completion screen — SuccessCheck draws in once the flow finishes.
+  if (done) {
+    return (
+      <section className="flex min-h-[260px] flex-col items-center justify-center gap-3 rounded-md border border-hairline bg-canvas p-5 text-center">
+        <SuccessCheck size="lg" />
+        <div>
+          <h3 className="m-0 text-[15px] font-semibold text-ink">You're all set</h3>
+          <p className="m-0 mt-1 text-[13px] text-ink-3">
+            {data.workspace || "Your workspace"} is ready
+            {data.name ? `, ${data.name.split(" ")[0]}` : ""}.
+          </p>
+        </div>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            setDone(false)
+            setStep(0)
+          }}
+        >
+          Start over
+        </Button>
+      </section>
+    )
   }
 
   return (

@@ -2265,6 +2265,8 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 
 ### Component changelog (motion round — transitions.dev-inspired)
 
+**Motion wired into real blocks (v1.3.6+):** beyond the showcase, three primitives now do real work in blocks — `<SuccessCheck>` powers the **wizard** block's completion screen (draws in on Finish), `<NotificationBadge>` pops on the **notification-feed** header bell when the unread count changes, and `<Collapsible>` drives the **filter-bar** block's "More" advanced-filter reveal. Registry copies + meta deps updated; cold-start install of all three resolves the new transitive deps (`component-motion`, `component-success-check`, `component-notification-badge`) and typechecks (exit 0). `<ShimmerText>`, `<Reveal>`, and extra `<AnimatedNumber>` placements stay opt-in (forcing them would be ambient decoration on dense screens).
+
 A focused motion pass adapting transitions.dev effects to Atrium's token system. **Every effect is animated by default and collapses to an instant state under `prefers-reduced-motion: reduce`** — CSS effects via the global `0ms` rule, JS-driven ones (count-up) via the new `useReducedMotion()` hook. (Shipped across `@cyanideui/ui` v1.3.0–1.3.1; the 1.3.1 follow-up added `<SuccessCheck>`, the light `<ShimmerText>` treatment, and the `<AvatarGroup>` scale-pop hover.)
 
 **Added — primitives**

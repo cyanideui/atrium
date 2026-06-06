@@ -26,8 +26,12 @@
       "component-chip-input",
       "component-date-field",
       "component-icon",
+      "component-label",
+      "component-motion",
       "component-saved-filters",
-      "component-search-field"
+      "component-search-field",
+      "component-select",
+      "lib-utils"
     ]
   },
   "postInstall": [

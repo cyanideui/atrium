@@ -1,10 +1,11 @@
 import * as React from "react"
-import { Button, Icon, cn } from "@cyanideui/ui"
+import { Button, Icon, NotificationBadge, cn } from "@cyanideui/ui"
 import {
   CheckmarkCircle02Icon,
   AlertCircleIcon,
   ShoppingBag01Icon,
   Mail01Icon,
+  Notification03Icon,
 } from "@hugeicons/core-free-icons"
 import type { IconSvgElement } from "@hugeicons/react"
 import { PageHeader, Section } from "../../components/page-shell"
@@ -56,11 +57,12 @@ export function NotificationFeedBlock() {
         <div className="flex justify-center rounded-md border border-hairline bg-surface p-6">
           <section className="flex w-full max-w-[400px] flex-col overflow-hidden rounded-md border border-hairline bg-canvas">
             <header className="flex items-center justify-between gap-2 border-b border-hairline px-4 py-2.5">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
+                <span className="relative inline-grid h-7 w-7 place-items-center rounded-md bg-surface-2 text-ink-2">
+                  <Icon icon={Notification03Icon} size={15} />
+                  <NotificationBadge count={unread} />
+                </span>
                 <h2 className="m-0 text-[13px] font-semibold text-ink">Notifications</h2>
-                {unread > 0 && (
-                  <span className="flex h-4 min-w-4 items-center justify-center rounded-pill bg-ink px-1 text-[10px] font-semibold tabular-nums text-canvas">{unread}</span>
-                )}
               </div>
               <Button variant="tertiary" size="sm" onClick={markAllRead} disabled={unread === 0}>Mark all read</Button>
             </header>

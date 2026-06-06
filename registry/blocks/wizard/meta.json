@@ -22,7 +22,8 @@
       "component-button",
       "component-input",
       "component-label",
-      "component-stepper"
+      "component-stepper",
+      "component-success-check"
     ]
   },
   "postInstall": [

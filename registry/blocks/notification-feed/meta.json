@@ -24,6 +24,7 @@
       "component-button",
       "component-card",
       "component-icon",
+      "component-notification-badge",
       "lib-utils"
     ]
   },
