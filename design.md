@@ -2263,6 +2263,32 @@ Plus utilities & shell: Import Preview (5.26), Sparklines (5.27), Auto-Save Stat
 - **Density modes:** Three levels — `Compact+`, `Compact` (default), `Comfortable` — cycled via `D` key. Heights, gaps, paddings, and type all scale; radii stay fixed. Public API: `<DensityRoot>` + `<DensityProvider>` + `useDensity()` + `useDensityHotkey()`. See §2.7 + showcase at `/foundations/density`.
 - **Quality gate:** every new component must pass §1b Component Readiness Checklist before being marked `stable`.
 
+### Component changelog (motion round — transitions.dev-inspired)
+
+A focused motion pass adapting transitions.dev effects to Atrium's token system. **Every effect is animated by default and collapses to an instant state under `prefers-reduced-motion: reduce`** — CSS effects via the global `0ms` rule, JS-driven ones (count-up) via the new `useReducedMotion()` hook.
+
+**Added — primitives**
+- `<AnimatedNumber>` — count-up tween (`mode="count"`, rAF + ease-out-cubic) or per-digit flip/blur (`mode="pop"`). `leading`/`trailing` affixes, `decimals`, `format`. Tabular-nums for stable width. Reduced motion jumps to the final value (no tween, no digit animation) via `useReducedMotion()`. Wired into `<ImportPreview>` stat tiles.
+- `<NotificationBadge>` — count/dot badge with diagonal-slide + spring pop-in (`ds-badge-pop`), re-fires when the count increases. `max`, `dot`, tone variants.
+- `<Swap>` — blur cross-fade between two states; `variant="text"` (vertical shift) or `variant="icon"` (scale + rotate). Built on `.ds-swap`. Now drives `<AutoSaveStatus>` label transitions.
+- `<Collapsible>` — open/close via `grid-template-rows 0fr↔1fr` (no fixed height), content rises on reveal.
+- `<Reveal>` — rise + de-blur on mount (`ds-reveal-up`); stagger with increasing `delay` for lists/headers.
+- `<ShimmerText>` — masked gradient sweep for transient "processing" labels. Loops, so it's in the reduced-motion hard-stop list with a flat `ink-3` fallback.
+- `useReducedMotion()` hook — subscribes to `prefers-reduced-motion`; for JS-driven motion CSS can't reach. SSR-safe (defaults to animated, syncs on mount).
+
+**Changed — existing components**
+- `<Modal>` open/close eased from a 35ms near-snap to a calmer **120ms in / 80ms out** emphasis settle (transitions.dev "modal scale" timing).
+- `<Tooltip>` now uses **appear-only delay, instant exit** (animates in after the open delay, disappears immediately on close — Linear/Raycast pattern). Dropped the `data-[state=closed]` fade-out.
+- `<Input invalid>` — new prop: sets `aria-invalid` (red border) AND plays a one-shot **error shake** (`ds-shake`) on each false→true transition. Reduced motion → border only.
+- `<SearchField>` clear ✕ now **dissolves** the field (blur+fade) before emptying; skipped entirely under reduced motion (instant clear, no delay).
+- `<AutoSaveStatus>` label cross-fades between saving/saved/error states (was a hard text swap).
+
+**Foundations / registry**
+- New shared keyframes + utility classes in `globals.css` (`ds-shake`, `ds-reveal-up`/`.ds-reveal`, `ds-digit-pop`/`.ds-digit`, `ds-badge-pop`/`.ds-badge-pop`, `.ds-swap`, `ds-shimmer-text`/`.ds-shimmer-text`). All token-driven.
+- New playground page **Foundations → Motion** (`/foundations/motion`) showcasing every effect with a live reduced-motion toggle note.
+- Registry: new copy-paste items `component-animated-number`, `component-notification-badge`, `component-motion` (Swap/Collapsible/ShimmerText/Reveal), and `lib-use-reduced-motion`; the generator gained a `../lib/use-reduced-motion → @/lib/use-reduced-motion` rewrite rule. Index now **99 items**. Verified: cold-start install (Next) of `animated-number` resolves `lib-use-reduced-motion` + `lib-utils`, transforms cleanly, typechecks (exit 0).
+- Library tests 64 → **68** (AnimatedNumber suite). Full workspace typecheck green; playground builds.
+
 ### Component changelog (z-index — popper tier above modals) — shipped in `@cyanideui/ui` v1.2.3+
 
 **Fixed**

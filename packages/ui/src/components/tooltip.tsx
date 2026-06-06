@@ -22,8 +22,10 @@ export const TooltipContent = React.forwardRef<
       sideOffset={sideOffset}
       className={cn(
         "z-50 max-w-xs rounded-sm bg-ink px-2 py-1.5 text-[12px] font-medium text-canvas shadow-elev-2",
-        "data-[state=delayed-open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=delayed-open]:fade-in-0 data-[state=closed]:fade-out-0",
+        // #17 Appear-only delay, instant exit (transitions.dev pattern): animate
+        // IN (after the open delay), but disappear immediately on close — no
+        // fade-out. Linear/Raycast feel. (Reduced motion → instant in too.)
+        "data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0",
         "data-[side=top]:data-[state=delayed-open]:slide-in-from-bottom-1",
         "data-[side=bottom]:data-[state=delayed-open]:slide-in-from-top-1",
         "data-[side=left]:data-[state=delayed-open]:slide-in-from-right-1",

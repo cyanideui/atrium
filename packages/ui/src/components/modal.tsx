@@ -15,7 +15,7 @@ export const ModalPortal = DialogPrimitive.Portal
 export const ModalClose = DialogPrimitive.Close
 
 const overlayBase =
-  "fixed inset-0 z-40 bg-black/25 backdrop-blur-[3px] data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:duration-[35ms] data-[state=closed]:duration-[35ms]"
+  "fixed inset-0 z-40 bg-black/25 backdrop-blur-[3px] data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:duration-[120ms] data-[state=closed]:duration-[80ms]"
 
 export const ModalOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -52,7 +52,7 @@ export const ModalContent = React.forwardRef<
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
         "data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95",
-        "data-[state=open]:duration-[35ms] data-[state=closed]:duration-[35ms]",
+        "data-[state=open]:duration-[120ms] data-[state=closed]:duration-[80ms]",
         "ease-[var(--ease-emphasis)]",
         sizeClasses[size],
         className

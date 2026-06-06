@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-05T14:30:39.337Z",
+  "generatedAt": "2026-06-06T10:26:41.925Z",
   "items": [
     {
       "name": "block-audit-log",
@@ -185,6 +185,14 @@
       "description": "<accordion> component (copy-paste source).",
       "version": "1.0.0",
       "path": "components/accordion"
+    },
+    {
+      "name": "component-animated-number",
+      "category": "components",
+      "title": "animated-number",
+      "description": "<animated-number> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/animated-number"
     },
     {
       "name": "component-auto-save-status",
@@ -475,6 +483,22 @@
       "path": "components/money-field"
     },
     {
+      "name": "component-motion",
+      "category": "components",
+      "title": "motion",
+      "description": "<motion> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/motion"
+    },
+    {
+      "name": "component-notification-badge",
+      "category": "components",
+      "title": "notification-badge",
+      "description": "<notification-badge> component (copy-paste source).",
+      "version": "1.0.0",
+      "path": "components/notification-badge"
+    },
+    {
       "name": "component-number-stepper",
       "category": "components",
       "title": "number-stepper",
@@ -689,6 +713,14 @@
       "description": "Light/dark theme state backed by a module-level external store (useSyncExternalStore), so every call site shares one value. Persists to localStorage, applies `.dark` on <html>.",
       "version": "1.0.0",
       "path": "hooks/theme"
+    },
+    {
+      "name": "lib-use-reduced-motion",
+      "category": "lib",
+      "title": "useReducedMotion hook",
+      "description": "Library helper: useReducedMotion hook.",
+      "version": "1.0.0",
+      "path": "lib/use-reduced-motion"
     },
     {
       "name": "lib-use-scroll-overlay",

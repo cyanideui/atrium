@@ -47,6 +47,46 @@
   to   { opacity: 1; }
 }
 
+/* ----------------- Motion primitives (transitions.dev-inspired) -----------------
+ * Shared keyframes for the motion round. Every one collapses to a no-op under
+ * `prefers-reduced-motion: reduce` via the global 0ms rule in @layer base, so
+ * the animated path is the default and reduced-motion gets an instant state. */
+
+/* #11 Error shake — damped horizontal oscillation. */
+@keyframes ds-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+
+/* #13/#14 Content reveal — rise + de-blur. Used for skeleton→content and text reveal. */
+@keyframes ds-reveal-up {
+  from { opacity: 0; transform: translateY(8px); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+}
+
+/* #2 Digit pop — vertical flip with blur for animated numbers. */
+@keyframes ds-digit-pop {
+  0%   { transform: translateY(55%); filter: blur(4px); opacity: 0; }
+  100% { transform: translateY(0);   filter: blur(0);   opacity: 1; }
+}
+
+/* #3 Badge pop — diagonal slide + spring-ish overshoot. */
+@keyframes ds-badge-pop {
+  0%   { transform: translate(6px, -6px) scale(0.4); opacity: 0; }
+  60%  { transform: translate(0, 0) scale(1.15); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* #16 Shimmer text — masked gradient sweep (loops; guarded under reduced motion). */
+@keyframes ds-shimmer-text {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ============================================================= */
 /* COMPONENTS LAYER                                              */
 /* ============================================================= */
@@ -375,6 +415,74 @@
     box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.30);
   }
 
+  /* ---------- Motion utilities (transitions.dev round) ----------
+   * Default = animated; reduced-motion neutralizes them via the global rule.
+   * #11 error shake — add `.ds-shake` (re-add to replay). */
+  .ds-shake {
+    animation: ds-shake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+  /* #13/#14 content reveal — rise + de-blur, one-shot. */
+  .ds-reveal {
+    animation: ds-reveal-up var(--dur-slide) var(--ease-standard) both;
+  }
+  /* #2 animated number digit. The component sets per-digit animation-delay. */
+  .ds-digit {
+    display: inline-block;
+    animation: ds-digit-pop var(--dur-slide) var(--ease-emphasis) both;
+  }
+  /* #3 notification badge pop. */
+  .ds-badge-pop {
+    animation: ds-badge-pop 360ms var(--ease-emphasis) both;
+  }
+  /* #4/#8 swap layers — blur cross-fade for text/icon state changes. Two
+   * elements stacked in a grid cell; toggle data-hidden to cross-fade. */
+  .ds-swap {
+    display: inline-grid;
+    position: relative;
+  }
+  .ds-swap > * {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--dur-base) var(--ease-standard),
+      filter var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-emphasis);
+  }
+  .ds-swap > [data-hidden="true"] {
+    opacity: 0;
+    filter: blur(4px);
+    pointer-events: none;
+  }
+  .ds-swap > [data-hidden="false"] {
+    opacity: 1;
+    filter: blur(0);
+  }
+  /* Icon-swap intensity: scale + rotate in addition to the blur fade. */
+  .ds-swap[data-variant="icon"] > [data-hidden="true"] {
+    transform: scale(0.5) rotate(-30deg);
+  }
+  .ds-swap[data-variant="icon"] > [data-hidden="false"] {
+    transform: scale(1) rotate(0);
+  }
+  /* Text-swap intensity: small vertical shift. */
+  .ds-swap[data-variant="text"] > [data-hidden="true"] {
+    transform: translateY(-4px);
+  }
+  .ds-swap[data-variant="text"] > [data-hidden="false"] {
+    transform: translateY(0);
+  }
+  /* #16 shimmer text — masked gradient sweep for transient "processing" labels.
+   * Loops, so the looping hard-stop list below disables it under reduced motion
+   * and we fall back to a flat ink-3 fill. */
+  .ds-shimmer-text {
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--ink-4) 0%, var(--ink) 20%, var(--ink-4) 40%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ds-shimmer-text 2s linear infinite;
+  }
+
   /* ---------- Command palette overlay ----------
    * cmdk renders [cmdk-overlay] as a sibling of the dialog content (not a
    * descendant of our wrapper), so Tailwind descendant selectors on the wrapper
@@ -652,6 +760,15 @@
     .ds-skeleton-shimmer,
     .ds-skeleton-pulse {
       animation: none !important;
+    }
+    /* Shimmer text loops infinitely — kill the sweep and fall back to a flat
+     * fill so reduced-motion users see a static, legible label. */
+    .ds-shimmer-text {
+      animation: none !important;
+      background: none !important;
+      -webkit-background-clip: border-box !important;
+      background-clip: border-box !important;
+      color: var(--ink-3) !important;
     }
   }
 

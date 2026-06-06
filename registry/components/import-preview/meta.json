@@ -17,6 +17,7 @@
   "dependencies": {
     "npm": [],
     "registry": [
+      "component-animated-number",
       "component-badge",
       "lib-utils"
     ]

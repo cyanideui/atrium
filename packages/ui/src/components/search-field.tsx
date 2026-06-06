@@ -3,6 +3,7 @@ import { Search01Icon, MultiplicationSignIcon } from "@hugeicons/core-free-icons
 import { cn } from "../lib/cn"
 import { Icon } from "./icon"
 import { Kbd } from "./kbd"
+import { useReducedMotion } from "../lib/use-reduced-motion"
 
 /**
  * <SearchField> — design.md §5.4
@@ -31,6 +32,7 @@ const sizeClasses: Record<NonNullable<SearchFieldProps["size"]>, string> = {
 
 export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
   ({ className, size = "md", debounceMs = 250, defaultValue = "", value: controlledValue, onChange, onInput, placeholder = "Search…", showShortcut, disabled, ...rest }, ref) => {
+    const reduced = useReducedMotion()
     const isControlled = controlledValue !== undefined
     const [internal, setInternal] = React.useState<string>(String(defaultValue ?? ""))
     const value = isControlled ? String(controlledValue ?? "") : internal
@@ -64,9 +66,31 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
     }
 
     const handleClear = () => {
-      if (!isControlled) setInternal("")
-      onChange?.("")
-      inputRef.current?.focus()
+      const node = inputRef.current
+      const clearNow = () => {
+        if (!isControlled) setInternal("")
+        onChange?.("")
+      }
+      // #12 Input clear with dissolve: blur+fade the field's text out, then
+      // empty it. Can't per-word dissolve a real <input>, so we dissolve the
+      // whole field — same intent, input-safe. Skipped entirely under reduced
+      // motion (instant clear, no delay).
+      if (node && !reduced) {
+        node.style.transition =
+          "opacity var(--dur-base) var(--ease-standard), filter var(--dur-base) var(--ease-standard)"
+        node.style.opacity = "0"
+        node.style.filter = "blur(4px)"
+        window.setTimeout(() => {
+          clearNow()
+          node.style.opacity = ""
+          node.style.filter = ""
+          node.style.transition = ""
+          node.focus()
+        }, 150)
+      } else {
+        clearNow()
+        node?.focus()
+      }
     }
 
     return (

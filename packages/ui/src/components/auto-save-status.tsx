@@ -44,7 +44,15 @@ export const AutoSaveStatus = React.forwardRef<HTMLDivElement, AutoSaveStatusPro
           className={cn(c.tone, state === "saving" && "animate-spin motion-reduce:animate-none")}
           aria-hidden
         />
-        <span className={state === "error" ? "text-error" : "text-ink-3"}>{label}</span>
+        {/* #4 text-state swap: the label cross-fades (blur + shift) between
+         * saving/saved/error instead of hard-swapping. `key` on the state forces
+         * the de-blur each time. Reduced motion → instant via the global rule. */}
+        <span
+          key={state}
+          className={cn("ds-reveal", state === "error" ? "text-error" : "text-ink-3")}
+        >
+          {label}
+        </span>
         {state === "saved" && savedAt && (
           <span className="text-ink-4">· {savedAt}</span>
         )}

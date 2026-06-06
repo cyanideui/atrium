@@ -21,6 +21,7 @@
     "registry": [
       "component-icon",
       "component-kbd",
+      "lib-use-reduced-motion",
       "lib-utils"
     ]
   }

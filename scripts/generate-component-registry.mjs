@@ -39,6 +39,10 @@ function rewrite(content) {
     out = out.replace(/from\s+"\.\.\/lib\/use-scroll-overlay"/g, 'from "@/lib/use-scroll-overlay"')
     registryDeps.add("lib-use-scroll-overlay")
   }
+  if (/from\s+"\.\.\/lib\/use-reduced-motion"/.test(out)) {
+    out = out.replace(/from\s+"\.\.\/lib\/use-reduced-motion"/g, 'from "@/lib/use-reduced-motion"')
+    registryDeps.add("lib-use-reduced-motion")
+  }
 
   // ./<component> → @/components/ui/<component>
   out = out.replace(/from\s+"\.\/([a-z0-9-]+)"/g, (_m, name) => {
@@ -70,6 +74,7 @@ let count = 0
 const libItems = [
   { id: "lib-utils", file: "cn.ts", to: "src/lib/utils.ts", title: "cn() utility", src: join(LIB_SRC, "cn.ts") },
   { id: "lib-use-scroll-overlay", file: "use-scroll-overlay.ts", to: "src/lib/use-scroll-overlay.ts", title: "useScrollOverlay hook", src: join(LIB_SRC, "use-scroll-overlay.ts") },
+  { id: "lib-use-reduced-motion", file: "use-reduced-motion.ts", to: "src/lib/use-reduced-motion.ts", title: "useReducedMotion hook", src: join(LIB_SRC, "use-reduced-motion.ts") },
 ]
 for (const item of libItems) {
   const raw = readFileSync(item.src, "utf8")

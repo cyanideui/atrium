@@ -35,18 +35,48 @@ const inputBase = cva(
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
-    VariantProps<typeof inputBase> {}
+    VariantProps<typeof inputBase> {
+  /**
+   * Mark the field invalid. Sets `aria-invalid` (red border) AND plays a
+   * one-shot shake (#11) each time it transitions false→true — e.g. bump a
+   * counter / toggle on every failed submit to re-trigger. Reduced motion →
+   * border only, no shake (global rule neutralizes the keyframe).
+   */
+  invalid?: boolean
+}
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type = "text", size = "md", style, ...props }, ref) => (
-    <input
-      ref={ref}
-      type={type}
-      style={{ height: `var(--density-form-h-${size})`, ...style }}
-      className={cn(inputBase({ size }), className)}
-      {...props}
-    />
-  )
+  ({ className, type = "text", size = "md", style, invalid, "aria-invalid": ariaInvalid, ...props }, ref) => {
+    const innerRef = React.useRef<HTMLInputElement | null>(null)
+    React.useImperativeHandle(ref, () => innerRef.current as HTMLInputElement)
+
+    // Replay the shake on each false→true transition of `invalid`.
+    const wasInvalid = React.useRef(false)
+    React.useEffect(() => {
+      const el = innerRef.current
+      if (!el) return
+      if (invalid && !wasInvalid.current) {
+        el.classList.remove("ds-shake")
+        // Force reflow so re-adding the class restarts the animation.
+        void el.offsetWidth
+        el.classList.add("ds-shake")
+        const clear = () => el.classList.remove("ds-shake")
+        el.addEventListener("animationend", clear, { once: true })
+      }
+      wasInvalid.current = !!invalid
+    }, [invalid])
+
+    return (
+      <input
+        ref={innerRef}
+        type={type}
+        aria-invalid={invalid ?? ariaInvalid}
+        style={{ height: `var(--density-form-h-${size})`, ...style }}
+        className={cn(inputBase({ size }), className)}
+        {...props}
+      />
+    )
+  }
 )
 Input.displayName = "Input"
 

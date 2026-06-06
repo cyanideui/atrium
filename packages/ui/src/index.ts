@@ -10,6 +10,7 @@ export {
   type UseScrollOverlayOptions,
   type UseScrollOverlayReturn,
 } from "./lib/use-scroll-overlay"
+export { useReducedMotion } from "./lib/use-reduced-motion"
 
 // Foundations
 export { Icon, ICON_SIZES, type IconSize, type IconProps } from "./components/icon"
@@ -180,6 +181,23 @@ export {
   type SavedFilter,
 } from "./components/saved-filters"
 export { Sparkline, type SparklineProps } from "./components/sparkline"
+export { AnimatedNumber, type AnimatedNumberProps } from "./components/animated-number"
+export {
+  NotificationBadge,
+  type NotificationBadgeProps,
+} from "./components/notification-badge"
+
+// Motion primitives (transitions.dev round)
+export {
+  Swap,
+  Collapsible,
+  ShimmerText,
+  Reveal,
+  type SwapProps,
+  type CollapsibleProps,
+  type ShimmerTextProps,
+  type RevealProps,
+} from "./components/motion"
 
 // Surfaces
 export {

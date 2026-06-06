@@ -101,6 +101,7 @@ export const NAV: NavSection[] = [
       { label: "Spacing & radius", path: "/foundations/spacing", status: "done", icon: RulerIcon },
       { label: "Iconography", path: "/foundations/icons", status: "done", icon: SparklesIcon },
       { label: "Density", path: "/foundations/density", status: "done", icon: Minimize02Icon },
+      { label: "Motion", path: "/foundations/motion", status: "done", icon: SparklesIcon },
     ],
   },
   {

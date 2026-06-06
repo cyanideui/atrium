@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
+import { AnimatedNumber } from "@/components/ui/animated-number"
 
 /**
  * <ImportPreview> — design.md §5.26
@@ -104,9 +105,10 @@ function Tile({
   }[tone]
   return (
     <div className="rounded-md border border-hairline bg-canvas p-3">
-      <div className={cn("text-[24px] font-semibold tabular-nums leading-none", valueColor)}>
-        {value.toLocaleString()}
-      </div>
+      <AnimatedNumber
+        value={value}
+        className={cn("text-[24px] font-semibold leading-none", valueColor)}
+      />
       <div className="mt-1.5 text-[12px] text-ink-3">{label}</div>
     </div>
   )

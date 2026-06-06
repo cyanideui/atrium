@@ -33,6 +33,7 @@ const TypographyPage = lazyNamed(() => import("./routes/foundations/typography")
 const SpacingPage = lazyNamed(() => import("./routes/foundations/spacing"), "SpacingPage")
 const IconsPage = lazyNamed(() => import("./routes/foundations/icons"), "IconsPage")
 const DensityPage = lazyNamed(() => import("./routes/foundations/density"), "DensityPage")
+const MotionPage = lazyNamed(() => import("./routes/foundations/motion"), "MotionPage")
 
 const ButtonPage = lazyNamed(() => import("./routes/components/button"), "ButtonPage")
 const ButtonGroupPage = lazyNamed(() => import("./routes/components/button-group"), "ButtonGroupPage")
@@ -244,6 +245,7 @@ function AppShell() {
           <Route path="/foundations/spacing" element={<SpacingPage />} />
           <Route path="/foundations/icons" element={<IconsPage />} />
           <Route path="/foundations/density" element={<DensityPage />} />
+          <Route path="/foundations/motion" element={<MotionPage />} />
 
           <Route path="/components/button" element={<ButtonPage />} />
           <Route path="/components/button-group" element={<ButtonGroupPage />} />
