@@ -87,6 +87,16 @@
   100% { background-position: -200% 0; }
 }
 
+/* #9 Success check (variant B) — disc pops in, white checkmark draws over it. */
+@keyframes ds-check-fill-pop {
+  0%   { transform: scale(0.6); }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+@keyframes ds-check-draw {
+  to { stroke-dashoffset: 0; }
+}
+
 /* ============================================================= */
 /* COMPONENTS LAYER                                              */
 /* ============================================================= */
@@ -434,6 +444,25 @@
   .ds-badge-pop {
     animation: ds-badge-pop 360ms var(--ease-emphasis) both;
   }
+  /* #9 success check (variant B): green disc pops, white checkmark draws over.
+   * The component toggles `data-go` to (re)play. The check path uses
+   * stroke-dasharray = its own length so dashoffset animates a "draw". */
+  .ds-check-disc[data-go="true"] {
+    animation: ds-check-fill-pop 300ms var(--ease-emphasis);
+  }
+  .ds-check-disc path {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+  }
+  .ds-check-disc[data-go="true"] path {
+    animation: ds-check-draw 240ms var(--ease-emphasis) 60ms forwards;
+  }
+  /* Reduced motion: no pop, no draw — the check is simply visible. */
+  @media (prefers-reduced-motion: reduce) {
+    .ds-check-disc path {
+      stroke-dashoffset: 0;
+    }
+  }
   /* #4/#8 swap layers — blur cross-fade for text/icon state changes. Two
    * elements stacked in a grid cell; toggle data-hidden to cross-fade. */
   .ds-swap {
@@ -470,17 +499,29 @@
   .ds-swap[data-variant="text"] > [data-hidden="false"] {
     transform: translateY(0);
   }
-  /* #16 shimmer text — masked gradient sweep for transient "processing" labels.
-   * Loops, so the looping hard-stop list below disables it under reduced motion
-   * and we fall back to a flat ink-3 fill. */
+  /* #16 shimmer text — light sweep for transient "processing" labels.
+   * Light treatment: a soft gray base text with a brighter near-white streak
+   * sweeping across it (skeleton-style highlight). Loops, so the hard-stop list
+   * below disables it under reduced motion and falls back to a flat ink-3 fill.
+   * NOTE: declare background-clip AFTER the `background` shorthand — the
+   * shorthand resets omitted longhands, so clipping must come last or the
+   * gradient paints the whole box instead of the glyphs. */
   .ds-shimmer-text {
     font-weight: 600;
-    background: linear-gradient(90deg, var(--ink-4) 0%, var(--ink) 20%, var(--ink-4) 40%);
+    background: linear-gradient(
+      90deg,
+      var(--ink-4) 0%,
+      var(--ink-4) 35%,
+      #ffffff 50%,
+      var(--ink-4) 65%,
+      var(--ink-4) 100%
+    );
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
-    animation: ds-shimmer-text 2s linear infinite;
+    animation: ds-shimmer-text 1.6s linear infinite;
   }
 
   /* ---------- Command palette overlay ----------
@@ -768,6 +809,7 @@
       background: none !important;
       -webkit-background-clip: border-box !important;
       background-clip: border-box !important;
+      -webkit-text-fill-color: var(--ink-3) !important;
       color: var(--ink-3) !important;
     }
   }

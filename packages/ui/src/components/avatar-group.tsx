@@ -62,9 +62,11 @@ export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
             key={(child as React.ReactElement<{ key?: string }>).key ?? i}
             className={cn(
               "ring-2 ring-canvas rounded-pill",
-              // Lift on hover and bring above neighbors. Subtle, Polaris-style.
+              // #10 tweak C: hovered avatar lifts + scales (pop), rises above
+              // neighbors. No neighbor movement — cleanest read. Reduced motion
+              // collapses the transform transition to 0ms via the global rule.
               "transition-transform duration-[var(--dur-base)] ease-[var(--ease-emphasis)]",
-              "hover:-translate-y-0.5 hover:z-10 cursor-pointer"
+              "hover:-translate-y-1 hover:scale-110 hover:z-10 cursor-pointer"
             )}
           >
             {React.cloneElement(child as React.ReactElement<AvatarProps>, {

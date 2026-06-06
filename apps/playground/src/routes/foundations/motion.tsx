@@ -2,6 +2,7 @@ import { useState } from "react"
 import {
   AnimatedNumber,
   NotificationBadge,
+  SuccessCheck,
   Swap,
   Collapsible,
   ShimmerText,
@@ -30,6 +31,16 @@ export function MotionPage() {
   const [invalid, setInvalid] = useState(false)
   const [invalidKey, setInvalidKey] = useState(0)
   const [revealKey, setRevealKey] = useState(0)
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "done">("idle")
+  const [savePlay, setSavePlay] = useState(0)
+
+  async function runSave() {
+    setSaveState("saving")
+    await new Promise((r) => setTimeout(r, 700))
+    setSavePlay((k) => k + 1)
+    setSaveState("done")
+    setTimeout(() => setSaveState("idle"), 1800)
+  }
 
   return (
     <div className="ds-prose">
@@ -73,6 +84,26 @@ export function MotionPage() {
               <Button size="sm" variant="secondary" onClick={() => setCount((c) => c + 1)}>Add</Button>
               <Button size="sm" variant="tertiary" onClick={() => setCount(0)}>Reset</Button>
             </div>
+          </div>
+        </Demo>
+      </Section>
+
+      <Section title="Success check" description="Confirmation moment after a save/submit. Green disc pops in while the checkmark draws over it. Reduced motion → appears solid, no draw.">
+        <Demo code={`<SuccessCheck playKey={successCount} />  // bump playKey to replay`}>
+          <div className="flex items-center gap-4">
+            <Button size="sm" onClick={runSave} disabled={saveState === "saving"}>
+              {saveState === "saving" ? "Saving…" : "Save changes"}
+            </Button>
+            {saveState === "done" && (
+              <span className="flex items-center gap-2 text-[13px] font-medium text-success">
+                <SuccessCheck size="sm" playKey={savePlay} /> Saved
+              </span>
+            )}
+            <span className="ml-4 flex items-center gap-3">
+              <SuccessCheck size="sm" playKey={`sm-${savePlay}`} />
+              <SuccessCheck size="md" playKey={`md-${savePlay}`} />
+              <SuccessCheck size="lg" playKey={`lg-${savePlay}`} />
+            </span>
           </div>
         </Demo>
       </Section>
@@ -145,7 +176,7 @@ export function MotionPage() {
         </Demo>
       </Section>
 
-      <Section title="Shimmer text" description="Masked gradient sweep for transient 'processing' labels. Loops — reduced motion falls back to a flat ink-3 fill.">
+      <Section title="Shimmer text" description="Light streak sweeping across a soft-gray label, for transient 'processing' states. Loops — reduced motion falls back to a flat ink-3 fill.">
         <Demo code={`<ShimmerText>Planning next moves…</ShimmerText>`}>
           <ShimmerText className="text-[15px]">Planning next moves…</ShimmerText>
         </Demo>

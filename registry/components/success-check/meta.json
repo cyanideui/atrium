@@ -1,0 +1,23 @@
+{
+  "name": "component-success-check",
+  "category": "components",
+  "title": "success-check",
+  "description": "<success-check> component (copy-paste source).",
+  "version": "1.0.0",
+  "frameworks": [
+    "next",
+    "vite-react-router"
+  ],
+  "files": [
+    {
+      "from": "success-check.tsx",
+      "to": "src/components/ui/success-check.tsx"
+    }
+  ],
+  "dependencies": {
+    "npm": [],
+    "registry": [
+      "lib-utils"
+    ]
+  }
+}

@@ -186,6 +186,7 @@ export {
   NotificationBadge,
   type NotificationBadgeProps,
 } from "./components/notification-badge"
+export { SuccessCheck, type SuccessCheckProps } from "./components/success-check"
 
 // Motion primitives (transitions.dev round)
 export {
