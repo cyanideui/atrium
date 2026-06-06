@@ -526,7 +526,7 @@
   .ds-shimmer-text {
     position: relative;
     display: inline-block;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--ink-3);
   }
   .ds-shimmer-text::after {
