@@ -29,7 +29,7 @@ export interface NotificationBadgeProps extends React.HTMLAttributes<HTMLSpanEle
 }
 
 const TONE: Record<NonNullable<NotificationBadgeProps["tone"]>, string> = {
-  critical: "bg-critical text-white",
+  critical: "bg-error text-white",
   info: "bg-info text-white",
   success: "bg-success text-white",
   warning: "bg-warning text-white",
