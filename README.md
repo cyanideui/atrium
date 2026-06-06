@@ -132,7 +132,37 @@ You can also drop the bare class on any element (`.ds-density-compact-plus`, `.d
 
 Tokens live in `packages/ui/src/styles/tokens.css`. Both palettes are exposed to Tailwind v4 via `@theme inline`, so utilities like `bg-canvas`, `text-ink-2`, `border-hairline-strong`, `bg-tone-success-bg` all work and switch automatically with `<html class="dark">`.
 
-## Starting a new app (copy-paste, shadcn-style — no token)
+## Motion
+
+Atrium ships a token-driven motion system (`--dur-fast/base/slide`, `--ease-standard/emphasis`). **Everything respects `prefers-reduced-motion: reduce`** — under reduced motion every transition/animation collapses to an instant state via a global rule (and JS-driven motion is gated by the `useReducedMotion()` hook). You don't have to do anything to be reduced-motion-safe.
+
+Motion comes in two flavors:
+
+**Built into components (automatic — you get it for free):** Modal/Drawer open/close, Dropdown/Select/Popover, Tooltip (appear-only delay, instant exit), AutoSaveStatus label cross-fade, AvatarGroup hover, SearchField clear dissolve, ImportPreview count-up, accordion, sliding segmented pill, skeleton shimmer.
+
+**Opt-in motion primitives** — reach for these where they fit (they're intentionally *not* forced onto every element):
+
+```tsx
+import {
+  AnimatedNumber,   // count-up / digit-pop for KPIs, totals, deltas
+  NotificationBadge, // spring pop-in count/dot badge
+  SuccessCheck,      // disc-pop + checkmark draw for save/submit confirmation
+  Swap,              // blur cross-fade between two states (text or icon)
+  Collapsible,       // grid-rows reveal (no fixed height)
+  Reveal,            // rise + de-blur on mount (staggerable)
+  ShimmerText,       // light sweep for transient "processing" labels
+  useReducedMotion,  // subscribe to the OS setting for custom JS motion
+} from "@cyanideui/ui"
+
+<AnimatedNumber value={revenue} leading="$" />
+<SuccessCheck playKey={saveCount} />                 {/* bump playKey to replay */}
+<span className="relative"><BellIcon /><NotificationBadge count={unread} /></span>
+<Input invalid={hasError} />                         {/* shakes on each false→true */}
+```
+
+Live examples + the reduced-motion toggle: **Foundations → Motion** (`/foundations/motion`) in the playground. Copy-paste any primitive via `npx cyanideui add animated-number` (also `notification-badge`, `success-check`, `motion`). Full spec in [`design.md`](./design.md) §2.7.
+
+
 
 The repo is **public** and components are **copy-paste source** — so consuming Atrium needs no npm token, no `.npmrc`, no install of a runtime library. The CLI copies real source files into your project, transformed for your framework, and they become *your* code.
 

@@ -510,11 +510,11 @@
     font-weight: 600;
     background: linear-gradient(
       90deg,
-      var(--ink-4) 0%,
-      var(--ink-4) 35%,
+      var(--ink-3) 0%,
+      var(--ink-3) 35%,
       #ffffff 50%,
-      var(--ink-4) 65%,
-      var(--ink-4) 100%
+      var(--ink-3) 65%,
+      var(--ink-3) 100%
     );
     background-size: 200% 100%;
     -webkit-background-clip: text;

@@ -2274,7 +2274,7 @@ A focused motion pass adapting transitions.dev effects to Atrium's token system.
 - `<Swap>` — blur cross-fade between two states; `variant="text"` (vertical shift) or `variant="icon"` (scale + rotate). Built on `.ds-swap`. Now drives `<AutoSaveStatus>` label transitions.
 - `<Collapsible>` — open/close via `grid-template-rows 0fr↔1fr` (no fixed height), content rises on reveal.
 - `<Reveal>` — rise + de-blur on mount (`ds-reveal-up`); stagger with increasing `delay` for lists/headers.
-- `<ShimmerText>` — **light** streak sweeping across a soft-gray label (skeleton-style highlight) for transient "processing" states. Loops, so it's in the reduced-motion hard-stop list with a flat `ink-3` fallback.
+- `<ShimmerText>` — **light** streak sweeping across an `ink-3` base label (skeleton-style highlight, 1.6s) for transient "processing" states. Loops, so it's in the reduced-motion hard-stop list with a flat `ink-3` fallback.
 - `useReducedMotion()` hook — subscribes to `prefers-reduced-motion`; for JS-driven motion CSS can't reach. SSR-safe (defaults to animated, syncs on mount).
 
 **Changed — existing components**
