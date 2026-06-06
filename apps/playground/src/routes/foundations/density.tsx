@@ -26,7 +26,8 @@ import {
   useDensity,
   type Density,
 } from "@cyanideui/ui"
-import { PageHeader, Section } from "../../components/page-shell"
+import { Section } from "../../components/page-shell"
+import { FoundationHero, MetaChip } from "../../components/foundation-shell"
 
 /**
  * Density showcase — visual side-by-side of all three density modes.
@@ -97,12 +98,18 @@ function GlobalDensityIndicator() {
 
 export function DensityPage() {
   return (
-    <div className="ds-prose">
-      <PageHeader
+    <div>
+      <FoundationHero
         eyebrow="Foundations"
         title="Density"
-        description="Three rhythm modes — compact-plus (dense ERP), compact (Notion / Linear scale, default), and comfortable (touch-friendly). Heights, gaps, paddings, type, and the timeline event rhythm all scale; radii and icon/dot sizes stay fixed so the visual identity stays consistent."
-      />
+        lead="Three rhythm modes — compact-plus (dense ERP), compact (Notion / Linear scale, default), and comfortable (touch-friendly). Heights, gaps, paddings, type, and the timeline event rhythm all scale; radii and icon/dot sizes stay fixed so the visual identity holds."
+      >
+        <div className="flex flex-wrap gap-2">
+          <MetaChip label="compact-plus" value="dense" tone="info" />
+          <MetaChip label="compact" value="default" tone="neutral" />
+          <MetaChip label="comfortable" value="touch" tone="attention" />
+        </div>
+      </FoundationHero>
 
       <Section
         title="Switching modes"

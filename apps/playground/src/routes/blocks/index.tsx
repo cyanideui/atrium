@@ -22,7 +22,7 @@ import {
   Calendar03Icon,
   Drag01Icon,
 } from "@hugeicons/core-free-icons"
-import { PageHeader, Section } from "../../components/page-shell"
+import { FoundationHero, MetaChip } from "../../components/foundation-shell"
 import type { IconSvgElement } from "@hugeicons/react"
 
 interface BlockEntry {
@@ -59,43 +59,46 @@ const BLOCKS: BlockEntry[] = [
 
 export function BlocksIndex() {
   return (
-    <>
-      <PageHeader
+    <div>
+      <FoundationHero
         eyebrow="Blocks"
         title="Blocks"
-        description="Composed, drop-in sections built from the component primitives. Copy-paste via the CLI — each lands in src/components/blocks/ importing your local @/components/ui/*."
-      />
-
-      <Section>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {BLOCKS.map((b) => (
-            <Link
-              key={b.path}
-              to={b.path}
-              className={cn(
-                "group flex items-start gap-3 rounded-md border border-hairline bg-canvas p-4 no-underline",
-                "transition-[border-color,background-color] duration-[var(--dur-fast)]",
-                "hover:border-hairline-strong hover:bg-surface",
-              )}
-            >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-surface-2 text-ink-2">
-                <Icon icon={b.icon} size={18} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 text-[14px] font-semibold text-ink">
-                  {b.title}
-                  <Icon
-                    icon={ArrowRight02Icon}
-                    size={14}
-                    className="text-ink-4 transition-transform duration-[var(--dur-fast)] group-hover:translate-x-0.5 group-hover:text-ink-2"
-                  />
-                </div>
-                <p className="mt-0.5 text-[12.5px] text-ink-3">{b.description}</p>
-              </div>
-            </Link>
-          ))}
+        lead="Composed, drop-in sections built from the component primitives. Copy-paste via the CLI — each lands in src/components/blocks/ importing your local @/components/ui/*, so the code becomes yours to edit."
+      >
+        <div className="flex flex-wrap gap-2">
+          <MetaChip label="blocks" value={String(BLOCKS.length)} tone="info" />
+          <MetaChip label="install" value="npx cyanideui add" tone="neutral" />
         </div>
-      </Section>
-    </>
+      </FoundationHero>
+
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {BLOCKS.map((b) => (
+          <Link
+            key={b.path}
+            to={b.path}
+            className={cn(
+              "group flex items-start gap-3 rounded-xl border border-hairline bg-canvas p-4 no-underline",
+              "transition-[border-color,background-color,box-shadow] duration-[var(--dur-base)]",
+              "hover:border-hairline-strong hover:shadow-elev-1",
+            )}
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-ink-2 transition-colors duration-[var(--dur-base)] group-hover:bg-ink group-hover:text-canvas">
+              <Icon icon={b.icon} size={18} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 text-[14px] font-semibold text-ink">
+                {b.title}
+                <Icon
+                  icon={ArrowRight02Icon}
+                  size={14}
+                  className="text-ink-4 transition-transform duration-[var(--dur-fast)] group-hover:translate-x-0.5 group-hover:text-ink-2"
+                />
+              </div>
+              <p className="mt-0.5 text-[12.5px] text-ink-3">{b.description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }

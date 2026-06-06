@@ -1,4 +1,5 @@
-import { PageHeader, Section } from "../../components/page-shell"
+import { RulerIcon, Album02Icon, Layers01Icon } from "@hugeicons/core-free-icons"
+import { FoundationHero, FoundationGroup, ShowcaseCard } from "../../components/foundation-shell"
 
 const SPACING = [
   { name: "xxs", px: 4 },
@@ -34,64 +35,70 @@ const ELEV = [
 
 export function SpacingPage() {
   return (
-    <div className="ds-prose">
-      <PageHeader
+    <div>
+      <FoundationHero
         eyebrow="Foundations"
         title="Spacing & radius"
-        description="Consistent rhythms underpin the entire system."
+        lead="Consistent rhythms underpin the whole system — a 4px base step for spacing, a fixed radius family, and a strict elevation ladder reserved for floating chrome only."
       />
 
-      <Section title="Spacing scale">
-        <div className="space-y-1.5 rounded-md border border-hairline bg-canvas p-4">
-          {SPACING.map((s) => (
-            <div key={s.name} className="grid grid-cols-[80px_60px_1fr] items-center gap-3">
-              <span className="font-mono text-[12px] text-ink-2">{s.name}</span>
-              <span className="font-mono text-[12px] text-ink-4 tabular-nums">{s.px}px</span>
-              <div className="h-2 rounded-pill bg-ink" style={{ width: `${s.px}px` }} />
-            </div>
-          ))}
+      <FoundationGroup icon={RulerIcon} title="Spacing scale" hint="4px base step">
+        <div className="rounded-xl border border-hairline bg-canvas p-5">
+          <div className="flex flex-col gap-2">
+            {SPACING.map((s) => (
+              <div key={s.name} className="grid grid-cols-[90px_56px_1fr] items-center gap-3">
+                <span className="font-mono text-[12px] text-ink-2">{s.name}</span>
+                <span className="font-mono text-[12px] text-ink-4 tabular-nums">{s.px}px</span>
+                <div className="h-2.5 rounded-pill bg-gradient-to-r from-ink to-ink-3" style={{ width: `${s.px}px` }} />
+              </div>
+            ))}
+          </div>
         </div>
-      </Section>
+      </FoundationGroup>
 
-      <Section title="Radius">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+      <FoundationGroup icon={Album02Icon} title="Radius" hint="fixed family — never scales with density">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
           {RADII.map((r) => (
-            <div
-              key={r.name}
-              className="flex items-center gap-3 rounded-md border border-hairline bg-canvas p-3"
-            >
+            <div key={r.name} className="flex flex-col items-center gap-3 rounded-xl border border-hairline bg-canvas p-4">
               <div
-                className="h-12 w-12 shrink-0 bg-surface-2"
+                className="h-14 w-14 border border-hairline-strong bg-surface-2"
                 style={{ borderRadius: r.value }}
               />
-              <div>
-                <div className="font-mono text-[12px] text-ink">radius-{r.name}</div>
-                <div className="font-mono text-[12px] text-ink-4">
-                  {r.px === 999 ? "999px" : `${r.px}px`}
-                </div>
+              <div className="text-center">
+                <div className="font-mono text-[12px] text-ink">{r.name}</div>
+                <div className="font-mono text-[11px] text-ink-4">{r.px === 999 ? "999px" : `${r.px}px`}</div>
               </div>
             </div>
           ))}
         </div>
-      </Section>
+      </FoundationGroup>
 
-      <Section
+      <FoundationGroup
+        icon={Layers01Icon}
         title="Elevation"
-        description="Reserved for floating chrome only — overlays, tooltips, dropdowns. In-flow surfaces (cards, tiles, sections, table rows) stay flat with hairline borders. Shadow-everywhere reads as Material/Bootstrap-busy and erodes hierarchy on dense ERP screens."
+        hint="floating chrome only — in-flow surfaces stay flat"
       >
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <p className="mb-3 max-w-[680px] text-[12.5px] leading-relaxed text-ink-3">
+          Shadows are reserved for overlays, tooltips, and dropdowns. In-flow surfaces (cards, tiles,
+          sections, table rows) stay flat with hairline borders — shadow-everywhere reads as
+          Material/Bootstrap-busy and erodes hierarchy on dense ERP screens.
+        </p>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-5">
           {ELEV.map((e) => (
             <div
               key={e.level}
-              className="flex h-28 flex-col items-center justify-center gap-1 rounded-md bg-canvas px-3 text-center text-[12px] text-ink-2"
-              style={{ boxShadow: e.var === "none" ? undefined : e.var, border: e.var === "none" ? "1px solid var(--hairline)" : undefined }}
+              className="flex h-32 flex-col items-center justify-center gap-1.5 rounded-xl bg-canvas px-3 text-center"
+              style={{
+                boxShadow: e.var === "none" ? undefined : e.var,
+                border: e.var === "none" ? "1px solid var(--hairline)" : "1px solid var(--hairline)",
+              }}
             >
-              <div className="font-semibold text-ink">elev-{e.level}</div>
-              <div className="text-[10.5px] text-ink-3">{e.use}</div>
+              <div className="text-[13px] font-semibold text-ink">elev-{e.level}</div>
+              <div className="text-[10.5px] leading-tight text-ink-3">{e.use}</div>
             </div>
           ))}
         </div>
-      </Section>
+      </FoundationGroup>
     </div>
   )
 }

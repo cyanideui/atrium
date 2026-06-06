@@ -12,6 +12,7 @@ import {
   Icon,
   Card,
   CardBody,
+  cn,
 } from "@cyanideui/ui"
 import {
   Sun02Icon,
@@ -19,8 +20,27 @@ import {
   Notification03Icon,
   ArrowDown01Icon,
   RefreshIcon,
+  CursorMagicSelection01Icon,
+  FlashIcon,
 } from "@hugeicons/core-free-icons"
-import { PageHeader, Section, Demo } from "../../components/page-shell"
+import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
+
+const TOKENS = [
+  { name: "--dur-fast", value: "80ms", tone: "info" as const },
+  { name: "--dur-base", value: "150ms", tone: "info" as const },
+  { name: "--dur-slide", value: "250ms", tone: "info" as const },
+  { name: "--ease-standard", value: "cubic-bezier(.2,0,0,1)", tone: "attention" as const },
+  { name: "--ease-emphasis", value: "cubic-bezier(.32,.72,0,1)", tone: "attention" as const },
+]
+
+function ReducedDot({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <span className="inline-block h-1.5 w-1.5 rounded-pill bg-tone-success-fg/70" />
+      {children}
+    </>
+  )
+}
 
 export function MotionPage() {
   const [kpi, setKpi] = useState(1025)
@@ -43,144 +63,212 @@ export function MotionPage() {
   }
 
   return (
-    <div className="ds-prose">
-      <PageHeader
+    <div>
+      <FoundationHero
         eyebrow="Foundations"
         title="Motion"
-        status="stable"
-        description="Token-driven transitions adapted from transitions.dev. Every effect uses --dur-* / --ease-* tokens and collapses to an instant state under prefers-reduced-motion: reduce. Toggle reduced motion in your OS or DevTools to verify."
-      />
+        lead={
+          <>
+            Token-driven transitions adapted from{" "}
+            <span className="font-medium text-ink">transitions.dev</span>. Every effect is built on
+            the same five motion tokens and collapses to an instant state under{" "}
+            <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[12px]">
+              prefers-reduced-motion: reduce
+            </code>
+            . Flip that on in your OS or DevTools and watch everything below snap.
+          </>
+        }
+      >
+        <div className="flex flex-wrap gap-2">
+          {TOKENS.map((t) => (
+            <MetaChip key={t.name} label={t.name} value={t.value} tone={t.tone} />
+          ))}
+        </div>
+      </FoundationHero>
 
-      <Section title="Animated number" description="Count-up tween or per-digit pop on value change. Tabular-nums keeps width stable. Reduced motion jumps to the final value (no tween).">
-        <Demo
-          code={`<AnimatedNumber value={kpi} leading="$" />          // count up
-<AnimatedNumber value={kpi} mode="pop" leading="$" />  // digit flip`}
-        >
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col gap-1">
-              <span className="text-[11px] uppercase tracking-wider text-ink-4">count</span>
-              <AnimatedNumber value={kpi} leading="$" className="text-[30px] font-semibold" />
+      <FoundationGroup icon={FlashIcon} title="Feedback & values" hint="motion that confirms an action or a change">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <ShowcaseCard
+            title="Animated number"
+            desc="Count-up tween or per-digit pop on value change."
+            tag="AnimatedNumber"
+            footer={<ReducedDot>Jumps to final value (no tween)</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-end gap-8">
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-[10px] uppercase tracking-wider text-ink-4">count</span>
+                  <AnimatedNumber value={kpi} leading="$" className="text-[28px] font-semibold text-ink" />
+                </div>
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-[10px] uppercase tracking-wider text-ink-4">pop</span>
+                  <AnimatedNumber value={kpi} mode="pop" leading="$" className="text-[28px] font-semibold text-ink" />
+                </div>
+              </div>
+              <Button size="sm" variant="secondary" leading={<Icon icon={RefreshIcon} size="sm" />} onClick={() => setKpi(Math.floor(800 + Math.random() * 9000))}>
+                Randomize
+              </Button>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-[11px] uppercase tracking-wider text-ink-4">pop</span>
-              <AnimatedNumber value={kpi} mode="pop" leading="$" className="text-[30px] font-semibold" />
-            </div>
-            <Button size="sm" variant="secondary" leading={<Icon icon={RefreshIcon} size="sm" />}
-              onClick={() => setKpi(Math.floor(800 + Math.random() * 9000))}>
-              Randomize
-            </Button>
-          </div>
-        </Demo>
-      </Section>
+          </ShowcaseCard>
 
-      <Section title="Notification badge" description="Diagonal slide + spring pop when the count appears or increases.">
-        <Demo code={`<span className="relative">…<NotificationBadge count={count} /></span>`}>
-          <div className="flex items-center gap-6">
-            <span className="relative inline-grid h-10 w-10 place-items-center rounded-md bg-surface-2">
-              <Icon icon={Notification03Icon} size={20} />
-              <NotificationBadge count={count} />
-            </span>
-            <div className="flex gap-2">
-              <Button size="sm" variant="secondary" onClick={() => setCount((c) => c + 1)}>Add</Button>
-              <Button size="sm" variant="tertiary" onClick={() => setCount(0)}>Reset</Button>
+          <ShowcaseCard
+            title="Success check"
+            desc="Disc pops in while the checkmark draws over it."
+            tag="SuccessCheck"
+            footer={<ReducedDot>Appears solid, no draw</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center gap-3">
+                <SuccessCheck size="sm" playKey={`sm-${savePlay}`} />
+                <SuccessCheck size="md" playKey={`md-${savePlay}`} />
+                <SuccessCheck size="lg" playKey={`lg-${savePlay}`} />
+              </div>
+              <div className="flex h-8 items-center">
+                {saveState === "done" ? (
+                  <span className="flex items-center gap-1.5 text-[13px] font-medium text-success">
+                    <SuccessCheck size="sm" playKey={savePlay} /> Saved
+                  </span>
+                ) : (
+                  <Button size="sm" onClick={runSave} disabled={saveState === "saving"}>
+                    {saveState === "saving" ? "Saving…" : "Save changes"}
+                  </Button>
+                )}
+              </div>
             </div>
-          </div>
-        </Demo>
-      </Section>
+          </ShowcaseCard>
 
-      <Section title="Success check" description="Confirmation moment after a save/submit. Green disc pops in while the checkmark draws over it. Reduced motion → appears solid, no draw.">
-        <Demo code={`<SuccessCheck playKey={successCount} />  // bump playKey to replay`}>
-          <div className="flex items-center gap-4">
-            <Button size="sm" onClick={runSave} disabled={saveState === "saving"}>
-              {saveState === "saving" ? "Saving…" : "Save changes"}
-            </Button>
-            {saveState === "done" && (
-              <span className="flex items-center gap-2 text-[13px] font-medium text-success">
-                <SuccessCheck size="sm" playKey={savePlay} /> Saved
+          <ShowcaseCard
+            title="Notification badge"
+            desc="Diagonal slide + spring pop when the count appears or grows."
+            tag="NotificationBadge"
+            footer={<ReducedDot>Appears in place (no pop)</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <span className="relative inline-grid h-11 w-11 place-items-center rounded-xl bg-surface-2 text-ink-2">
+                <Icon icon={Notification03Icon} size={20} />
+                <NotificationBadge count={count} />
               </span>
-            )}
-            <span className="ml-4 flex items-center gap-3">
-              <SuccessCheck size="sm" playKey={`sm-${savePlay}`} />
-              <SuccessCheck size="md" playKey={`md-${savePlay}`} />
-              <SuccessCheck size="lg" playKey={`lg-${savePlay}`} />
-            </span>
-          </div>
-        </Demo>
-      </Section>
+              <div className="flex gap-2">
+                <Button size="sm" variant="secondary" onClick={() => setCount((c) => c + 1)}>Add</Button>
+                <Button size="sm" variant="tertiary" onClick={() => setCount(0)}>Reset</Button>
+              </div>
+            </div>
+          </ShowcaseCard>
 
-      <Section title="Swap (text + icon)" description="Blur cross-fade between two states. Used by AutoSaveStatus; great for toggles.">
-        <Demo code={`<Swap active={saving} variant="text">Saving…</Swap>
-<Swap active={dark} variant="icon" alt={<SunIcon/>}><MoonIcon/></Swap>`}>
-          <div className="flex items-center gap-8">
-            <Swap active={saving} variant="text" alt={<span className="text-ink-3">All changes saved</span>}>
-              <span className="text-warning">Saving…</span>
-            </Swap>
-            <Button size="sm" variant="secondary" onClick={() => setSaving((s) => !s)}>Toggle text</Button>
+          <ShowcaseCard
+            title="Error shake"
+            desc="One-shot shake on a false→true invalid transition."
+            tag="Input invalid"
+            footer={<ReducedDot>Red border only, no shake</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-3">
+              <Input key={invalidKey} defaultValue="invalid@" invalid={invalid} className="w-[200px]" />
+              <div className="flex gap-2">
+                <Button size="sm" onClick={() => { setInvalid(true); setInvalidKey((k) => k + 1) }}>Submit</Button>
+                <Button size="sm" variant="tertiary" onClick={() => setInvalid(false)}>Clear</Button>
+              </div>
+            </div>
+          </ShowcaseCard>
 
+          <ShowcaseCard
+            title="Shimmer text"
+            desc="Light streak sweeping a label for transient processing states."
+            tag="ShimmerText"
+            footer={<ReducedDot>Flat ink-3 fill (no sweep)</ReducedDot>}
+          >
+            <ShimmerText className="text-[16px]">Planning next moves…</ShimmerText>
+          </ShowcaseCard>
+
+          <ShowcaseCard
+            title="Reveal (staggered)"
+            desc="Content rises + de-blurs into place; stagger for lists."
+            tag="Reveal"
+            footer={<ReducedDot>Appears instantly</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <div key={revealKey} className="text-center text-[13px]">
+                <Reveal delay={0} className="font-semibold text-ink">Pull request opened</Reveal>
+                <Reveal delay={90} className="text-ink-3">Review requested from 3 teammates</Reveal>
+              </div>
+              <Button size="sm" variant="secondary" onClick={() => setRevealKey((k) => k + 1)}>Replay</Button>
+            </div>
+          </ShowcaseCard>
+        </div>
+      </FoundationGroup>
+
+      <FoundationGroup icon={CursorMagicSelection01Icon} title="State & layout" hint="transitions between two states or sizes">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <ShowcaseCard
+            title="Swap — text"
+            desc="Blur cross-fade between two text states. Powers AutoSaveStatus."
+            tag="Swap"
+            footer={<ReducedDot>Instant text change</ReducedDot>}
+          >
+            <div className="flex flex-col items-center gap-4">
+              <Swap active={saving} variant="text" alt={<span className="text-ink-3">All changes saved</span>} className="text-[14px]">
+                <span className="text-warning">Saving…</span>
+              </Swap>
+              <Button size="sm" variant="secondary" onClick={() => setSaving((s) => !s)}>Toggle</Button>
+            </div>
+          </ShowcaseCard>
+
+          <ShowcaseCard
+            title="Swap — icon"
+            desc="Scale + rotate + blur swap. Ideal for theme / show-hide toggles."
+            tag="Swap"
+            footer={<ReducedDot>Instant icon change</ReducedDot>}
+          >
             <button
               onClick={() => setDark((d) => !d)}
-              className="grid h-9 w-9 place-items-center rounded-md border border-hairline-strong bg-canvas text-ink hover:bg-surface"
+              className="grid h-12 w-12 place-items-center rounded-xl border border-hairline-strong bg-canvas text-ink transition-colors duration-[var(--dur-base)] hover:bg-surface"
               aria-label="Toggle theme"
             >
-              <Swap active={dark} variant="icon" alt={<Icon icon={Sun02Icon} size={18} />}>
-                <Icon icon={Moon02Icon} size={18} />
+              <Swap active={dark} variant="icon" alt={<Icon icon={Sun02Icon} size={22} />}>
+                <Icon icon={Moon02Icon} size={22} />
               </Swap>
             </button>
-          </div>
-        </Demo>
-      </Section>
+          </ShowcaseCard>
 
-      <Section title="Collapsible panel" description="Reveals/hides content via grid-rows 0fr↔1fr — no fixed height needed.">
-        <Demo code={`<Collapsible open={open}>…</Collapsible>`}>
-          <div className="w-[260px]">
-            <Button size="sm" variant="secondary" trailing={<Icon icon={ArrowDown01Icon} size="sm" />}
-              onClick={() => setOpen((o) => !o)}>
-              {open ? "Hide" : "Show"} filters
-            </Button>
-            <Collapsible open={open} className="mt-2">
-              <Card><CardBody className="text-[13px] text-ink-2">
-                Status, date range, amount… any panel content reveals smoothly here.
-              </CardBody></Card>
-            </Collapsible>
-          </div>
-        </Demo>
-      </Section>
-
-      <Section title="Error shake" description="One-shot shake on a false→true invalid transition. Reduced motion → red border only.">
-        <Demo code={`<Input invalid={invalid} />  // re-trigger by toggling invalid true again`}>
-          <div className="flex items-center gap-3">
-            <Input
-              key={invalidKey}
-              defaultValue="invalid@"
-              invalid={invalid}
-              className="w-[220px]"
-            />
-            <Button size="sm" onClick={() => { setInvalid(true); setInvalidKey((k) => k + 1) }}>
-              Submit
-            </Button>
-            <Button size="sm" variant="tertiary" onClick={() => setInvalid(false)}>Clear</Button>
-          </div>
-        </Demo>
-      </Section>
-
-      <Section title="Reveal (staggered)" description="Content rises + de-blurs into place. Stagger with increasing delay for lists / headers.">
-        <Demo code={`<Reveal delay={0}>Line one</Reveal>
-<Reveal delay={90}>Line two</Reveal>`}>
-          <div className="flex items-center gap-4">
-            <div key={revealKey} className="text-[13px]">
-              <Reveal delay={0} className="font-semibold">Pull request opened</Reveal>
-              <Reveal delay={90} className="text-ink-3">Review requested from 3 teammates</Reveal>
+          <ShowcaseCard
+            title="Collapsible panel"
+            desc="Open / close via grid-rows 0fr↔1fr — no fixed height needed."
+            tag="Collapsible"
+            footer={<ReducedDot>Snaps open / closed</ReducedDot>}
+          >
+            <div className="w-full max-w-[240px]">
+              <Button
+                size="sm"
+                variant="secondary"
+                className="w-full justify-between"
+                trailing={<Icon icon={ArrowDown01Icon} size="sm" className={cn("transition-transform duration-[var(--dur-base)]", open && "rotate-180")} />}
+                onClick={() => setOpen((o) => !o)}
+              >
+                {open ? "Hide filters" : "Show filters"}
+              </Button>
+              <Collapsible open={open} className="mt-2">
+                <Card>
+                  <CardBody className="text-[12.5px] text-ink-2">
+                    Status, date range, amount… any panel content reveals smoothly here.
+                  </CardBody>
+                </Card>
+              </Collapsible>
             </div>
-            <Button size="sm" variant="secondary" onClick={() => setRevealKey((k) => k + 1)}>Replay</Button>
-          </div>
-        </Demo>
-      </Section>
+          </ShowcaseCard>
+        </div>
+      </FoundationGroup>
 
-      <Section title="Shimmer text" description="Light streak sweeping across a soft-gray label, for transient 'processing' states. Loops — reduced motion falls back to a flat ink-3 fill.">
-        <Demo code={`<ShimmerText>Planning next moves…</ShimmerText>`}>
-          <ShimmerText className="text-[15px]">Planning next moves…</ShimmerText>
-        </Demo>
-      </Section>
+      <div className="flex items-start gap-2.5 rounded-lg border border-hairline bg-surface px-4 py-3">
+        <span className="mt-0.5 grid h-5 w-5 place-items-center rounded-pill bg-tone-info-bg text-tone-info-fg">
+          <Icon icon={FlashIcon} size={12} />
+        </span>
+        <p className="m-0 text-[12.5px] leading-relaxed text-ink-3">
+          These primitives are <span className="font-medium text-ink-2">opt-in</span> — reach for them where they fit.
+          Motion already <span className="font-medium text-ink-2">built into components</span> (Modal, Tooltip,
+          Dropdown, AutoSaveStatus, AvatarGroup, SearchField, ImportPreview…) applies automatically. Copy any
+          primitive with{" "}
+          <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[11.5px]">npx cyanideui add animated-number</code>.
+        </p>
+      </div>
     </div>
   )
 }
