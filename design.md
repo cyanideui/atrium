@@ -2278,6 +2278,7 @@ A focused motion pass adapting transitions.dev effects to Atrium's token system.
 - `useReducedMotion()` hook — subscribes to `prefers-reduced-motion`; for JS-driven motion CSS can't reach. SSR-safe (defaults to animated, syncs on mount).
 
 **Changed — existing components**
+- `<DocBody>` (DocShell) — the **centered ↔ full-width toggle now animates** the content column's `max-width` (transitions.dev "card resize" feel) over `--dur-slide` `--ease-emphasis`, expanding symmetrically from center (`mx-auto` in both modes) plus a `pt` ease. "Full" animates to `100vw` (capped by the container) since CSS can't transition `max-width` to/from `none`. Reduced motion → instant via the global rule. Shipped in v1.3.3.
 - `<Modal>` open/close eased from a 35ms near-snap to a calmer **120ms in / 80ms out** emphasis settle (transitions.dev "modal scale" timing).
 - `<Tooltip>` now uses **appear-only delay, instant exit** (animates in after the open delay, disappears immediately on close — Linear/Raycast pattern). Dropped the `data-[state=closed]` fade-out.
 - `<Input invalid>` — new prop: sets `aria-invalid` (red border) AND plays a one-shot **error shake** (`ds-shake`) on each false→true transition. Reduced motion → border only.

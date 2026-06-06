@@ -189,21 +189,27 @@ export const DocBody = React.forwardRef<HTMLElement, DocBodyProps>(
   ({ className, width: override, centeredMaxWidth = 720, children, style, ...rest }, ref) => {
     const { bodyWidth } = useDocShell()
     const w = override ?? bodyWidth
-    const mergedStyle: React.CSSProperties =
-      w === "centered"
-        ? {
-            maxWidth: typeof centeredMaxWidth === "number" ? `${centeredMaxWidth}px` : centeredMaxWidth,
-            ...style,
-          }
-        : style ?? {}
+    const centeredW =
+      typeof centeredMaxWidth === "number" ? `${centeredMaxWidth}px` : centeredMaxWidth
+    // CSS can't transition max-width to/from `none`, so "full" animates to a
+    // large viewport-relative value the container caps — the content grows
+    // smoothly to fill (transitions.dev "card resize" feel) and stops at the
+    // real width. 100vw always covers the content column on any display while
+    // staying an animatable length. Keep mx-auto in both modes so it expands
+    // symmetrically from center. Reduced motion → transition collapses to 0ms.
+    const mergedStyle: React.CSSProperties = {
+      maxWidth: w === "centered" ? centeredW : "100vw",
+      ...style,
+    }
     return (
       <section
         ref={ref}
         data-width={w}
         style={mergedStyle}
         className={cn(
-          "px-8 pb-24 pt-8",
-          w === "centered" && "mx-auto pt-12",
+          "mx-auto px-8 pb-24",
+          "transition-[max-width,padding-top] duration-[var(--dur-slide)] ease-[var(--ease-emphasis)]",
+          w === "centered" ? "pt-12" : "pt-8",
           className
         )}
         {...rest}
