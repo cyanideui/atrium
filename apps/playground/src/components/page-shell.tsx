@@ -3,7 +3,10 @@ import { cn } from "@cyanideui/ui"
 import { CodeBlock } from "./code-block"
 
 /**
- * Showcase page shell. Provides title, eyebrow, description, and a Section helper.
+ * Showcase page shell — the shared chrome for every component reference page.
+ * Polishing these three primitives upgrades all ~55 component pages at once
+ * while keeping them uniform (the point of reference docs).
+ *
  * (Distinct from the future <PageShell> *component* in @cyanideui/ui.)
  */
 
@@ -19,14 +22,14 @@ export function PageHeader({
   status?: "stable" | "beta" | "todo"
 }) {
   return (
-    <header className="mb-8 ds-prose">
+    <header className="mb-9 border-b border-hairline pb-6">
       {eyebrow && (
-        <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-3">
+        <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-3">
           {eyebrow}
         </div>
       )}
-      <div className="flex items-baseline gap-3">
-        <h1>{title}</h1>
+      <div className="flex items-center gap-3">
+        <h1 className="m-0 text-[28px] font-semibold tracking-tight text-ink">{title}</h1>
         {status && (
           <span
             className={cn(
@@ -40,7 +43,11 @@ export function PageHeader({
           </span>
         )}
       </div>
-      {description && <p className="text-[14px]">{description}</p>}
+      {description && (
+        <p className="m-0 mt-2.5 max-w-[680px] text-[14.5px] leading-relaxed text-ink-2">
+          {description}
+        </p>
+      )}
     </header>
   )
 }
@@ -55,12 +62,12 @@ export function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="mb-10">
+    <section className="mb-11">
       {title && (
-        <h2 className="mb-1 text-base font-semibold text-ink">{title}</h2>
+        <h2 className="m-0 mb-1 text-[15px] font-semibold text-ink">{title}</h2>
       )}
       {description && (
-        <p className="mb-3 max-w-[720px] text-[13px] text-ink-3">
+        <p className="m-0 mb-3.5 max-w-[680px] text-[13px] leading-relaxed text-ink-3">
           {description}
         </p>
       )}
@@ -72,26 +79,35 @@ export function Section({
 export function Demo({
   children,
   code,
+  language,
   className,
   align = "start",
+  /** Render the preview on the faint dotted "stage" backdrop. Default false (plain canvas). */
+  stage = false,
 }: {
   children: React.ReactNode
   code?: string
+  language?: "tsx" | "ts" | "css" | "html" | "bash" | "json"
   className?: string
   align?: "start" | "center"
+  stage?: boolean
 }) {
   return (
     <div className="mt-2">
+      {/* Preview surface — unified with the code block below into one card. */}
       <div
         className={cn(
-          "flex flex-wrap gap-3 rounded-md border border-hairline bg-canvas p-6",
+          "flex flex-wrap gap-3 border border-hairline bg-canvas p-6",
+          code ? "rounded-t-xl" : "rounded-xl",
           align === "center" && "items-center justify-center",
+          stage &&
+            "bg-[radial-gradient(var(--hairline)_1px,transparent_1px)] [background-size:14px_14px]",
           className
         )}
       >
         {children}
       </div>
-      {code && <CodeBlock code={code} />}
+      {code && <CodeBlock code={code} language={language} flush />}
     </div>
   )
 }

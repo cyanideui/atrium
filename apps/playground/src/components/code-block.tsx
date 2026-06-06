@@ -12,6 +12,8 @@ interface CodeBlockProps {
   code: string
   language?: "tsx" | "ts" | "css" | "html" | "bash" | "json"
   className?: string
+  /** Render attached to a preview above: no top margin, square top corners, no top border. */
+  flush?: boolean
 }
 
 /**
@@ -44,7 +46,7 @@ function getHighlighter() {
 
 const LANG_ALIAS: Record<string, string> = { ts: "typescript" }
 
-export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps) {
+export function CodeBlock({ code, language = "tsx", className, flush }: CodeBlockProps) {
   const { theme } = useTheme()
   const [html, setHtml] = React.useState("")
   const [copied, setCopied] = React.useState(false)
@@ -83,7 +85,8 @@ export function CodeBlock({ code, language = "tsx", className }: CodeBlockProps)
   return (
     <div
       className={cn(
-        "relative my-4 overflow-hidden rounded-md border border-hairline bg-surface",
+        "relative overflow-hidden border border-hairline bg-surface",
+        flush ? "rounded-b-xl border-t-0" : "my-4 rounded-md",
         className
       )}
     >
