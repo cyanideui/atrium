@@ -22,8 +22,10 @@ import {
   RefreshIcon,
   CursorMagicSelection01Icon,
   FlashIcon,
+  ArrowLeftRightIcon,
 } from "@hugeicons/core-free-icons"
 import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
+import { CodeBlock } from "../../components/code-block"
 
 const TOKENS = [
   { name: "--dur-fast", value: "80ms", tone: "info" as const },
@@ -255,6 +257,63 @@ export function MotionPage() {
             </div>
           </ShowcaseCard>
         </div>
+      </FoundationGroup>
+
+      <FoundationGroup
+        icon={ArrowLeftRightIcon}
+        title="Page transitions"
+        hint="route forward / back — a consumer pattern, not a primitive"
+      >
+        <ShowcaseCard stage={false}>
+          <div className="flex w-full flex-col gap-3">
+            <p className="m-0 text-[13px] leading-relaxed text-ink-2">
+              Page-to-page slides are a <span className="font-medium text-ink">routing</span> concern, so Atrium
+              doesn't ship a route-transition component (that belongs to your router). Instead, use the native{" "}
+              <a href="https://developer.mozilla.org/docs/Web/API/View_Transitions_API" target="_blank" rel="noreferrer" className="text-info">View Transitions API</a>{" "}
+              with Atrium's motion tokens. It respects <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[11.5px]">prefers-reduced-motion</code> automatically and degrades to an instant cut where unsupported.
+            </p>
+
+            <div className="w-full">
+              <p className="m-0 mb-1.5 text-[12px] font-semibold text-ink">1. Token-driven CSS (global)</p>
+              <CodeBlock
+                language="css"
+                code={`/* Slide the old page out left, the new page in from the right.
+   Durations/easings reuse Atrium's motion tokens. */
+::view-transition-old(root) {
+  animation: 250ms var(--ease-emphasis) both vt-out;
+}
+::view-transition-new(root) {
+  animation: 250ms var(--ease-emphasis) both vt-in;
+}
+@keyframes vt-out { to { transform: translateX(-30px); opacity: 0; } }
+@keyframes vt-in  { from { transform: translateX(30px); opacity: 0; } }
+
+/* Reduced motion → no slide (API also disables automatically). */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}`}
+              />
+            </div>
+
+            <div className="w-full">
+              <p className="m-0 mb-1.5 text-[12px] font-semibold text-ink">2. Wrap navigation</p>
+              <CodeBlock
+                language="tsx"
+                code={`// React Router — wrap navigate() in a view transition.
+const navigate = useNavigate()
+function go(to: string) {
+  if (!document.startViewTransition) return navigate(to)
+  document.startViewTransition(() => navigate(to))
+}
+
+// Next.js App Router — opt in globally:
+//   next.config.js → experimental: { viewTransition: true }
+// then router.push() animates with the CSS above.`}
+              />
+            </div>
+          </div>
+        </ShowcaseCard>
       </FoundationGroup>
 
       <div className="flex items-start gap-2.5 rounded-lg border border-hairline bg-surface px-4 py-3">
