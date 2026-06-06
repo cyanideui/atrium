@@ -75,7 +75,15 @@ export interface ShimmerTextProps extends React.HTMLAttributes<HTMLSpanElement> 
 
 export const ShimmerText = React.forwardRef<HTMLSpanElement, ShimmerTextProps>(
   ({ className, children, ...rest }, ref) => (
-    <span ref={ref} className={cn("ds-shimmer-text", className)} {...rest}>
+    // `data-text` mirrors the label so the ::after pseudo can render the bright
+    // highlight layer revealed through the moving mask. Works when children is
+    // a plain string (the intended use for transient "processing" labels).
+    <span
+      ref={ref}
+      className={cn("ds-shimmer-text", className)}
+      data-text={typeof children === "string" ? children : undefined}
+      {...rest}
+    >
       {children}
     </span>
   ),

@@ -81,10 +81,12 @@
   100% { transform: translate(0, 0) scale(1); }
 }
 
-/* #16 Shimmer text — masked gradient sweep (loops; guarded under reduced motion). */
+/* #16 Shimmer text — masked highlight sweep (transitions.dev technique:
+ * a solid label with a bright band passing over it via mask-position).
+ * Loops; guarded under reduced motion. Slower 2.4s sweep for a calm feel. */
 @keyframes ds-shimmer-text {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0%   { -webkit-mask-position: 200% 0; mask-position: 200% 0; }
+  100% { -webkit-mask-position: -200% 0; mask-position: -200% 0; }
 }
 
 /* #9 Success check (variant B) — disc pops in, white checkmark draws over it. */
@@ -463,6 +465,22 @@
       stroke-dashoffset: 0;
     }
   }
+  /* #12 input clear — per-word dissolve (transitions.dev). Words blur + rise +
+   * fade with a stagger. Rendered as a transient overlay during clear; each
+   * word's transition-delay is set inline by <SearchField>. */
+  .ds-dissolve-word {
+    display: inline-block;
+    transition:
+      opacity var(--dur-base) var(--ease-standard),
+      filter var(--dur-base) var(--ease-standard),
+      transform var(--dur-base) var(--ease-standard);
+  }
+  .ds-dissolve[data-clearing="true"] .ds-dissolve-word {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-3px);
+  }
+
   /* #4/#8 swap layers — blur cross-fade for text/icon state changes. Two
    * elements stacked in a grid cell; toggle data-hidden to cross-fade. */
   .ds-swap {
@@ -499,29 +517,44 @@
   .ds-swap[data-variant="text"] > [data-hidden="false"] {
     transform: translateY(0);
   }
-  /* #16 shimmer text — light sweep for transient "processing" labels.
-   * Light treatment: a soft gray base text with a brighter near-white streak
-   * sweeping across it (skeleton-style highlight). Loops, so the hard-stop list
-   * below disables it under reduced motion and falls back to a flat ink-3 fill.
-   * NOTE: declare background-clip AFTER the `background` shorthand — the
-   * shorthand resets omitted longhands, so clipping must come last or the
-   * gradient paints the whole box instead of the glyphs. */
+  /* #16 shimmer text — masked highlight sweep (transitions.dev technique).
+   * The element renders the base label in a light tone (ink-3). A pseudo-element
+   * duplicates the text in full ink and is revealed only through a moving mask
+   * band, so a bright highlight appears to sweep across the solid text. The
+   * component mirrors its text into `data-text` for the pseudo. Slow 2.4s sweep.
+   * Reduced motion → the hard-stop list below kills the sweep + flattens it. */
   .ds-shimmer-text {
+    position: relative;
+    display: inline-block;
     font-weight: 600;
-    background: linear-gradient(
+    color: var(--ink-3);
+  }
+  .ds-shimmer-text::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    color: var(--ink);
+    -webkit-mask-image: linear-gradient(
       90deg,
-      var(--ink-3) 0%,
-      var(--ink-3) 35%,
-      #ffffff 50%,
-      var(--ink-3) 65%,
-      var(--ink-3) 100%
+      transparent 0%,
+      transparent 35%,
+      #000 50%,
+      transparent 65%,
+      transparent 100%
     );
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: ds-shimmer-text 1.6s linear infinite;
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 35%,
+      #000 50%,
+      transparent 65%,
+      transparent 100%
+    );
+    -webkit-mask-size: 200% 100%;
+    mask-size: 200% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    animation: ds-shimmer-text 2.4s linear infinite;
   }
 
   /* ---------- Command palette overlay ----------
@@ -802,15 +835,13 @@
     .ds-skeleton-pulse {
       animation: none !important;
     }
-    /* Shimmer text loops infinitely — kill the sweep and fall back to a flat
-     * fill so reduced-motion users see a static, legible label. */
+    /* Shimmer text loops infinitely — kill the sweep and show the flat base. */
     .ds-shimmer-text {
-      animation: none !important;
-      background: none !important;
-      -webkit-background-clip: border-box !important;
-      background-clip: border-box !important;
-      -webkit-text-fill-color: var(--ink-3) !important;
       color: var(--ink-3) !important;
+    }
+    .ds-shimmer-text::after {
+      animation: none !important;
+      display: none !important;
     }
   }
 

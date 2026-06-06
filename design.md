@@ -2274,7 +2274,7 @@ A focused motion pass adapting transitions.dev effects to Atrium's token system.
 - `<Swap>` — blur cross-fade between two states; `variant="text"` (vertical shift) or `variant="icon"` (scale + rotate). Built on `.ds-swap`. Now drives `<AutoSaveStatus>` label transitions.
 - `<Collapsible>` — open/close via `grid-template-rows 0fr↔1fr` (no fixed height), content rises on reveal.
 - `<Reveal>` — rise + de-blur on mount (`ds-reveal-up`); stagger with increasing `delay` for lists/headers.
-- `<ShimmerText>` — **light** streak sweeping across an `ink-3` base label (skeleton-style highlight, 1.6s) for transient "processing" states. Loops, so it's in the reduced-motion hard-stop list with a flat `ink-3` fallback.
+- `<ShimmerText>` — solid `ink-3` label with a bright `ink` highlight band swept across via the **transitions.dev mask technique** (`mask-position`, slow 2.4s); the component mirrors string children into `data-text` for the `::after` highlight layer. Loops, so it's in the reduced-motion hard-stop list (flat `ink-3`, sweep removed). *(v1.3.5: switched from a clipped color-gradient to the faithful mask sweep, kept light + slower.)*
 - `useReducedMotion()` hook — subscribes to `prefers-reduced-motion`; for JS-driven motion CSS can't reach. SSR-safe (defaults to animated, syncs on mount).
 
 **Changed — existing components**
@@ -2282,7 +2282,7 @@ A focused motion pass adapting transitions.dev effects to Atrium's token system.
 - `<Modal>` open/close eased from a 35ms near-snap to a calmer **120ms in / 80ms out** emphasis settle (transitions.dev "modal scale" timing).
 - `<Tooltip>` now uses **appear-only delay, instant exit** (animates in after the open delay, disappears immediately on close — Linear/Raycast pattern). Dropped the `data-[state=closed]` fade-out.
 - `<Input invalid>` — new prop: sets `aria-invalid` (red border) AND plays a one-shot **error shake** (`ds-shake`) on each false→true transition. Reduced motion → border only.
-- `<SearchField>` clear ✕ now **dissolves** the field (blur+fade) before emptying; skipped entirely under reduced motion (instant clear, no delay).
+- `<SearchField>` clear ✕ now does a **per-word dissolve** (transitions.dev #12): the words blur + rise + fade with a 40ms stagger via a transient overlay while the real input clears underneath. Skipped under reduced motion (instant clear). *(v1.3.5: upgraded from a whole-field blur to per-word.)*
 - `<AutoSaveStatus>` label cross-fades between saving/saved/error states (was a hard text swap).
 - `<AvatarGroup>` hover tweaked to **scale-pop** (#10 variant C): hovered avatar lifts `-translate-y-1` + `scale-110` and rises above neighbors; no neighbor movement (cleanest read).
 

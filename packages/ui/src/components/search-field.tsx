@@ -37,6 +37,11 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
     const [internal, setInternal] = React.useState<string>(String(defaultValue ?? ""))
     const value = isControlled ? String(controlledValue ?? "") : internal
 
+    // #12 per-word dissolve: while clearing, we overlay the words and fade them
+    // out with a stagger, then drop the overlay once the real input is empty.
+    const [dissolving, setDissolving] = React.useState<string[] | null>(null)
+    const [dissolveOut, setDissolveOut] = React.useState(false)
+
     const inputRef = React.useRef<HTMLInputElement | null>(null)
     React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement)
 
@@ -71,22 +76,21 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
         if (!isControlled) setInternal("")
         onChange?.("")
       }
-      // #12 Input clear with dissolve: blur+fade the field's text out, then
-      // empty it. Can't per-word dissolve a real <input>, so we dissolve the
-      // whole field — same intent, input-safe. Skipped entirely under reduced
-      // motion (instant clear, no delay).
-      if (node && !reduced) {
-        node.style.transition =
-          "opacity var(--dur-base) var(--ease-standard), filter var(--dur-base) var(--ease-standard)"
-        node.style.opacity = "0"
-        node.style.filter = "blur(4px)"
+      const words = value.split(/(\s+)/).filter((w) => w.length > 0)
+      // #12 per-word dissolve (transitions.dev): overlay the current words and
+      // fade them out with a 40ms stagger, clearing the real input underneath
+      // immediately so typing can resume. Skipped under reduced motion.
+      if (node && !reduced && words.length > 0) {
+        setDissolving(words)
+        setDissolveOut(false)
+        clearNow()
+        // next frame → flip to the cleared state so the transition runs
+        requestAnimationFrame(() => setDissolveOut(true))
+        const total = 150 + words.length * 40 + 30
         window.setTimeout(() => {
-          clearNow()
-          node.style.opacity = ""
-          node.style.filter = ""
-          node.style.transition = ""
+          setDissolving(null)
           node.focus()
-        }, 150)
+        }, total)
       } else {
         clearNow()
         node?.focus()
@@ -108,17 +112,37 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
         )}
       >
         <Icon icon={Search01Icon} size="sm" className="text-ink-3 transition-colors duration-[var(--dur-base)] group-focus-within:text-ink" aria-hidden />
-        <input
-          ref={inputRef}
-          type="search"
-          role="searchbox"
-          placeholder={placeholder}
-          value={value}
-          onInput={handleInput}
-          disabled={disabled}
-          className="flex-1 border-0 bg-transparent p-0 text-inherit placeholder:text-ink-4 focus:outline-none disabled:cursor-not-allowed"
-          {...rest}
-        />
+        <div className="relative flex-1">
+          <input
+            ref={inputRef}
+            type="search"
+            role="searchbox"
+            placeholder={placeholder}
+            value={value}
+            onInput={handleInput}
+            disabled={disabled}
+            className="w-full border-0 bg-transparent p-0 text-inherit placeholder:text-ink-4 focus:outline-none disabled:cursor-not-allowed"
+            {...rest}
+          />
+          {/* #12 transient per-word dissolve overlay (covers the input during clear) */}
+          {dissolving && (
+            <span
+              aria-hidden
+              data-clearing={dissolveOut || undefined}
+              className="ds-dissolve pointer-events-none absolute inset-0 flex flex-wrap items-center overflow-hidden whitespace-pre text-inherit text-ink"
+            >
+              {dissolving.map((w, i) => (
+                <span
+                  key={i}
+                  className="ds-dissolve-word"
+                  style={{ transitionDelay: `${i * 40}ms` }}
+                >
+                  {w}
+                </span>
+              ))}
+            </span>
+          )}
+        </div>
         {!disabled && (
           <button
             type="button"
