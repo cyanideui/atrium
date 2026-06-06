@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Icon, cn } from "@cyanideui/ui"
+import { Icon, cn, Badge, Button, AnimatedNumber, Sparkline } from "@cyanideui/ui"
 import {
   CursorMagicSelection01Icon,
   PaintBoardIcon,
@@ -16,6 +16,7 @@ import {
   CheckmarkCircle02Icon,
   Github01Icon,
   BookOpen01Icon,
+  ArrowUpRight01Icon,
 } from "@hugeicons/core-free-icons"
 import type { IconSvgElement } from "@hugeicons/react"
 import { CodeBlock } from "../components/code-block"
@@ -106,33 +107,95 @@ export function IntroPage() {
   return (
     <div>
       {/* ---------- Hero ---------- */}
-      <header className="relative mb-9 overflow-hidden rounded-2xl border border-hairline bg-gradient-to-b from-canvas to-surface p-8">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.5] [background:radial-gradient(var(--hairline)_1px,transparent_1px)] [background-size:18px_18px]"
-        />
-        <div className="relative">
-          <div className="mb-3 inline-flex items-center gap-1.5 rounded-pill border border-hairline bg-canvas px-2.5 py-1 text-[11px] font-medium text-ink-3">
-            <span className="h-1.5 w-1.5 rounded-pill bg-tone-success-fg" />
-            Atrium UI · v1.3
-          </div>
-          <h1 className="m-0 max-w-[640px] text-[32px] font-semibold leading-tight tracking-tight text-ink">
-            A calm, content-first component library for ERP &amp; admin apps.
-          </h1>
-          <p className="m-0 mt-3 max-w-[600px] text-[15px] leading-relaxed text-ink-2">
-            Built with shadcn/ui patterns, Tailwind v4, and hugeicons. Inspired by Notion's calm
-            surfaces, Shopify Polaris's compact chrome, and Linear's precision motion.
-          </p>
+      <header className="relative mb-9 grid items-stretch gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline lg:grid-cols-[1.15fr_1fr]">
+        {/* Left — pitch */}
+        <div className="relative overflow-hidden bg-canvas p-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(var(--hairline)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom,black,transparent)]"
+          />
+          <div className="relative">
+            <div className="mb-4 inline-flex items-center gap-1.5 rounded-pill border border-hairline bg-surface px-2.5 py-1 text-[11px] font-medium text-ink-3">
+              <span className="h-1.5 w-1.5 rounded-pill bg-tone-success-fg" />
+              Atrium UI · v1.3
+            </div>
+            <h1 className="m-0 text-[30px] font-semibold leading-[1.12] tracking-tight text-ink">
+              A calm, content-first component library for ERP&nbsp;&amp; admin apps.
+            </h1>
+            <p className="m-0 mt-3.5 max-w-[460px] text-[14.5px] leading-relaxed text-ink-2">
+              shadcn/ui patterns, Tailwind v4, and hugeicons — with Notion's calm surfaces, Polaris's
+              compact chrome, and Linear's precision motion.
+            </p>
 
-          <div className="mt-5 max-w-[440px]">
-            <CommandLine command="npx cyanideui init" comment="scaffold + add the shell" />
+            <div className="mt-5 max-w-[400px]">
+              <CommandLine command="npx cyanideui init" comment="scaffold + shell" />
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <Button size="sm" leading={<Icon icon={PuzzleIcon} size="sm" />} onClick={() => setPath("copy")}>
+                Get started
+              </Button>
+              <a
+                href="https://github.com/cyanideui/atrium"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-8 items-center gap-1.5 rounded-md border border-hairline-strong bg-canvas px-3 text-[13px] font-medium text-ink-2 no-underline transition-colors duration-[var(--dur-base)] hover:bg-surface hover:text-ink"
+              >
+                <Icon icon={Github01Icon} size={14} /> GitHub
+              </a>
+            </div>
+
+            {/* Stat chips — shown here on mobile (right preview is hidden) */}
+            <div className="mt-6 flex flex-wrap gap-2 lg:hidden">
+              {STATS.map((s) => (
+                <div key={s.label} className="flex items-baseline gap-1.5 rounded-lg border border-hairline bg-surface px-3 py-1.5">
+                  <span className="text-[16px] font-semibold tabular-nums text-ink">{s.value}</span>
+                  <span className="text-[11.5px] text-ink-3">{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right — live mini-app preview (the library showing itself off) */}
+        <div className="relative hidden flex-col justify-center gap-3 bg-surface p-7 lg:flex">
+          <span className="absolute right-3 top-3 select-none text-[10px] font-medium uppercase tracking-wider text-ink-4">
+            Live components
+          </span>
+
+          {/* KPI mini-card */}
+          <div className="rounded-xl border border-hairline bg-canvas p-4 shadow-elev-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] uppercase tracking-wider text-ink-3">Revenue</span>
+              <span className="inline-flex items-center gap-0.5 text-[12px] font-medium text-success">
+                <Icon icon={ArrowUpRight01Icon} size={12} /> 12.5%
+              </span>
+            </div>
+            <AnimatedNumber value={124592} leading="$" className="mt-1 block text-[26px] font-semibold tracking-tight text-ink" />
+            <Sparkline
+              data={[12, 15, 14, 18, 22, 20, 24, 28, 27, 32, 30, 36]}
+              tone="success"
+              height={30}
+              className="mt-2 -mx-0.5"
+            />
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2.5">
+          {/* Row of real chips + button */}
+          <div className="flex flex-wrap items-center gap-2 rounded-xl border border-hairline bg-canvas p-3.5 shadow-elev-1">
+            <Badge tone="success">Paid</Badge>
+            <Badge tone="warning">Pending</Badge>
+            <Badge tone="info">Processing</Badge>
+            <Button size="sm" variant="secondary" className="ml-auto" leading={<Icon icon={CheckmarkCircle02Icon} size="sm" />}>
+              Approve
+            </Button>
+          </div>
+
+          {/* Stat chips */}
+          <div className="grid grid-cols-4 gap-2">
             {STATS.map((s) => (
-              <div key={s.label} className="flex items-baseline gap-1.5 rounded-lg border border-hairline bg-canvas px-3 py-2">
-                <span className="text-[18px] font-semibold tabular-nums text-ink">{s.value}</span>
-                <span className="text-[12px] text-ink-3">{s.label}</span>
+              <div key={s.label} className="flex flex-col items-center rounded-lg border border-hairline bg-canvas py-2">
+                <span className="text-[16px] font-semibold tabular-nums text-ink">{s.value}</span>
+                <span className="text-[10.5px] text-ink-3">{s.label}</span>
               </div>
             ))}
           </div>
