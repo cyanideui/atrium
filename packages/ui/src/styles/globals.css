@@ -909,4 +909,11 @@
   textarea:read-only {
     cursor: text;
   }
+  /* Range sliders read as draggable — pointer, not the inherited I-beam. */
+  input[type="range"] {
+    cursor: pointer;
+  }
+  input[type="range"]:disabled {
+    cursor: not-allowed;
+  }
 }

@@ -424,7 +424,7 @@ function go(to: string) {
                     <span className="font-mono text-[11px] tabular-nums text-ink-4">{shimmerSize}px</span>
                   </div>
                   <input id="sh-size" type="range" min={13} max={40} value={shimmerSize}
-                    onChange={(e) => setShimmerSize(Number(e.target.value))} className="w-full accent-ink" />
+                    onChange={(e) => setShimmerSize(Number(e.target.value))} className="w-full cursor-pointer accent-ink" />
                 </div>
                 <div className="grid gap-1.5">
                   <div className="flex items-center justify-between">
@@ -432,7 +432,7 @@ function go(to: string) {
                     <span className="font-mono text-[11px] tabular-nums text-ink-4">{shimmerSpeed.toFixed(1)}s</span>
                   </div>
                   <input id="sh-speed" type="range" min={1} max={5} step={0.1} value={shimmerSpeed}
-                    onChange={(e) => setShimmerSpeed(Number(e.target.value))} className="w-full accent-ink" />
+                    onChange={(e) => setShimmerSpeed(Number(e.target.value))} className="w-full cursor-pointer accent-ink" />
                   <div className="flex justify-between text-[10px] text-ink-4"><span>faster</span><span>slower</span></div>
                 </div>
               </div>
