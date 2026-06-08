@@ -16,7 +16,7 @@ import {
   Icon,
   cn,
 } from "@cyanideui/ui"
-import { ArrowDown01Icon, RefreshIcon, Tick02Icon } from "@hugeicons/core-free-icons"
+import { ArrowDown01Icon, RefreshIcon, Tick02Icon, PlayIcon } from "@hugeicons/core-free-icons"
 import { CodeBlock } from "./code-block"
 
 /**
@@ -57,6 +57,8 @@ export interface CustomizerProps<C extends CustomizerConfig> {
   codeLang?: "tsx" | "ts" | "css" | "html" | "bash" | "json"
   /** Fired whenever the config changes (so the trigger surface can mirror it). */
   onConfigChange?: (cfg: C) => void
+  /** Show a Replay button that remounts the preview to re-fire its animation. */
+  replayable?: boolean
 }
 
 function loadPersisted<C extends CustomizerConfig>(id: string, defaults: C): C {
@@ -90,9 +92,11 @@ export function Customizer<C extends CustomizerConfig>({
   code,
   codeLang = "tsx",
   onConfigChange,
+  replayable,
 }: CustomizerProps<C>) {
   const [cfg, setCfg] = React.useState<C>(() => loadPersisted(id, defaults))
   const [showCode, setShowCode] = React.useState(false)
+  const [replayKey, setReplayKey] = React.useState(0)
 
   // Mirror config out to the trigger surface (and on mount, so a persisted
   // config is reflected before the modal is ever opened).
@@ -134,9 +138,10 @@ export function Customizer<C extends CustomizerConfig>({
         </ModalHeader>
         <ModalBody>
           <div className="flex flex-col gap-4">
-            {/* Live preview on a dotted stage */}
+            {/* Live preview on a dotted stage. `replayKey` remounts it so an
+                animation-on-mount primitive re-fires when Replay is pressed. */}
             <div className="flex min-h-[72px] items-center justify-center rounded-lg border border-dashed border-hairline bg-[radial-gradient(var(--hairline)_1px,transparent_1px)] [background-size:14px_14px] px-4 py-4">
-              {preview(cfg)}
+              <span key={replayKey}>{preview(cfg)}</span>
             </div>
 
             {/* Controls */}
@@ -177,15 +182,27 @@ export function Customizer<C extends CustomizerConfig>({
           </div>
         </ModalBody>
         <ModalFooter className="justify-between">
-          <Button
-            variant="tertiary"
-            size="sm"
-            disabled={isDefault}
-            onClick={reset}
-            leading={<Icon icon={RefreshIcon} size="sm" />}
-          >
-            Reset
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="tertiary"
+              size="sm"
+              disabled={isDefault}
+              onClick={reset}
+              leading={<Icon icon={RefreshIcon} size="sm" />}
+            >
+              Reset
+            </Button>
+            {replayable && (
+              <Button
+                variant="tertiary"
+                size="sm"
+                onClick={() => setReplayKey((k) => k + 1)}
+                leading={<Icon icon={PlayIcon} size="sm" />}
+              >
+                Replay
+              </Button>
+            )}
+          </div>
           <ModalClose asChild>
             <Button>Done</Button>
           </ModalClose>

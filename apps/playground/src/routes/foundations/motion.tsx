@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   AnimatedNumber,
   NotificationBadge,
@@ -23,6 +23,7 @@ import {
   FlashIcon,
   ArrowLeftRightIcon,
   Edit02Icon,
+  PlayIcon,
 } from "@hugeicons/core-free-icons"
 import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
 import { CodeBlock } from "../../components/code-block"
@@ -45,6 +46,23 @@ function ReducedDot({ children }: { children: React.ReactNode }) {
   )
 }
 
+/** Small inline "Play" pill that replays a card's animation without opening
+ *  the customizer (stops click propagation so the card's onClick won't fire). */
+function PlayButton({ onPlay }: { onPlay: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation()
+        onPlay()
+      }}
+      className="inline-flex items-center gap-1 rounded-pill border border-hairline bg-canvas px-2.5 py-1 text-[11px] font-medium text-ink-2 transition-colors duration-[var(--dur-fast)] hover:border-hairline-strong hover:text-ink"
+    >
+      <Icon icon={PlayIcon} size={11} /> Play
+    </button>
+  )
+}
+
 export function MotionPage() {
   const [saving, setSaving] = useState(false)
   const [dark, setDark] = useState(false)
@@ -60,6 +78,13 @@ export function MotionPage() {
   // AnimatedNumber customizer
   const [numOpen, setNumOpen] = useState(false)
   const [numCfg, setNumCfg] = useState({ value: 1025, mode: "count", decimals: 0 })
+  const [numDisplay, setNumDisplay] = useState(1025)
+  // keep the displayed value synced when the config value changes
+  useEffect(() => setNumDisplay(Number(numCfg.value)), [numCfg.value])
+  const replayNum = () => {
+    setNumDisplay(0)
+    requestAnimationFrame(() => setNumDisplay(Number(numCfg.value)))
+  }
 
   // SuccessCheck customizer
   const [checkOpen, setCheckOpen] = useState(false)
@@ -69,6 +94,14 @@ export function MotionPage() {
   // NotificationBadge customizer
   const [badgeOpen, setBadgeOpen] = useState(false)
   const [badgeCfg, setBadgeCfg] = useState({ count: 3, tone: "critical", dot: false })
+  // the count the card actually renders; replay drops it to 0 then back so the
+  // badge sees an increase and pops.
+  const [badgeShown, setBadgeShown] = useState(3)
+  useEffect(() => setBadgeShown(Number(badgeCfg.count)), [badgeCfg.count])
+  const replayBadge = () => {
+    setBadgeShown(0)
+    requestAnimationFrame(() => setBadgeShown(Number(badgeCfg.count)))
+  }
 
   const SHIMMER_PRESETS = [
     "Planning next moves…",
@@ -112,15 +145,18 @@ export function MotionPage() {
           >
             <div className="flex flex-col items-center gap-4">
               <AnimatedNumber
-                value={Number(numCfg.value)}
+                value={numDisplay}
                 mode={numCfg.mode as "count" | "pop"}
                 decimals={Number(numCfg.decimals)}
                 leading="$"
                 className="text-[30px] font-semibold text-ink"
               />
-              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                <Icon icon={Edit02Icon} size={11} /> Click to customize
-              </span>
+              <div className="flex items-center gap-2">
+                <PlayButton onPlay={replayNum} />
+                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                  <Icon icon={Edit02Icon} size={11} /> Click to customize
+                </span>
+              </div>
             </div>
           </ShowcaseCard>
 
@@ -137,9 +173,12 @@ export function MotionPage() {
                 tone={checkCfg.tone as "success" | "info"}
                 playKey={`card-${checkPlay}`}
               />
-              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                <Icon icon={Edit02Icon} size={11} /> Click to customize
-              </span>
+              <div className="flex items-center gap-2">
+                <PlayButton onPlay={() => setCheckPlay((k) => k + 1)} />
+                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                  <Icon icon={Edit02Icon} size={11} /> Click to customize
+                </span>
+              </div>
             </div>
           </ShowcaseCard>
 
@@ -154,14 +193,17 @@ export function MotionPage() {
               <span className="relative inline-grid h-11 w-11 place-items-center rounded-xl bg-surface-2 text-ink-2">
                 <Icon icon={Notification03Icon} size={20} />
                 <NotificationBadge
-                  count={Number(badgeCfg.count)}
+                  count={badgeShown}
                   dot={Boolean(badgeCfg.dot)}
                   tone={badgeCfg.tone as "critical" | "info" | "success" | "warning"}
                 />
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                <Icon icon={Edit02Icon} size={11} /> Click to customize
-              </span>
+              <div className="flex items-center gap-2">
+                <PlayButton onPlay={replayBadge} />
+                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                  <Icon icon={Edit02Icon} size={11} /> Click to customize
+                </span>
+              </div>
             </div>
           </ShowcaseCard>
 
@@ -378,6 +420,7 @@ function go(to: string) {
         description="Set the value, mode, and decimals. The number re-animates on change."
         defaults={{ value: 1025, mode: "count", decimals: 0 }}
         onConfigChange={setNumCfg}
+        replayable
         controls={[
           { type: "slider", key: "value", label: "Value", min: 0, max: 9999 },
           { type: "segmented", key: "mode", label: "Mode", options: [{ value: "count", label: "Count up" }, { value: "pop", label: "Digit pop" }] },
@@ -409,6 +452,7 @@ function go(to: string) {
           setCheckCfg(c)
           setCheckPlay((k) => k + 1)
         }}
+        replayable
         controls={[
           { type: "segmented", key: "size", label: "Size", options: [{ value: "sm", label: "sm" }, { value: "md", label: "md" }, { value: "lg", label: "lg" }] },
           { type: "segmented", key: "tone", label: "Tone", options: [{ value: "success", label: "Success" }, { value: "info", label: "Info" }] },
@@ -432,6 +476,7 @@ function go(to: string) {
         description="Set the count, tone, and dot mode. Pops when the count grows."
         defaults={{ count: 3, tone: "critical", dot: false }}
         onConfigChange={setBadgeCfg}
+        replayable
         controls={[
           { type: "slider", key: "count", label: "Count", min: 0, max: 150 },
           { type: "segmented", key: "tone", label: "Tone", options: [{ value: "critical", label: "Critical" }, { value: "info", label: "Info" }, { value: "success", label: "Success" }, { value: "warning", label: "Warning" }] },
