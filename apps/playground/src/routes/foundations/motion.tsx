@@ -55,6 +55,14 @@ export function MotionPage() {
   const [revealKey, setRevealKey] = useState(0)
   const [saveState, setSaveState] = useState<"idle" | "saving" | "done">("idle")
   const [savePlay, setSavePlay] = useState(0)
+  const [shimmerText, setShimmerText] = useState("Planning next moves…")
+
+  const SHIMMER_PRESETS = [
+    "Planning next moves…",
+    "Thinking…",
+    "Generating report",
+    "Syncing 1,248 records",
+  ]
 
   async function runSave() {
     setSaveState("saving")
@@ -174,11 +182,43 @@ export function MotionPage() {
 
           <ShowcaseCard
             title="Shimmer text"
-            desc="Light streak sweeping a label for transient processing states."
+            desc="Light streak sweeping a label for transient processing states. Edit the text to try your own."
             tag="ShimmerText"
             footer={<ReducedDot>Flat ink-3 fill (no sweep)</ReducedDot>}
           >
-            <ShimmerText className="text-[16px]">Planning next moves…</ShimmerText>
+            <div className="flex w-full flex-col items-center gap-4">
+              {/* live preview — updates as you type; the sweep keeps running */}
+              <ShimmerText className="text-center text-[16px]">
+                {shimmerText || "Type something…"}
+              </ShimmerText>
+
+              <div className="flex w-full max-w-[260px] flex-col gap-2">
+                <Input
+                  value={shimmerText}
+                  onChange={(e) => setShimmerText(e.target.value)}
+                  placeholder="Type a label…"
+                  aria-label="Shimmer text"
+                  className="text-center"
+                />
+                <div className="flex flex-wrap justify-center gap-1.5">
+                  {SHIMMER_PRESETS.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setShimmerText(p)}
+                      className={cn(
+                        "rounded-pill border px-2.5 py-1 text-[11px] transition-colors duration-[var(--dur-fast)]",
+                        shimmerText === p
+                          ? "border-ink bg-ink text-canvas"
+                          : "border-hairline bg-canvas text-ink-3 hover:border-hairline-strong hover:text-ink",
+                      )}
+                    >
+                      {p.replace("…", "")}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
           </ShowcaseCard>
 
           <ShowcaseCard
