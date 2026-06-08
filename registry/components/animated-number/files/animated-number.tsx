@@ -58,24 +58,31 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
 
     // When animating on mount (count mode), start the display at 0 so the first
     // tween actually has distance to travel.
-    const [display, setDisplay] = React.useState(animateOnMount && mode === "count" && !reduced ? 0 : value)
-    const fromRef = React.useRef(animateOnMount && mode === "count" && !reduced ? 0 : value)
+    const startAtZero = animateOnMount && mode === "count" && !reduced
+    const [display, setDisplay] = React.useState(startAtZero ? 0 : value)
+    const fromRef = React.useRef(startAtZero ? 0 : value)
     const rafRef = React.useRef<number | null>(null)
     const firstRender = React.useRef(true)
+    const prevValue = React.useRef(value)
+
+    // Decide whether THIS render should animate: on first mount only if
+    // animateOnMount; afterwards whenever the value changed. (A key-based
+    // remount counts as a fresh first mount → uses animateOnMount.)
+    const valueChanged = value !== prevValue.current
+    const shouldAnimate = !reduced && (firstRender.current ? animateOnMount : valueChanged)
 
     // COUNT mode: rAF tween from previous value → new value.
     React.useEffect(() => {
       if (mode !== "count") return
       // On first paint: tween from 0 if animateOnMount, otherwise snap to value.
       if (firstRender.current) {
-        firstRender.current = false
         if (!animateOnMount || reduced || duration <= 0) {
           fromRef.current = value
           setDisplay(value)
           return
         }
         // fall through to run the mount tween (from 0 → value)
-      } else if (reduced || duration <= 0) {
+      } else if (reduced || duration <= 0 || !valueChanged) {
         fromRef.current = value
         setDisplay(value)
         return
@@ -94,16 +101,16 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
       return () => {
         if (rafRef.current) cancelAnimationFrame(rafRef.current)
       }
-    }, [value, duration, mode, reduced, animateOnMount])
+    }, [value, duration, mode, reduced, animateOnMount, valueChanged])
 
-    // POP mode tracks first-render so initial mount doesn't animate.
+    // After every render, record that we've mounted + the value we showed.
     React.useEffect(() => {
-      if (mode === "pop") firstRender.current = false
-    }, [mode, value])
+      firstRender.current = false
+      prevValue.current = value
+    })
 
     if (mode === "pop") {
       const str = fmt(value)
-      const animate = !reduced && !firstRender.current
       return (
         <span
           ref={ref}
@@ -111,13 +118,13 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
           {...rest}
         >
           {leading}
-          {/* key on value forces a fresh mount → digits replay the pop. */}
-          <span key={value} className="inline-flex overflow-hidden">
+          {/* key on value+animate forces a fresh mount → digits replay the pop. */}
+          <span key={`${value}-${shouldAnimate}`} className="inline-flex overflow-hidden">
             {[...str].map((ch, i) => (
               <span
                 key={i}
-                className={animate ? "ds-digit" : "inline-block"}
-                style={animate ? { animationDelay: `${i * 30}ms` } : undefined}
+                className={shouldAnimate ? "ds-digit" : "inline-block"}
+                style={shouldAnimate ? { animationDelay: `${i * 30}ms` } : undefined}
               >
                 {ch}
               </span>

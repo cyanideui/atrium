@@ -22,7 +22,6 @@ import {
   CursorMagicSelection01Icon,
   FlashIcon,
   ArrowLeftRightIcon,
-  Edit02Icon,
   PlayIcon,
 } from "@hugeicons/core-free-icons"
 import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
@@ -140,11 +139,8 @@ export function MotionPage() {
                 leading="$"
                 className="text-[30px] font-semibold text-ink"
               />
-              <div className="flex items-center gap-2">
+              <div className="flex justify-center">
                 <PlayButton onPlay={() => setNumPlay((k) => k + 1)} />
-                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                  <Icon icon={Edit02Icon} size={11} /> Click to customize
-                </span>
               </div>
             </div>
           </ShowcaseCard>
@@ -162,11 +158,8 @@ export function MotionPage() {
                 tone={checkCfg.tone as "success" | "info"}
                 playKey={`card-${checkPlay}`}
               />
-              <div className="flex items-center gap-2">
+              <div className="flex justify-center">
                 <PlayButton onPlay={() => setCheckPlay((k) => k + 1)} />
-                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                  <Icon icon={Edit02Icon} size={11} /> Click to customize
-                </span>
               </div>
             </div>
           </ShowcaseCard>
@@ -188,11 +181,8 @@ export function MotionPage() {
                   tone={badgeCfg.tone as "critical" | "info" | "success" | "warning"}
                 />
               </span>
-              <div className="flex items-center gap-2">
+              <div className="flex justify-center">
                 <PlayButton onPlay={() => setBadgePlay((k) => k + 1)} />
-                <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                  <Icon icon={Edit02Icon} size={11} /> Click to customize
-                </span>
               </div>
             </div>
           </ShowcaseCard>
@@ -219,14 +209,9 @@ export function MotionPage() {
             footer={<ReducedDot>Flat ink-3 fill (no sweep)</ReducedDot>}
             onClick={() => setShimmerOpen(true)}
           >
-            <div className="flex flex-col items-center gap-2">
-              <ShimmerText style={{ fontSize: shimmerCfg.size, ["--ds-shimmer-dur" as string]: `${shimmerCfg.speed}s` }}>
-                {shimmerCfg.text || "Type something…"}
-              </ShimmerText>
-              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
-                <Icon icon={Edit02Icon} size={11} /> Click to customize
-              </span>
-            </div>
+            <ShimmerText style={{ fontSize: shimmerCfg.size, ["--ds-shimmer-dur" as string]: `${shimmerCfg.speed}s` }}>
+              {shimmerCfg.text || "Type something…"}
+            </ShimmerText>
           </ShowcaseCard>
 
           <ShowcaseCard
