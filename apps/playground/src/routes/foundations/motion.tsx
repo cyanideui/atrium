@@ -406,6 +406,7 @@ function go(to: string) {
             value={Number(c.value)}
             mode={c.mode as "count" | "pop"}
             decimals={Number(c.decimals)}
+            animateOnMount
             leading="$"
             className="text-[30px] font-semibold text-ink"
           />

@@ -31,18 +31,23 @@ const TONE_BG = { success: "bg-success", info: "bg-info" } as const
 export const SuccessCheck = React.forwardRef<HTMLSpanElement, SuccessCheckProps>(
   ({ className, size = "md", tone = "success", playKey, "aria-label": ariaLabel = "Success", ...rest }, ref) => {
     const px = SIZE_PX[size]
-    const [go, setGo] = React.useState(false)
 
-    // Trigger the pop/draw on mount and whenever playKey changes. The
-    // remove→reflow→add dance restarts the CSS animation cleanly.
+    // Replay by remounting the inner animated node. `runId` advances on every
+    // `playKey` change; keying the disc on it gives the CSS pop/draw a fresh
+    // element to animate from scratch — robust under React StrictMode (no
+    // remove→reflow→add timing dance, which batched renders can swallow).
+    const [runId, setRunId] = React.useState(0)
+    const firstKey = React.useRef(playKey)
     React.useEffect(() => {
-      setGo(false)
-      const raf = requestAnimationFrame(() => setGo(true))
-      return () => cancelAnimationFrame(raf)
+      if (playKey !== firstKey.current) {
+        firstKey.current = playKey
+        setRunId((n) => n + 1)
+      }
     }, [playKey])
 
     return (
       <span
+        key={runId}
         ref={ref}
         role="img"
         aria-label={ariaLabel}
@@ -51,7 +56,7 @@ export const SuccessCheck = React.forwardRef<HTMLSpanElement, SuccessCheckProps>
           TONE_BG[tone],
           className,
         )}
-        data-go={go ? "true" : undefined}
+        data-go="true"
         style={{ width: px, height: px }}
         {...rest}
       >

@@ -5,6 +5,17 @@
 > **Stack:** shadcn/ui + Tailwind CSS v4 + hugeicons (Stroke Rounded).
 > **Package:** `@cyanideui/ui`. Repo: `ledger-ui`. Workspace folders stay at `packages/ui/` and `apps/playground/` for now.
 
+> **Changelog v1.4.2 — Motion replay/play fixes (StrictMode-safe)**
+>
+> Fixed four motion-replay bugs surfaced by the playground's Play/Replay controls. Root cause across three of them was the same: animation triggers were derived from a "first render" ref mutated inside an effect, which React StrictMode double-invokes — the second pass saw the ref already flipped and cancelled the animation. Reworked each primitive to derive triggers from initial state + value-vs-previous comparison, then key-based remounts for replay.
+>
+> - **`<AnimatedNumber>`** — rewrote the count/pop trigger logic. Count mode seeds `display`/`fromRef` from initial state (0 when `animateOnMount`) and only advances `fromRef` when a tween settles, so a StrictMode-cancelled mount tween restarts from the same origin instead of snapping. Pop mode keys the digit container on a `popToken` that advances on every value change (seeded to 1 for mount). Replaying via a changing `key` now re-fires reliably in both modes.
+> - **`<SuccessCheck>`** — replaced the `setGo(false)→rAF→setGo(true)` restart dance (which batched renders could swallow, so card **Play did nothing**) with a `runId` that keys the disc; each `playKey` change remounts the animated node and re-runs the CSS pop/draw cleanly.
+> - **`<NotificationBadge>`** — pop now fires on **any** count change (`count !== prev`), not just increases, so decrementing the count animates too.
+> - **Playground** — the AnimatedNumber customizer preview was missing `animateOnMount`, so the modal **Replay** button remounted to the final value with no count-up. Added it.
+>
+> All four collapse to an instant state under `prefers-reduced-motion` (JS-gated via `useReducedMotion()`). Library 71 tests green, all 4 packages typecheck, registry copies regenerated in sync.
+
 > **Changelog v1.0.0 — Renamed from `@erp-ds/ui` to `@cyanideui/ui`, four templates, route code-splitting, Next.js reference consumer**
 >
 > Renamed the entire project from "ERP Design System" to **Atrium UI**. The name reflects what the system is for — admin / ERP screens, where business records (the literal "ledger") are the primary content. Version reset to **1.0.0** to mark the first stable release under the new name.

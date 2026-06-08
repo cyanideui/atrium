@@ -37,11 +37,12 @@ const TONE: Record<NonNullable<NotificationBadgeProps["tone"]>, string> = {
 
 export const NotificationBadge = React.forwardRef<HTMLSpanElement, NotificationBadgeProps>(
   ({ className, count = 0, max = 99, dot, tone = "critical", ...rest }, ref) => {
-    // Re-trigger the pop whenever the count increases (or first becomes visible).
+    // Re-trigger the pop whenever the count changes (up or down) while visible.
+    // On first mount the always-present `.ds-badge-pop` class plays it once.
     const [animateKey, setAnimateKey] = React.useState(0)
     const prev = React.useRef(count)
     React.useEffect(() => {
-      if (count > prev.current) setAnimateKey((k) => k + 1)
+      if (count !== prev.current) setAnimateKey((k) => k + 1)
       prev.current = count
     }, [count])
 

@@ -12,12 +12,20 @@ import { useReducedMotion } from "../lib/use-reduced-motion"
  *   • mode="pop" — keeps the value instant but plays a per-digit flip/blur
  *     (the `.ds-digit` keyframe) so the number "rolls" into place.
  *
+ * Replay: combine `animateOnMount` with a changing React `key` to re-fire the
+ * animation on demand (the playground Play buttons remount via key).
+ *
  * Reduced motion: respected at the JS level. When the user has motion
  * disabled, the value is set instantly with no tween and no digit animation —
  * `useReducedMotion()` gates both paths (CSS alone can't stop a rAF tween).
  *
  * Formatting: pass `format` to control rendering (e.g. currency). Defaults to
  * `toLocaleString()`. Always renders tabular-nums so width stays stable.
+ *
+ * Implementation note: animation triggers are derived from the initial state
+ * and from value-vs-previous comparisons only — never from a "first render"
+ * ref mutated inside an effect. That keeps it correct under React StrictMode,
+ * whose double-invoked effects would otherwise cancel the mount animation.
  */
 
 export interface AnimatedNumberProps
@@ -35,8 +43,9 @@ export interface AnimatedNumberProps
   leading?: React.ReactNode
   /** Content rendered after the animated digits (e.g. "%"). */
   trailing?: React.ReactNode
-  /** Count up from 0 on first mount (count mode). Combine with a changing
-   *  `key` to replay on demand. Default false (animate only on value change). */
+  /** Animate on first mount (count up from 0 / pop the digits). Combine with a
+   *  changing `key` to replay on demand. Default false (animate only when the
+   *  value changes after mount). */
   animateOnMount?: boolean
 }
 
@@ -56,75 +65,77 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
       [format, decimals],
     )
 
-    // When animating on mount (count mode), start the display at 0 so the first
-    // tween actually has distance to travel.
-    const startAtZero = animateOnMount && mode === "count" && !reduced
-    const [display, setDisplay] = React.useState(startAtZero ? 0 : value)
-    const fromRef = React.useRef(startAtZero ? 0 : value)
-    const rafRef = React.useRef<number | null>(null)
-    const firstRender = React.useRef(true)
-    const prevValue = React.useRef(value)
+    // Whether a mount animation is wanted (count tweens from 0, pop flips).
+    const mountAnimate = animateOnMount && !reduced
 
-    // Decide whether THIS render should animate: on first mount only if
-    // animateOnMount; afterwards whenever the value changed. (A key-based
-    // remount counts as a fresh first mount → uses animateOnMount.)
-    const valueChanged = value !== prevValue.current
-    const shouldAnimate = !reduced && (firstRender.current ? animateOnMount : valueChanged)
+    /* ---------------- COUNT mode ---------------- */
+    // Seed the display at 0 when we want a mount count-up so the first tween
+    // has distance to travel; otherwise start settled at `value`.
+    const [display, setDisplay] = React.useState(
+      mountAnimate && mode === "count" ? 0 : value,
+    )
+    // `from` for the next tween. Only updated when a tween settles, so a
+    // StrictMode-cancelled mount tween restarts from the same origin (no snap).
+    const fromRef = React.useRef(mountAnimate && mode === "count" ? 0 : value)
 
-    // COUNT mode: rAF tween from previous value → new value.
     React.useEffect(() => {
-      if (mode !== "count") return
-      // On first paint: tween from 0 if animateOnMount, otherwise snap to value.
-      if (firstRender.current) {
-        if (!animateOnMount || reduced || duration <= 0) {
-          fromRef.current = value
-          setDisplay(value)
-          return
-        }
-        // fall through to run the mount tween (from 0 → value)
-      } else if (reduced || duration <= 0 || !valueChanged) {
+      if (mode !== "count") {
+        // keep display in sync (unused by pop render, but cheap + correct)
         fromRef.current = value
         setDisplay(value)
         return
       }
       const from = fromRef.current
+      if (reduced || duration <= 0 || from === value) {
+        fromRef.current = value
+        setDisplay(value)
+        return
+      }
       const delta = value - from
-      if (delta === 0) return
       const start = performance.now()
+      let raf = 0
       const tick = (now: number) => {
         const t = Math.min(1, (now - start) / duration)
         setDisplay(from + delta * easeOutCubic(t))
-        if (t < 1) rafRef.current = requestAnimationFrame(tick)
+        if (t < 1) raf = requestAnimationFrame(tick)
         else fromRef.current = value
       }
-      rafRef.current = requestAnimationFrame(tick)
+      raf = requestAnimationFrame(tick)
       return () => {
-        if (rafRef.current) cancelAnimationFrame(rafRef.current)
+        if (raf) cancelAnimationFrame(raf)
       }
-    }, [value, duration, mode, reduced, animateOnMount, valueChanged])
+    }, [value, duration, mode, reduced])
 
-    // After every render, record that we've mounted + the value we showed.
+    /* ---------------- POP mode ---------------- */
+    // `popToken` keys the digit container so each change remounts it → the CSS
+    // digit-pop animation re-fires. Seeded to 1 when animating on mount.
+    const [popToken, setPopToken] = React.useState(mountAnimate && mode === "pop" ? 1 : 0)
+    const prevValueRef = React.useRef(value)
+
     React.useEffect(() => {
-      firstRender.current = false
-      prevValue.current = value
-    })
+      if (mode !== "pop" || reduced) {
+        prevValueRef.current = value
+        return
+      }
+      if (value !== prevValueRef.current) {
+        prevValueRef.current = value
+        setPopToken((t) => t + 1)
+      }
+    }, [value, mode, reduced])
 
     if (mode === "pop") {
       const str = fmt(value)
+      const animating = popToken > 0
       return (
-        <span
-          ref={ref}
-          className={cn("inline-flex tabular-nums", className)}
-          {...rest}
-        >
+        <span ref={ref} className={cn("inline-flex tabular-nums", className)} {...rest}>
           {leading}
-          {/* key on value+animate forces a fresh mount → digits replay the pop. */}
-          <span key={`${value}-${shouldAnimate}`} className="inline-flex overflow-hidden">
+          {/* key on popToken forces a fresh mount → digits replay the pop. */}
+          <span key={popToken} className="inline-flex overflow-hidden">
             {[...str].map((ch, i) => (
               <span
                 key={i}
-                className={shouldAnimate ? "ds-digit" : "inline-block"}
-                style={shouldAnimate ? { animationDelay: `${i * 30}ms` } : undefined}
+                className={animating ? "ds-digit" : "inline-block"}
+                style={animating ? { animationDelay: `${i * 30}ms` } : undefined}
               >
                 {ch}
               </span>
@@ -135,7 +146,7 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
       )
     }
 
-    // COUNT mode.
+    // COUNT mode render.
     const rounded = decimals > 0 ? display : Math.round(display)
     return (
       <span ref={ref} className={cn("tabular-nums", className)} {...rest}>
