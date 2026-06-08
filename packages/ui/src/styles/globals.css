@@ -558,7 +558,7 @@
     mask-size: 200% 100%;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    animation: ds-shimmer-text 2.4s linear infinite;
+    animation: ds-shimmer-text var(--ds-shimmer-dur, 2.4s) linear infinite;
   }
 
   /* ---------- Command palette overlay ----------

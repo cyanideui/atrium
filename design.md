@@ -2276,7 +2276,7 @@ A focused motion pass adapting transitions.dev effects to Atrium's token system.
 - `<Swap>` — blur cross-fade between two states; `variant="text"` (vertical shift) or `variant="icon"` (scale + rotate). Built on `.ds-swap`. Now drives `<AutoSaveStatus>` label transitions.
 - `<Collapsible>` — open/close via `grid-template-rows 0fr↔1fr` (no fixed height), content rises on reveal.
 - `<Reveal>` — rise + de-blur on mount (`ds-reveal-up`); stagger with increasing `delay` for lists/headers.
-- `<ShimmerText>` — solid `ink-3` label with a bright `ink` highlight band swept across via the **transitions.dev mask technique** (`mask-position`, slow 2.4s); the component mirrors string children into `data-text` for the `::after` highlight layer. Loops, so it's in the reduced-motion hard-stop list (flat `ink-3`, sweep removed). *(v1.3.5: switched from a clipped color-gradient to the faithful mask sweep, kept light + slower.)*
+- `<ShimmerText>` — solid `ink-3` label with a bright `ink` highlight band swept across via the **transitions.dev mask technique** (`mask-position`, slow 2.4s); the component mirrors string children into `data-text` for the `::after` highlight layer. Loops, so it's in the reduced-motion hard-stop list (flat `ink-3`, sweep removed). *(v1.3.5: switched from a clipped color-gradient to the faithful mask sweep, kept light + slower. v1.3.7: softened the band edges with a multi-stop ramp. v1.3.8: sweep duration is configurable via the `--ds-shimmer-dur` CSS var, e.g. `style={{ "--ds-shimmer-dur": "1.6s" }}`.)*
 - `useReducedMotion()` hook — subscribes to `prefers-reduced-motion`; for JS-driven motion CSS can't reach. SSR-safe (defaults to animated, syncs on mount).
 
 **Changed — existing components**

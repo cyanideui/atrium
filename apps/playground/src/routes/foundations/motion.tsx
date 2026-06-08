@@ -33,6 +33,7 @@ import {
   FlashIcon,
   ArrowLeftRightIcon,
   Edit02Icon,
+  Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
 import { CodeBlock } from "../../components/code-block"
@@ -70,7 +71,15 @@ export function MotionPage() {
   // Shimmer customizer modal state
   const [shimmerOpen, setShimmerOpen] = useState(false)
   const [shimmerSize, setShimmerSize] = useState(16)
+  const [shimmerSpeed, setShimmerSpeed] = useState(2.4)
   const [shimmerAdvanced, setShimmerAdvanced] = useState(false)
+
+  const shimmerDefault = shimmerText === "Planning next moves…" && shimmerSize === 16 && shimmerSpeed === 2.4
+  const resetShimmer = () => {
+    setShimmerText("Planning next moves…")
+    setShimmerSize(16)
+    setShimmerSpeed(2.4)
+  }
 
   const SHIMMER_PRESETS = [
     "Planning next moves…",
@@ -203,7 +212,7 @@ export function MotionPage() {
             onClick={() => setShimmerOpen(true)}
           >
             <div className="flex flex-col items-center gap-2">
-              <ShimmerText style={{ fontSize: shimmerSize }}>
+              <ShimmerText style={{ fontSize: shimmerSize, ["--ds-shimmer-dur" as string]: `${shimmerSpeed}s` }}>
                 {shimmerText || "Type something…"}
               </ShimmerText>
               <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
@@ -365,13 +374,13 @@ function go(to: string) {
         <ModalContent size="sm">
           <ModalHeader>
             <ModalTitle>Customize shimmer</ModalTitle>
-            <ModalDescription>Edit the label and size. The preview updates live.</ModalDescription>
+            <ModalDescription>Tune the label, size, and speed — everything previews live.</ModalDescription>
           </ModalHeader>
           <ModalBody>
             <div className="flex flex-col gap-4">
-              {/* live preview */}
-              <div className="flex min-h-[56px] items-center justify-center rounded-lg border border-dashed border-hairline bg-surface px-4 py-3">
-                <ShimmerText style={{ fontSize: shimmerSize }}>
+              {/* live preview on a dotted stage */}
+              <div className="flex min-h-[72px] items-center justify-center rounded-lg border border-dashed border-hairline bg-[radial-gradient(var(--hairline)_1px,transparent_1px)] [background-size:14px_14px] px-4 py-4">
+                <ShimmerText style={{ fontSize: shimmerSize, ["--ds-shimmer-dur" as string]: `${shimmerSpeed}s` }}>
                   {shimmerText || "Type something…"}
                 </ShimmerText>
               </div>
@@ -384,62 +393,79 @@ function go(to: string) {
                   onChange={(e) => setShimmerText(e.target.value)}
                   placeholder="Type a label…"
                 />
+                <div className="mt-1 flex flex-wrap gap-1.5">
+                  {SHIMMER_PRESETS.map((p) => {
+                    const active = shimmerText === p
+                    return (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => setShimmerText(p)}
+                        className={cn(
+                          "inline-flex items-center gap-1 rounded-pill border px-2.5 py-1 text-[11px] transition-colors duration-[var(--dur-fast)]",
+                          active
+                            ? "border-ink bg-ink text-canvas"
+                            : "border-hairline bg-canvas text-ink-3 hover:border-hairline-strong hover:text-ink",
+                        )}
+                      >
+                        {active && <Icon icon={Tick02Icon} size={10} />}
+                        {p.replace("…", "")}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
-                {SHIMMER_PRESETS.map((p) => (
-                  <button
-                    key={p}
-                    type="button"
-                    onClick={() => setShimmerText(p)}
-                    className={cn(
-                      "rounded-pill border px-2.5 py-1 text-[11px] transition-colors duration-[var(--dur-fast)]",
-                      shimmerText === p
-                        ? "border-ink bg-ink text-canvas"
-                        : "border-hairline bg-canvas text-ink-3 hover:border-hairline-strong hover:text-ink",
-                    )}
-                  >
-                    {p.replace("…", "")}
-                  </button>
-                ))}
+              {/* Size + speed sliders — always visible */}
+              <div className="grid gap-3 rounded-lg border border-hairline bg-surface/50 p-3">
+                <div className="grid gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="sh-size">Font size</Label>
+                    <span className="font-mono text-[11px] tabular-nums text-ink-4">{shimmerSize}px</span>
+                  </div>
+                  <input id="sh-size" type="range" min={13} max={40} value={shimmerSize}
+                    onChange={(e) => setShimmerSize(Number(e.target.value))} className="w-full accent-ink" />
+                </div>
+                <div className="grid gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="sh-speed">Sweep speed</Label>
+                    <span className="font-mono text-[11px] tabular-nums text-ink-4">{shimmerSpeed.toFixed(1)}s</span>
+                  </div>
+                  <input id="sh-speed" type="range" min={1} max={5} step={0.1} value={shimmerSpeed}
+                    onChange={(e) => setShimmerSpeed(Number(e.target.value))} className="w-full accent-ink" />
+                  <div className="flex justify-between text-[10px] text-ink-4"><span>faster</span><span>slower</span></div>
+                </div>
               </div>
 
-              {/* Advanced — reveals via Collapsible; the modal resizes to fit
-                  (card-resize feel) since it has no fixed height. */}
+              {/* Advanced — the code snippet reveals via Collapsible; the modal
+                  resizes to fit (card-resize feel) since it has no fixed height. */}
               <button
                 type="button"
                 onClick={() => setShimmerAdvanced((a) => !a)}
                 aria-expanded={shimmerAdvanced}
                 className="flex items-center gap-1.5 self-start text-[12.5px] font-medium text-ink-2 hover:text-ink"
               >
-                <Icon
-                  icon={ArrowDown01Icon}
-                  size={14}
-                  className={cn("transition-transform duration-[var(--dur-base)]", shimmerAdvanced && "rotate-180")}
-                />
-                Advanced
+                <Icon icon={ArrowDown01Icon} size={14}
+                  className={cn("transition-transform duration-[var(--dur-base)]", shimmerAdvanced && "rotate-180")} />
+                {shimmerAdvanced ? "Hide code" : "Show code"}
               </button>
               <Collapsible open={shimmerAdvanced}>
-                <div className="grid gap-1.5 border-t border-hairline pt-3">
-                  <Label htmlFor="sh-size">
-                    Font size <span className="font-normal text-ink-4">· {shimmerSize}px</span>
-                  </Label>
-                  <input
-                    id="sh-size"
-                    type="range"
-                    min={13}
-                    max={40}
-                    value={shimmerSize}
-                    onChange={(e) => setShimmerSize(Number(e.target.value))}
-                    className="w-full accent-ink"
+                <div className="border-t border-hairline pt-3">
+                  <CodeBlock
+                    language="tsx"
+                    code={`<ShimmerText\n  style={{ fontSize: ${shimmerSize}, "--ds-shimmer-dur": "${shimmerSpeed.toFixed(1)}s" }}\n>\n  ${shimmerText || "…"}\n</ShimmerText>`}
                   />
                 </div>
               </Collapsible>
             </div>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="justify-between">
+            <Button variant="tertiary" size="sm" disabled={shimmerDefault} onClick={resetShimmer}
+              leading={<Icon icon={RefreshIcon} size="sm" />}>
+              Reset
+            </Button>
             <ModalClose asChild>
-              <Button variant="secondary">Done</Button>
+              <Button>Done</Button>
             </ModalClose>
           </ModalFooter>
         </ModalContent>
