@@ -56,6 +56,37 @@ export function SegmentedControlPage() {
         </Demo>
       </Section>
 
+      <Section title="Glass variant" description="Pass variant=&quot;glass&quot; for a frosted glassmorphism pill — best on toolbars that float over content. Falls back to the solid pill where backdrop-filter is unsupported or the user prefers reduced transparency.">
+        <Demo
+          code={`<SegmentedControl
+  variant="glass"
+  defaultValue="week"
+  options={[
+    { value: "day", label: "Day" },
+    { value: "week", label: "Week" },
+    { value: "month", label: "Month" },
+    { value: "year", label: "Year" },
+  ]}
+/>`}
+        >
+          {/* Soft color wash so the frost actually reads (like a sticky toolbar over content). */}
+          <div className="w-full rounded-lg p-6 [background:radial-gradient(220px_120px_at_20%_30%,color-mix(in_srgb,var(--info)_22%,transparent),transparent_70%),radial-gradient(220px_120px_at_80%_70%,color-mix(in_srgb,var(--success)_20%,transparent),transparent_70%),var(--surface)]">
+            <div className="w-[420px] max-w-full">
+              <SegmentedControl
+                variant="glass"
+                defaultValue="week"
+                options={[
+                  { value: "day", label: "Day" },
+                  { value: "week", label: "Week" },
+                  { value: "month", label: "Month" },
+                  { value: "year", label: "Year" },
+                ]}
+              />
+            </div>
+          </div>
+        </Demo>
+      </Section>
+
       <Section title="With icons" description="Leading icons — useful for view switchers.">
         <Demo>
           <div className="w-[360px]">

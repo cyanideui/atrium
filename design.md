@@ -5,6 +5,18 @@
 > **Stack:** shadcn/ui + Tailwind CSS v4 + hugeicons (Stroke Rounded).
 > **Package:** `@cyanideui/ui`. Repo: `ledger-ui`. Workspace folders stay at `packages/ui/` and `apps/playground/` for now.
 
+> **Changelog v1.4.4 — SegmentedControl `variant="glass"` (opt-in glassmorphism)**
+>
+> Added an opt-in frosted-glass finish for the active pill. **Default stays the flat `solid` pill** (v1.4.3) — `glass` is purely additive.
+>
+> - **New prop** `variant?: "solid" | "glass"` (default `"solid"`). When `"glass"`, the pill emits `data-variant="glass"`.
+> - **CSS** (`.ds-segmented-pill[data-variant="glass"]` in globals.css) — the "V1-Final" recipe: gradient gloss fill (74→48% white) + `backdrop-filter: blur(12px) saturate(150%)` + a bright top inset highlight + a faint bottom inset + a hairline-light border + a layered contact/lift shadow.
+> - **Dark mode** uses a translucent light-on-dark fill (16→6.5% white, no glaring highlight) tuned to the real dark tokens.
+> - **Two safety nets:** `@supports not (backdrop-filter)` falls back to the flat `--canvas` + elev-1 pill, and `@media (prefers-reduced-transparency: reduce)` drops the blur + glass fill for accessibility. The pill never renders see-through where unsupported.
+> - **Playground** — new "Glass variant" section on the Segmented Control page, shown over a faint color wash so the frost reads (mirrors a sticky toolbar over content).
+>
+> Picked from a multi-round HTML exploration (six glass intensities × light/dark). Ships two ways: registry copy live on push; the CSS reaches installed-package consumers via `@import "@cyanideui/ui/styles/globals.css"` on this publish. Library 71 tests green, all 4 packages typecheck, registry regenerated in sync.
+
 > **Changelog v1.4.3 — SegmentedControl: flat pill + customizer-matched radii**
 >
 > Aligned the library `<SegmentedControl>` with the playground customizer's inline segmented control so the two read as the same component.

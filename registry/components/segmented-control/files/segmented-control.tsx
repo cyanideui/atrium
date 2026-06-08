@@ -51,6 +51,11 @@ export interface SegmentedControlProps<V extends string = string>
   defaultValue?: V
   onChange?: (value: V) => void
   size?: SegmentedSize
+  /** Active-pill finish. `solid` (default) = flat canvas + elev-1.
+   *  `glass` = frosted glassmorphism (backdrop-blur gloss); falls back to the
+   *  solid pill where `backdrop-filter` is unsupported or transparency is
+   *  reduced. */
+  variant?: "solid" | "glass"
   /** Make the control take the full width of its container. Default: true. */
   block?: boolean
   /** Accessibility label for the radiogroup. */
@@ -100,6 +105,7 @@ export function SegmentedControl<V extends string = string>({
   defaultValue,
   onChange,
   size = "md",
+  variant = "solid",
   block = true,
   ariaLabel = "Selection",
   className,
@@ -172,10 +178,12 @@ export function SegmentedControl<V extends string = string>({
     >
       {/* Sliding pill — flat fill (bg-canvas + elev-1, set in .ds-segmented-pill)
           so the active segment matches the customizer's pill rather than the
-          Polaris button gradient. */}
+          Polaris button gradient. `data-variant="glass"` swaps in a frosted
+          glassmorphism finish (see globals.css), with graceful fallbacks. */}
       {geometry && (
         <span
           aria-hidden
+          data-variant={variant}
           className={cn(
             "ds-segmented-pill pointer-events-none absolute rounded-md",
             interacted

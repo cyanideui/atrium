@@ -302,6 +302,57 @@
     box-shadow: var(--elev-1);
   }
 
+  /* Glass variant (variant="glass") — frosted glassmorphism "V1-Final" recipe:
+   * gradient gloss fill + bright top inset highlight + faint bottom inset +
+   * hairline-light border + layered contact/lift shadow. Dark mode uses a
+   * translucent light-on-dark fill (no glaring white). Two safety nets below:
+   * a @supports fallback and a prefers-reduced-transparency override both drop
+   * back to the flat canvas pill. */
+  .ds-segmented-pill[data-variant="glass"] {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.48) 100%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.045),
+      0 1px 1px rgba(0, 0, 0, 0.04),
+      0 4px 10px rgba(0, 0, 0, 0.06);
+  }
+  .dark .ds-segmented-pill[data-variant="glass"] {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.065) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+      0 1px 1px rgba(0, 0, 0, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+  /* Fallback: no backdrop-filter support → flat canvas pill (never see-through). */
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .ds-segmented-pill[data-variant="glass"] {
+      background: var(--canvas);
+      box-shadow: var(--elev-1);
+    }
+    .dark .ds-segmented-pill[data-variant="glass"] {
+      background: var(--canvas);
+      box-shadow: var(--elev-1);
+    }
+  }
+  /* Accessibility: honor reduced transparency by dropping the blur + glass fill. */
+  @media (prefers-reduced-transparency: reduce) {
+    .ds-segmented-pill[data-variant="glass"] {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: var(--canvas);
+      box-shadow: var(--elev-1);
+    }
+    .dark .ds-segmented-pill[data-variant="glass"] {
+      background: var(--canvas);
+      box-shadow: var(--elev-1);
+    }
+  }
+
   /* ---------- Switch (Polaris-style chrome) ---------- */
   .ds-switch {
     background: linear-gradient(180deg, #efeeec 0%, #e5e3df 100%);
