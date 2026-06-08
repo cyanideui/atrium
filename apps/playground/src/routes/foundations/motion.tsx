@@ -12,6 +12,15 @@ import {
   Icon,
   Card,
   CardBody,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalTitle,
+  ModalDescription,
+  ModalBody,
+  ModalFooter,
+  ModalClose,
+  Label,
   cn,
 } from "@cyanideui/ui"
 import {
@@ -23,6 +32,7 @@ import {
   CursorMagicSelection01Icon,
   FlashIcon,
   ArrowLeftRightIcon,
+  Edit02Icon,
 } from "@hugeicons/core-free-icons"
 import { FoundationHero, FoundationGroup, ShowcaseCard, MetaChip } from "../../components/foundation-shell"
 import { CodeBlock } from "../../components/code-block"
@@ -56,6 +66,11 @@ export function MotionPage() {
   const [saveState, setSaveState] = useState<"idle" | "saving" | "done">("idle")
   const [savePlay, setSavePlay] = useState(0)
   const [shimmerText, setShimmerText] = useState("Planning next moves…")
+
+  // Shimmer customizer modal state
+  const [shimmerOpen, setShimmerOpen] = useState(false)
+  const [shimmerSize, setShimmerSize] = useState(16)
+  const [shimmerAdvanced, setShimmerAdvanced] = useState(false)
 
   const SHIMMER_PRESETS = [
     "Planning next moves…",
@@ -182,43 +197,22 @@ export function MotionPage() {
 
           <ShowcaseCard
             title="Shimmer text"
-            desc="Light streak sweeping a label for transient processing states. Edit the text to try your own."
+            desc="Light streak sweeping a label for transient processing states. Click to customize."
             tag="ShimmerText"
             footer={<ReducedDot>Flat ink-3 fill (no sweep)</ReducedDot>}
           >
-            <div className="flex w-full flex-col items-center gap-4">
-              {/* live preview — updates as you type; the sweep keeps running */}
-              <ShimmerText className="text-center text-[16px]">
+            <button
+              type="button"
+              onClick={() => setShimmerOpen(true)}
+              className="group/sh flex flex-col items-center gap-2 rounded-lg px-4 py-3 transition-colors duration-[var(--dur-base)] hover:bg-surface"
+            >
+              <ShimmerText style={{ fontSize: shimmerSize }}>
                 {shimmerText || "Type something…"}
               </ShimmerText>
-
-              <div className="flex w-full max-w-[260px] flex-col gap-2">
-                <Input
-                  value={shimmerText}
-                  onChange={(e) => setShimmerText(e.target.value)}
-                  placeholder="Type a label…"
-                  aria-label="Shimmer text"
-                  className="text-center"
-                />
-                <div className="flex flex-wrap justify-center gap-1.5">
-                  {SHIMMER_PRESETS.map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => setShimmerText(p)}
-                      className={cn(
-                        "rounded-pill border px-2.5 py-1 text-[11px] transition-colors duration-[var(--dur-fast)]",
-                        shimmerText === p
-                          ? "border-ink bg-ink text-canvas"
-                          : "border-hairline bg-canvas text-ink-3 hover:border-hairline-strong hover:text-ink",
-                      )}
-                    >
-                      {p.replace("…", "")}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover/sh:opacity-100">
+                <Icon icon={Edit02Icon} size={11} /> Click to customize
+              </span>
+            </button>
           </ShowcaseCard>
 
           <ShowcaseCard
@@ -368,6 +362,91 @@ function go(to: string) {
           <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[11.5px]">npx cyanideui add animated-number</code>.
         </p>
       </div>
+
+      {/* ---------- Shimmer customizer modal (card-resize via Collapsible) ---------- */}
+      <Modal open={shimmerOpen} onOpenChange={setShimmerOpen}>
+        <ModalContent size="sm">
+          <ModalHeader>
+            <ModalTitle>Customize shimmer</ModalTitle>
+            <ModalDescription>Edit the label and size. The preview updates live.</ModalDescription>
+          </ModalHeader>
+          <ModalBody>
+            <div className="flex flex-col gap-4">
+              {/* live preview */}
+              <div className="flex min-h-[56px] items-center justify-center rounded-lg border border-dashed border-hairline bg-surface px-4 py-3">
+                <ShimmerText style={{ fontSize: shimmerSize }}>
+                  {shimmerText || "Type something…"}
+                </ShimmerText>
+              </div>
+
+              <div className="grid gap-1.5">
+                <Label htmlFor="sh-text">Text</Label>
+                <Input
+                  id="sh-text"
+                  value={shimmerText}
+                  onChange={(e) => setShimmerText(e.target.value)}
+                  placeholder="Type a label…"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {SHIMMER_PRESETS.map((p) => (
+                  <button
+                    key={p}
+                    type="button"
+                    onClick={() => setShimmerText(p)}
+                    className={cn(
+                      "rounded-pill border px-2.5 py-1 text-[11px] transition-colors duration-[var(--dur-fast)]",
+                      shimmerText === p
+                        ? "border-ink bg-ink text-canvas"
+                        : "border-hairline bg-canvas text-ink-3 hover:border-hairline-strong hover:text-ink",
+                    )}
+                  >
+                    {p.replace("…", "")}
+                  </button>
+                ))}
+              </div>
+
+              {/* Advanced — reveals via Collapsible; the modal resizes to fit
+                  (card-resize feel) since it has no fixed height. */}
+              <button
+                type="button"
+                onClick={() => setShimmerAdvanced((a) => !a)}
+                aria-expanded={shimmerAdvanced}
+                className="flex items-center gap-1.5 self-start text-[12.5px] font-medium text-ink-2 hover:text-ink"
+              >
+                <Icon
+                  icon={ArrowDown01Icon}
+                  size={14}
+                  className={cn("transition-transform duration-[var(--dur-base)]", shimmerAdvanced && "rotate-180")}
+                />
+                Advanced
+              </button>
+              <Collapsible open={shimmerAdvanced}>
+                <div className="grid gap-1.5 border-t border-hairline pt-3">
+                  <Label htmlFor="sh-size">
+                    Font size <span className="font-normal text-ink-4">· {shimmerSize}px</span>
+                  </Label>
+                  <input
+                    id="sh-size"
+                    type="range"
+                    min={13}
+                    max={40}
+                    value={shimmerSize}
+                    onChange={(e) => setShimmerSize(Number(e.target.value))}
+                    className="w-full accent-ink"
+                  />
+                </div>
+              </Collapsible>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button variant="secondary">Done</Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   )
 }
