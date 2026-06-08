@@ -87,6 +87,7 @@ export function ShowcaseCard({
   stage = true,
   children,
   className,
+  onClick,
 }: {
   title?: string
   desc?: string
@@ -96,12 +97,30 @@ export function ShowcaseCard({
   stage?: boolean
   children: React.ReactNode
   className?: string
+  /** When set, the whole card becomes a clickable button (pointer + keyboard). */
+  onClick?: () => void
 }) {
+  const interactive = !!onClick
   return (
     <div
+      role={interactive ? "button" : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={
+        interactive
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                onClick?.()
+              }
+            }
+          : undefined
+      }
       className={cn(
         "group flex flex-col overflow-hidden rounded-xl border border-hairline bg-canvas",
         "transition-[border-color,box-shadow] duration-[var(--dur-base)] hover:border-hairline-strong hover:shadow-elev-1",
+        interactive &&
+          "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface",
         className,
       )}
     >

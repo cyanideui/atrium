@@ -197,22 +197,19 @@ export function MotionPage() {
 
           <ShowcaseCard
             title="Shimmer text"
-            desc="Light streak sweeping a label for transient processing states. Click to customize."
+            desc="Light streak sweeping a label for transient processing states. Click the card to customize."
             tag="ShimmerText"
             footer={<ReducedDot>Flat ink-3 fill (no sweep)</ReducedDot>}
+            onClick={() => setShimmerOpen(true)}
           >
-            <button
-              type="button"
-              onClick={() => setShimmerOpen(true)}
-              className="group/sh flex flex-col items-center gap-2 rounded-lg px-4 py-3 transition-colors duration-[var(--dur-base)] hover:bg-surface"
-            >
+            <div className="flex flex-col items-center gap-2">
               <ShimmerText style={{ fontSize: shimmerSize }}>
                 {shimmerText || "Type something…"}
               </ShimmerText>
-              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover/sh:opacity-100">
+              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
                 <Icon icon={Edit02Icon} size={11} /> Click to customize
               </span>
-            </button>
+            </div>
           </ShowcaseCard>
 
           <ShowcaseCard
