@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   AnimatedNumber,
   NotificationBadge,
@@ -78,13 +78,7 @@ export function MotionPage() {
   // AnimatedNumber customizer
   const [numOpen, setNumOpen] = useState(false)
   const [numCfg, setNumCfg] = useState({ value: 1025, mode: "count", decimals: 0 })
-  const [numDisplay, setNumDisplay] = useState(1025)
-  // keep the displayed value synced when the config value changes
-  useEffect(() => setNumDisplay(Number(numCfg.value)), [numCfg.value])
-  const replayNum = () => {
-    setNumDisplay(0)
-    requestAnimationFrame(() => setNumDisplay(Number(numCfg.value)))
-  }
+  const [numPlay, setNumPlay] = useState(0)
 
   // SuccessCheck customizer
   const [checkOpen, setCheckOpen] = useState(false)
@@ -94,14 +88,7 @@ export function MotionPage() {
   // NotificationBadge customizer
   const [badgeOpen, setBadgeOpen] = useState(false)
   const [badgeCfg, setBadgeCfg] = useState({ count: 3, tone: "critical", dot: false })
-  // the count the card actually renders; replay drops it to 0 then back so the
-  // badge sees an increase and pops.
-  const [badgeShown, setBadgeShown] = useState(3)
-  useEffect(() => setBadgeShown(Number(badgeCfg.count)), [badgeCfg.count])
-  const replayBadge = () => {
-    setBadgeShown(0)
-    requestAnimationFrame(() => setBadgeShown(Number(badgeCfg.count)))
-  }
+  const [badgePlay, setBadgePlay] = useState(0)
 
   const SHIMMER_PRESETS = [
     "Planning next moves…",
@@ -145,14 +132,16 @@ export function MotionPage() {
           >
             <div className="flex flex-col items-center gap-4">
               <AnimatedNumber
-                value={numDisplay}
+                key={numPlay}
+                value={Number(numCfg.value)}
                 mode={numCfg.mode as "count" | "pop"}
                 decimals={Number(numCfg.decimals)}
+                animateOnMount
                 leading="$"
                 className="text-[30px] font-semibold text-ink"
               />
               <div className="flex items-center gap-2">
-                <PlayButton onPlay={replayNum} />
+                <PlayButton onPlay={() => setNumPlay((k) => k + 1)} />
                 <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
                   <Icon icon={Edit02Icon} size={11} /> Click to customize
                 </span>
@@ -193,13 +182,14 @@ export function MotionPage() {
               <span className="relative inline-grid h-11 w-11 place-items-center rounded-xl bg-surface-2 text-ink-2">
                 <Icon icon={Notification03Icon} size={20} />
                 <NotificationBadge
-                  count={badgeShown}
+                  key={badgePlay}
+                  count={Number(badgeCfg.count)}
                   dot={Boolean(badgeCfg.dot)}
                   tone={badgeCfg.tone as "critical" | "info" | "success" | "warning"}
                 />
               </span>
               <div className="flex items-center gap-2">
-                <PlayButton onPlay={replayBadge} />
+                <PlayButton onPlay={() => setBadgePlay((k) => k + 1)} />
                 <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
                   <Icon icon={Edit02Icon} size={11} /> Click to customize
                 </span>

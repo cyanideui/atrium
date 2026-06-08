@@ -35,13 +35,16 @@ export interface AnimatedNumberProps
   leading?: React.ReactNode
   /** Content rendered after the animated digits (e.g. "%"). */
   trailing?: React.ReactNode
+  /** Count up from 0 on first mount (count mode). Combine with a changing
+   *  `key` to replay on demand. Default false (animate only on value change). */
+  animateOnMount?: boolean
 }
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
 export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberProps>(
   (
-    { className, value, mode = "count", duration = 600, decimals = 0, format, leading, trailing, ...rest },
+    { className, value, mode = "count", duration = 600, decimals = 0, format, leading, trailing, animateOnMount = false, ...rest },
     ref,
   ) => {
     const reduced = useReducedMotion()
@@ -53,17 +56,26 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
       [format, decimals],
     )
 
-    const [display, setDisplay] = React.useState(value)
-    const fromRef = React.useRef(value)
+    // When animating on mount (count mode), start the display at 0 so the first
+    // tween actually has distance to travel.
+    const [display, setDisplay] = React.useState(animateOnMount && mode === "count" && !reduced ? 0 : value)
+    const fromRef = React.useRef(animateOnMount && mode === "count" && !reduced ? 0 : value)
     const rafRef = React.useRef<number | null>(null)
     const firstRender = React.useRef(true)
 
     // COUNT mode: rAF tween from previous value → new value.
     React.useEffect(() => {
       if (mode !== "count") return
-      // No tween on first paint, when reduced, or zero duration.
-      if (firstRender.current || reduced || duration <= 0) {
+      // On first paint: tween from 0 if animateOnMount, otherwise snap to value.
+      if (firstRender.current) {
         firstRender.current = false
+        if (!animateOnMount || reduced || duration <= 0) {
+          fromRef.current = value
+          setDisplay(value)
+          return
+        }
+        // fall through to run the mount tween (from 0 → value)
+      } else if (reduced || duration <= 0) {
         fromRef.current = value
         setDisplay(value)
         return
@@ -82,7 +94,7 @@ export const AnimatedNumber = React.forwardRef<HTMLSpanElement, AnimatedNumberPr
       return () => {
         if (rafRef.current) cancelAnimationFrame(rafRef.current)
       }
-    }, [value, duration, mode, reduced])
+    }, [value, duration, mode, reduced, animateOnMount])
 
     // POP mode tracks first-render so initial mount doesn't animate.
     React.useEffect(() => {
