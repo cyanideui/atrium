@@ -19,7 +19,6 @@ import {
   Moon02Icon,
   Notification03Icon,
   ArrowDown01Icon,
-  RefreshIcon,
   CursorMagicSelection01Icon,
   FlashIcon,
   ArrowLeftRightIcon,
@@ -47,20 +46,29 @@ function ReducedDot({ children }: { children: React.ReactNode }) {
 }
 
 export function MotionPage() {
-  const [kpi, setKpi] = useState(1025)
-  const [count, setCount] = useState(0)
   const [saving, setSaving] = useState(false)
   const [dark, setDark] = useState(false)
   const [open, setOpen] = useState(false)
   const [invalid, setInvalid] = useState(false)
   const [invalidKey, setInvalidKey] = useState(0)
   const [revealKey, setRevealKey] = useState(0)
-  const [saveState, setSaveState] = useState<"idle" | "saving" | "done">("idle")
-  const [savePlay, setSavePlay] = useState(0)
 
   // Shimmer customizer
   const [shimmerOpen, setShimmerOpen] = useState(false)
   const [shimmerCfg, setShimmerCfg] = useState({ text: "Planning next moves…", size: 16, speed: 2.4 })
+
+  // AnimatedNumber customizer
+  const [numOpen, setNumOpen] = useState(false)
+  const [numCfg, setNumCfg] = useState({ value: 1025, mode: "count", decimals: 0 })
+
+  // SuccessCheck customizer
+  const [checkOpen, setCheckOpen] = useState(false)
+  const [checkCfg, setCheckCfg] = useState({ size: "md", tone: "success" })
+  const [checkPlay, setCheckPlay] = useState(0)
+
+  // NotificationBadge customizer
+  const [badgeOpen, setBadgeOpen] = useState(false)
+  const [badgeCfg, setBadgeCfg] = useState({ count: 3, tone: "critical", dot: false })
 
   const SHIMMER_PRESETS = [
     "Planning next moves…",
@@ -68,14 +76,6 @@ export function MotionPage() {
     "Generating report",
     "Syncing 1,248 records",
   ]
-
-  async function runSave() {
-    setSaveState("saving")
-    await new Promise((r) => setTimeout(r, 700))
-    setSavePlay((k) => k + 1)
-    setSaveState("done")
-    setTimeout(() => setSaveState("idle"), 1800)
-  }
 
   return (
     <div>
@@ -105,68 +105,63 @@ export function MotionPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           <ShowcaseCard
             title="Animated number"
-            desc="Count-up tween or per-digit pop on value change."
+            desc="Count-up tween or per-digit pop on value change. Click to customize."
             tag="AnimatedNumber"
             footer={<ReducedDot>Jumps to final value (no tween)</ReducedDot>}
+            onClick={() => setNumOpen(true)}
           >
             <div className="flex flex-col items-center gap-4">
-              <div className="flex items-end gap-8">
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-[10px] uppercase tracking-wider text-ink-4">count</span>
-                  <AnimatedNumber value={kpi} leading="$" className="text-[28px] font-semibold text-ink" />
-                </div>
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-[10px] uppercase tracking-wider text-ink-4">pop</span>
-                  <AnimatedNumber value={kpi} mode="pop" leading="$" className="text-[28px] font-semibold text-ink" />
-                </div>
-              </div>
-              <Button size="sm" variant="secondary" leading={<Icon icon={RefreshIcon} size="sm" />} onClick={() => setKpi(Math.floor(800 + Math.random() * 9000))}>
-                Randomize
-              </Button>
+              <AnimatedNumber
+                value={Number(numCfg.value)}
+                mode={numCfg.mode as "count" | "pop"}
+                decimals={Number(numCfg.decimals)}
+                leading="$"
+                className="text-[30px] font-semibold text-ink"
+              />
+              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                <Icon icon={Edit02Icon} size={11} /> Click to customize
+              </span>
             </div>
           </ShowcaseCard>
 
           <ShowcaseCard
             title="Success check"
-            desc="Disc pops in while the checkmark draws over it."
+            desc="Disc pops in while the checkmark draws over it. Click to customize."
             tag="SuccessCheck"
             footer={<ReducedDot>Appears solid, no draw</ReducedDot>}
+            onClick={() => setCheckOpen(true)}
           >
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-3">
-                <SuccessCheck size="sm" playKey={`sm-${savePlay}`} />
-                <SuccessCheck size="md" playKey={`md-${savePlay}`} />
-                <SuccessCheck size="lg" playKey={`lg-${savePlay}`} />
-              </div>
-              <div className="flex h-8 items-center">
-                {saveState === "done" ? (
-                  <span className="flex items-center gap-1.5 text-[13px] font-medium text-success">
-                    <SuccessCheck size="sm" playKey={savePlay} /> Saved
-                  </span>
-                ) : (
-                  <Button size="sm" onClick={runSave} disabled={saveState === "saving"}>
-                    {saveState === "saving" ? "Saving…" : "Save changes"}
-                  </Button>
-                )}
-              </div>
+            <div className="flex flex-col items-center gap-3">
+              <SuccessCheck
+                size={checkCfg.size as "sm" | "md" | "lg"}
+                tone={checkCfg.tone as "success" | "info"}
+                playKey={`card-${checkPlay}`}
+              />
+              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                <Icon icon={Edit02Icon} size={11} /> Click to customize
+              </span>
             </div>
           </ShowcaseCard>
 
           <ShowcaseCard
             title="Notification badge"
-            desc="Diagonal slide + spring pop when the count appears or grows."
+            desc="Diagonal slide + spring pop when the count appears or grows. Click to customize."
             tag="NotificationBadge"
             footer={<ReducedDot>Appears in place (no pop)</ReducedDot>}
+            onClick={() => setBadgeOpen(true)}
           >
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-3">
               <span className="relative inline-grid h-11 w-11 place-items-center rounded-xl bg-surface-2 text-ink-2">
                 <Icon icon={Notification03Icon} size={20} />
-                <NotificationBadge count={count} />
+                <NotificationBadge
+                  count={Number(badgeCfg.count)}
+                  dot={Boolean(badgeCfg.dot)}
+                  tone={badgeCfg.tone as "critical" | "info" | "success" | "warning"}
+                />
               </span>
-              <div className="flex gap-2">
-                <Button size="sm" variant="secondary" onClick={() => setCount((c) => c + 1)}>Add</Button>
-                <Button size="sm" variant="tertiary" onClick={() => setCount(0)}>Reset</Button>
-              </div>
+              <span className="inline-flex items-center gap-1 text-[11px] text-ink-4 opacity-0 transition-opacity duration-[var(--dur-base)] group-hover:opacity-100">
+                <Icon icon={Edit02Icon} size={11} /> Click to customize
+              </span>
             </div>
           </ShowcaseCard>
 
@@ -371,6 +366,89 @@ function go(to: string) {
         )}
         code={(c) =>
           `<ShimmerText\n  style={{ fontSize: ${c.size}, "--ds-shimmer-dur": "${Number(c.speed).toFixed(1)}s" }}\n>\n  ${c.text || "…"}\n</ShimmerText>`
+        }
+      />
+
+      {/* ---------- AnimatedNumber customizer ---------- */}
+      <Customizer
+        open={numOpen}
+        onOpenChange={setNumOpen}
+        id="animated-number"
+        title="Customize animated number"
+        description="Set the value, mode, and decimals. The number re-animates on change."
+        defaults={{ value: 1025, mode: "count", decimals: 0 }}
+        onConfigChange={setNumCfg}
+        controls={[
+          { type: "slider", key: "value", label: "Value", min: 0, max: 9999 },
+          { type: "segmented", key: "mode", label: "Mode", options: [{ value: "count", label: "Count up" }, { value: "pop", label: "Digit pop" }] },
+          { type: "slider", key: "decimals", label: "Decimals", min: 0, max: 2 },
+        ]}
+        preview={(c) => (
+          <AnimatedNumber
+            value={Number(c.value)}
+            mode={c.mode as "count" | "pop"}
+            decimals={Number(c.decimals)}
+            leading="$"
+            className="text-[30px] font-semibold text-ink"
+          />
+        )}
+        code={(c) =>
+          `<AnimatedNumber\n  value={${c.value}}\n  mode="${c.mode}"\n  decimals={${c.decimals}}\n  leading="$"\n/>`
+        }
+      />
+
+      {/* ---------- SuccessCheck customizer ---------- */}
+      <Customizer
+        open={checkOpen}
+        onOpenChange={setCheckOpen}
+        id="success-check"
+        title="Customize success check"
+        description="Set the size and tone. Replays each time you tweak."
+        defaults={{ size: "md", tone: "success" }}
+        onConfigChange={(c) => {
+          setCheckCfg(c)
+          setCheckPlay((k) => k + 1)
+        }}
+        controls={[
+          { type: "segmented", key: "size", label: "Size", options: [{ value: "sm", label: "sm" }, { value: "md", label: "md" }, { value: "lg", label: "lg" }] },
+          { type: "segmented", key: "tone", label: "Tone", options: [{ value: "success", label: "Success" }, { value: "info", label: "Info" }] },
+        ]}
+        preview={(c) => (
+          <SuccessCheck
+            size={c.size as "sm" | "md" | "lg"}
+            tone={c.tone as "success" | "info"}
+            playKey={`modal-${String(c.size)}-${String(c.tone)}`}
+          />
+        )}
+        code={(c) => `<SuccessCheck size="${c.size}" tone="${c.tone}" playKey={successCount} />`}
+      />
+
+      {/* ---------- NotificationBadge customizer ---------- */}
+      <Customizer
+        open={badgeOpen}
+        onOpenChange={setBadgeOpen}
+        id="notification-badge"
+        title="Customize notification badge"
+        description="Set the count, tone, and dot mode. Pops when the count grows."
+        defaults={{ count: 3, tone: "critical", dot: false }}
+        onConfigChange={setBadgeCfg}
+        controls={[
+          { type: "slider", key: "count", label: "Count", min: 0, max: 150 },
+          { type: "segmented", key: "tone", label: "Tone", options: [{ value: "critical", label: "Critical" }, { value: "info", label: "Info" }, { value: "success", label: "Success" }, { value: "warning", label: "Warning" }] },
+          { type: "toggle", key: "dot", label: "Dot only", hint: "Bare dot, no number" },
+        ]}
+        preview={(c) => (
+          <span className="relative inline-grid h-11 w-11 place-items-center rounded-xl bg-surface-2 text-ink-2">
+            <Icon icon={Notification03Icon} size={20} />
+            <NotificationBadge
+              count={Number(c.count)}
+              dot={Boolean(c.dot)}
+              tone={c.tone as "critical" | "info" | "success" | "warning"}
+            />
+          </span>
+        )}
+        code={(c) =>
+          `<NotificationBadge count={${c.count}} tone="${c.tone}"${c.dot ? " dot" : ""} />`
         }
       />
     </div>
