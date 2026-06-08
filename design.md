@@ -5,6 +5,16 @@
 > **Stack:** shadcn/ui + Tailwind CSS v4 + hugeicons (Stroke Rounded).
 > **Package:** `@cyanideui/ui`. Repo: `ledger-ui`. Workspace folders stay at `packages/ui/` and `apps/playground/` for now.
 
+> **Changelog v1.4.3 — SegmentedControl: flat pill + customizer-matched radii**
+>
+> Aligned the library `<SegmentedControl>` with the playground customizer's inline segmented control so the two read as the same component.
+>
+> - **Flat active pill.** `.ds-segmented-pill` (globals.css) dropped the Polaris button chrome (`linear-gradient` + inset highlights + 1px `hairline-strong` border) in favor of a flat `var(--canvas)` fill with `var(--elev-1)` — identical to the customizer's active pill. Dark mode matches (flat `--canvas` + elev-1).
+> - **Radii match the customizer.** Track `rounded-md` → **`rounded-lg`** (12px); sliding pill `rounded-sm` → **`rounded-md`** (8px); items `rounded-sm` → **`rounded-md`**. The pill no longer carries a border.
+> - Sliding mechanic, `role="radiogroup"` + arrow-key nav, density-aware heights, and reduced-motion snap are all unchanged.
+>
+> Ships two ways: the registry copy is live on push (copy-paste consumers); the `.ds-segmented-pill` CSS reaches installed-package consumers via `@import "@cyanideui/ui/styles/globals.css"` on this publish. Library 71 tests green, all 4 packages typecheck, registry regenerated in sync.
+
 > **Changelog v1.4.2 — Motion replay/play fixes (StrictMode-safe)**
 >
 > Fixed four motion-replay bugs surfaced by the playground's Play/Replay controls. Root cause across three of them was the same: animation triggers were derived from a "first render" ref mutated inside an effect, which React StrictMode double-invokes — the second pass saw the ref already flipped and cancelled the animation. Reworked each primitive to derive triggers from initial state + value-vs-previous comparison, then key-based remounts for replay.

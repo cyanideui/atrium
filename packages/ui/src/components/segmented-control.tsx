@@ -17,8 +17,8 @@ import { cn } from "../lib/cn"
  *   - lg:  38px tall (form headers)
  *
  * Anatomy:
- *   container: bg-surface, radius-pill, p-1
- *   pill:      bg-canvas, radius-pill, elev-1, position: absolute
+ *   container: bg-surface, radius-lg, p-1
+ *   pill:      bg-canvas (flat), radius-md, elev-1, position: absolute
  *   item:      flex-1 text-ink-3, hover text-ink-2, aria-selected text-ink
  *
  * Reduced motion: instant snap (no transform animation) + 80ms text fade.
@@ -162,22 +162,22 @@ export function SegmentedControl<V extends string = string>({
       aria-label={ariaLabel}
       onKeyDown={onKeyDown}
       className={cn(
-        // Outer radius matches Button (8px / radius-md). Inner pill uses
-        // radius-sm (5px) so the pill nests cleanly inside the 4px padding.
-        "relative inline-flex items-center rounded-md bg-surface p-1",
+        // Radius matches the playground customizer's segmented control:
+        // rounded-lg (12px) track, rounded-md (8px) pill + items.
+        "relative inline-flex items-center rounded-lg bg-surface p-1",
         block && "w-full",
         className
       )}
       {...rest}
     >
-      {/* Sliding pill — Polaris-style chrome (gradient + 1px border + insets)
-          mirroring <Button variant="secondary"> so the active segment reads
-          as a real lifted button. */}
+      {/* Sliding pill — flat fill (bg-canvas + elev-1, set in .ds-segmented-pill)
+          so the active segment matches the customizer's pill rather than the
+          Polaris button gradient. */}
       {geometry && (
         <span
           aria-hidden
           className={cn(
-            "ds-segmented-pill pointer-events-none absolute rounded-sm border border-hairline-strong",
+            "ds-segmented-pill pointer-events-none absolute rounded-md",
             interacted
               ? "transition-[transform,width] duration-[var(--dur-slide)] ease-[var(--ease-emphasis)]"
               : "transition-none",
@@ -217,7 +217,7 @@ export function SegmentedControl<V extends string = string>({
             }}
             style={{ height: `var(--density-seg-h-${size})` }}
             className={cn(
-              "relative z-[1] inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-sm",
+              "relative z-[1] inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md",
               "font-medium",
               "transition-colors duration-[var(--dur-base)] ease-[var(--ease-standard)]",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-1 focus-visible:ring-offset-surface",
